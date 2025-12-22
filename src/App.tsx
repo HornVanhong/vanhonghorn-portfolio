@@ -1,7 +1,9 @@
+// src/App.tsx
 import { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.css";
+
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import Certificates from "./pages/Certificates";
@@ -12,7 +14,9 @@ import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 
-function App() {
+import ScrollToTop from "./ScrollToTop";
+
+const App: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleMenuToggle = () => setMenuOpen((open) => !open);
@@ -121,6 +125,7 @@ function App() {
       </header>
 
       <main className="site-main">
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -135,6 +140,6 @@ function App() {
       </main>
     </div>
   );
-}
+};
 
 export default App;
