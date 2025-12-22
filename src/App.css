@@ -695,69 +695,72 @@ a {
   font-size: 1.01rem;
   list-style: disc;
 }
-
-/* --- Experience Page Modern Timeline Style --- */
+/* =========================
+   EXPERIENCE PAGE STYLING
+   ========================= */
 .experience-page {
-  padding: 2.5rem 1rem 2rem 1rem;
-  min-height: 70vh;
+  padding: 3rem 1rem;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(120deg, #181f2a 0%, #232946 100%);
-}
-
-.experience-page > h1 {
-  font-size: 2.1rem;
-  font-weight: 800;
-  color: var(--accent-2);
-  letter-spacing: 1.2px;
-  margin-bottom: 0.5em;
-  text-align: center;
+  background: linear-gradient(135deg, #181f2a 0%, #232946 100%);
 }
 
 .exp-title {
-  font-size: 2.5rem;
-  font-weight: 800;
+  font-size: 2.8rem;
+  font-weight: 900;
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
   background: linear-gradient(90deg, #00c6fb, #7c5cff 70%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   color: transparent;
   letter-spacing: 1.5px;
 }
 
 .experience-timeline {
   position: relative;
-  margin: 0 auto;
-  max-width: 800px;
   width: 100%;
-  padding: 0 1rem 2rem 1rem;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  gap: 2.2rem;
+  gap: 2.5rem;
+  padding: 0 1rem;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(180deg, #00c6fb 0%, #7c5cff 100%);
+  border-radius: 3px;
+  box-shadow: 0 0 16px 2px #00c6fb44;
+  z-index: 0;
 }
 
 .exp-card {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 1.2rem;
+  gap: 1.5rem;
   min-height: 140px;
-  animation: fadeInUp 1s both;
+  animation: fadeInUp 0.8s both;
 }
 
 .exp-dot {
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, #00ffb8 0%, #00c6fb 60%, #7c5cff 100%);
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
+  background: linear-gradient(135deg, #00ffb8 0%, #00c6fb 60%, #7c5cff 100%);
   border: 4px solid #232946;
-  box-shadow: 0 0 0 4px #232946;
+  box-shadow: 0 0 12px 2px #00c6fb88, 0 0 0 2px #7c5cff55;
   position: absolute;
-  left: -32px;
-  top: 14px;
+  left: -35px;
+  top: 16px;
   z-index: 2;
   animation: exp-dot-glow 2s infinite alternate;
 }
@@ -767,88 +770,130 @@ a {
     box-shadow: 0 0 0 4px #232946, 0 0 8px 2px #00c6fb55;
   }
   100% {
-    box-shadow: 0 0 0 4px #232946, 0 0 24px 6px #7c5cff88;
+    box-shadow: 0 0 0 4px #232946, 0 0 20px 6px #7c5cff88;
   }
-}
-
-.experience-timeline::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: linear-gradient(180deg, #00c6fb 0%, #7c5cff 100%);
-  border-radius: 3px;
-  margin-left: -14px;
-  z-index: 1;
-  box-shadow: 0 0 16px 2px #00c6fb44;
 }
 
 .exp-date-badge {
   position: absolute;
-  left: -90px;
+  left: -95px;
   top: 14px;
   background: #232946;
   color: #00c6fb;
   font-weight: 700;
   font-size: 1rem;
-  padding: 0.2rem 0.8rem;
-  border-radius: 1.2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-  letter-spacing: 1px;
-  z-index: 10; /* moved inside selector */
+  padding: 0.25rem 0.8rem;
+  border-radius: 1.5rem;
   border: 2px solid #00c6fb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  text-align: center;
+  z-index: 10;
 }
 
 .job-card.glass {
-  background: linear-gradient(120deg, #232946 80%, #232946 100%);
-  box-shadow: 0 8px 32px 0 rgba(0, 38, 255, 0.1);
+  background: linear-gradient(
+    120deg,
+    rgba(35, 41, 70, 0.85) 0%,
+    rgba(35, 41, 70, 0.95) 100%
+  );
+  backdrop-filter: blur(10px);
   border-radius: 1.2rem;
-  padding: 1.2rem 1.5rem 1.2rem 1.2rem;
-  border: 1.5px solid rgba(0, 198, 251, 0.18);
-  backdrop-filter: blur(8px);
+  padding: 1.3rem 1.6rem;
+  border: 1.5px solid rgba(0, 198, 251, 0.2);
   min-width: 0;
   flex: 1;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.25s, box-shadow 0.25s;
   color: #fff;
-  margin-left: 18px; /* Add margin to prevent icon from being hidden */
 }
 
 .job-card.glass:hover {
-  transform: translateY(-4px) scale(1.025);
-  box-shadow: 0 12px 36px 0 #7c5cff33;
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 198, 251, 0.2);
+  border-color: #00c6fb;
 }
 
 .exp-header {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.8rem;
   margin-bottom: 0.5rem;
 }
 
 .exp-icon {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #00c6fb;
-  filter: drop-shadow(0 2px 8px #7c5cff33);
 }
 
 .job-meta {
-  color: #00ffb8;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.7rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
 }
 
-.job-card.glass h2 {
-  color: #7c5cff;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
+/* LIST ITEMS */
+.job-card ul {
+  padding-left: 1.2rem;
+  list-style: disc;
+  margin: 0.4rem 0 0 0;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-.job-card.glass ul li {
-  color: #b8e0ff;
-  margin-bottom: 0.2rem;
+/* RESPONSIVE STYLING */
+@media (max-width: 900px) {
+  .exp-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    min-height: auto;
+  }
+
+  .exp-dot {
+    left: 0;
+    top: -8px;
+  }
+
+  .exp-date-badge {
+    left: 0;
+    top: -32px;
+    font-size: 0.9rem;
+    padding: 0.15rem 0.6rem;
+  }
+
+  .job-card.glass {
+    width: 100%;
+    margin-left: 0;
+    padding: 1.1rem 1.2rem;
+  }
+
+  .experience-timeline::before {
+    left: 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .exp-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .exp-date-badge {
+    font-size: 0.8rem;
+    padding: 0.12rem 0.5rem;
+  }
+
+  .job-card.glass {
+    padding: 0.9rem 1rem;
+  }
+
+  .job-meta {
+    font-size: 0.85rem;
+  }
+
+  .job-card ul {
+    font-size: 0.88rem;
+  }
 }
 
 .fade-in {
