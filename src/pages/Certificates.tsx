@@ -21,7 +21,7 @@ export default function Certificates() {
     <section className="certificates-page">
       <h1 className="certificates-title">Certificate</h1>
       <div className="certificates-grid">
-        {certificateFiles.map((cert, idx) => {
+        {certificateFiles.map((cert) => {
           const fileUrl = `/certificate/${cert.name}`;
           return (
             <div className="certificate-card" key={fileUrl}>
