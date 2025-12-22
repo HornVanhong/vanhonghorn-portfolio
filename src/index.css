@@ -1,0 +1,96 @@
+:root {
+  /* Techy / developer palette */
+  --bg: #071028; /* deep navy */
+  --surface: #08162a;
+  --card-bg: #0b1320;
+  --text: #e6f7ff; /* very light cyan */
+  --muted: #9ac7d9; /* soft cyan */
+  --accent: #00d1ff; /* neon cyan */
+  --accent-2: #7c5cff; /* purple accent */
+  --glass: rgba(255, 255, 255, 0.03);
+
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--text);
+  background-color: var(--bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 2.5rem 1rem;
+  background: linear-gradient(180deg, rgba(10, 15, 25, 1) 0%, var(--bg) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding: 1.2rem 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 0.5rem 0.1rem;
+  }
+}
+
+a {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 150ms ease, text-shadow 120ms ease;
+}
+a:hover {
+  color: var(--accent-2);
+  text-shadow: 0 6px 20px rgba(0, 209, 255, 0.06);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f8fb;
+    --surface: #ffffff;
+    --card-bg: #ffffff;
+    --text: #0f1724;
+    --muted: #516675;
+    --accent: #4756ff;
+    --glass: rgba(0, 0, 0, 0.04);
+  }
+  a:hover {
+    color: #525cff;
+  }
+}
