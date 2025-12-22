@@ -4,6 +4,7 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.css";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
+import Certificates from "./pages/Certificates";
 import Contact from "./pages/Contact";
 import Education from "./pages/Education";
 import Experience from "./pages/Experience";
@@ -80,6 +81,15 @@ function App() {
               Projects
             </NavLink>
             <NavLink
+              to="/certificates"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+              onClick={handleNavClick}
+            >
+              Certificates
+            </NavLink>
+            <NavLink
               to="/experience"
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
@@ -120,6 +130,7 @@ function App() {
           <Route path="/experience" element={<Experience />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/certificates" element={<Certificates />} />
         </Routes>
       </main>
     </div>

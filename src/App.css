@@ -83,6 +83,43 @@ a {
   white-space: nowrap;
 }
 
+/* --- Cool Animated Gradient Style for Portfolio Brand --- */
+.site-brand {
+  font-size: 2.1rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  background: linear-gradient(
+    90deg,
+    #00c6fb,
+    #005bea 40%,
+    #7c5cff 80%,
+    #00ffb8 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: brand-gradient-move 3.5s linear infinite;
+  text-shadow: 0 2px 16px #005bea22;
+  transition: text-shadow 0.2s;
+}
+
+@keyframes brand-gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.site-brand:hover,
+.site-brand:focus {
+  text-shadow: 0 4px 24px #00c6fb55, 0 2px 8px #005bea33;
+  filter: brightness(1.15);
+}
+
 /* =========================
    NAV LINKS
    ========================= */
@@ -247,14 +284,46 @@ a {
   gap: 0.8rem;
 }
 
-.social {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--glass);
+/* --- Glassy Neon Orb Social Dot Style --- */
+.social-icons {
   display: flex;
+  gap: 1.1rem;
+  margin-top: 2.2rem;
+}
+.social {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 60% 30%,
+    #fff 0%,
+    #00c6fb 60%,
+    #005bea 100%
+  );
+  box-shadow: 0 2px 16px #00c6fb55, 0 0 0 2px #fff8, 0 0 12px 2px #7c5cff44;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border: 2.5px solid #fff;
+  transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
+  cursor: pointer;
+  user-select: none;
+  background-blend-mode: lighten;
+}
+.social:hover,
+.social:focus {
+  box-shadow: 0 4px 32px #00ffb888, 0 0 0 4px #7c5cff33;
+  background: radial-gradient(
+    circle at 40% 70%,
+    #fff 0%,
+    #7c5cff 60%,
+    #00ffb8 100%
+  );
+  transform: scale(1.15) rotate(-8deg);
+  outline: none;
 }
 
 /* =========================
@@ -266,21 +335,56 @@ a {
 }
 
 .profile-ring {
-  width: clamp(120px, 40vw, 320px);
-  height: clamp(120px, 40vw, 320px);
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  position: relative;
+  width: 210px;
+  height: 210px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .profile-photo {
-  width: 70%;
-  height: 70%;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--surface);
+  z-index: 2;
+  box-shadow: 0 4px 24px 0 rgba(0, 38, 255, 0.1);
+}
+
+.ring-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: conic-gradient(#00c6fb, #005bea, #7c5cff, #00ffb8, #00c6fb);
+  filter: blur(4px) brightness(1.2);
+  animation: spin-glow 3.5s linear infinite;
+}
+
+@keyframes spin-glow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-ring {
+    width: 140px;
+    height: 140px;
+  }
+  .profile-photo {
+    width: 110px;
+    height: 110px;
+  }
 }
 
 /* =========================
@@ -309,9 +413,742 @@ a {
   gap: 1.2rem;
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* --- Contact Page Styling --- */
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2.5rem 1.2rem;
+  background: none;
+}
+
+.contact-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  margin-bottom: 0.3em;
+  color: var(--accent-2);
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 12px rgba(124, 92, 255, 0.08);
+}
+
+.contact-intro {
+  color: var(--muted);
+  font-size: 1.13rem;
+  margin-bottom: 1.3rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.contact-details,
+.contact-form {
+  background: rgba(20, 30, 60, 0.45);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0, 209, 255, 0.1),
+    0 1.5px 8px rgba(124, 92, 255, 0.1);
+  padding: 1.7rem 2.1rem;
+  min-width: 260px;
+  max-width: 420px;
+  width: 100%;
+  border: 1.5px solid rgba(124, 92, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  margin-bottom: 1.2rem;
+  transition: box-shadow 0.18s, border 0.18s;
+}
+
+.contact-details {
+  font-size: 1.12rem;
+  color: var(--text);
+  border-left: 4px solid var(--accent);
+  border-right: 4px solid var(--accent-2);
+}
+
+.contact-details a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.18s;
+}
+.contact-details a:hover {
+  color: var(--accent-2);
+  text-decoration: underline wavy;
+}
+
+.contact-form {
+  gap: 1.3rem;
+  border-top: 4px solid var(--accent-2);
+  border-bottom: 4px solid var(--accent);
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+  font-size: 1.04rem;
+  letter-spacing: 0.2px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  margin-top: 0.3rem;
+  padding: 0.8em 1.1em;
+  border-radius: 10px;
+  border: 1.5px solid var(--accent-2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-size: 1.01rem;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  resize: vertical;
+  box-shadow: 0 2px 8px rgba(124, 92, 255, 0.06);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-2);
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.btn-submit {
+  margin-top: 0.7rem;
+  padding: 0.8em 1.4em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent), #00ffb2);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.13rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 209, 255, 0.13);
+  transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
+  letter-spacing: 0.5px;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(90deg, #00ffb2, var(--accent), var(--accent-2));
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 18px rgba(124, 92, 255, 0.18);
+}
+
+/* --- Education Page Timeline/Roadmap Styling --- */
+.education-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.2rem;
+  padding: 2.2rem 1.2rem;
+}
+
+.education-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--accent-2);
+  letter-spacing: 1.2px;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.roadmap::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  opacity: 0.18;
+  border-radius: 2px;
+  z-index: 0;
+}
+
+.roadmap-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.roadmap-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 2px 8px rgba(0, 209, 255, 0.13);
+  margin-top: 0.3rem;
+  flex-shrink: 0;
+  border: 3px solid var(--surface);
+  z-index: 2;
+}
+
+.roadmap-content {
+  background: rgba(20, 30, 60, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(2, 6, 23, 0.1);
+  padding: 1.2rem 1.5rem;
+  color: var(--text);
+  border-left: 4px solid var(--accent);
+  min-width: 0;
+  width: 100%;
+  position: relative;
+  transition: box-shadow 0.18s;
+}
+
+.roadmap-content:hover {
+  box-shadow: 0 8px 32px rgba(0, 209, 255, 0.13);
+}
+
+.education-meta {
+  color: var(--muted);
+  font-size: 1.01rem;
+  margin-bottom: 0.5em;
+}
+
+.education-list {
+  margin: 0.2em 0 0 1.1em;
+  padding: 0;
+  color: var(--text);
+  font-size: 1.01rem;
+  list-style: disc;
+}
+
+/* --- Projects Page Card Grid Style --- */
+.projects-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.2rem;
+  padding: 2.2rem 1.2rem;
+}
+
+.projects-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 1.2px;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.project-card {
+  background: rgba(20, 30, 60, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(2, 6, 23, 0.1);
+  border: 2.5px solid var(--accent-2);
+  padding: 1.5rem 1.3rem 1.2rem 1.3rem;
+  color: var(--text);
+  transition: box-shadow 0.18s, transform 0.16s, border 0.18s;
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 209, 255, 0.13);
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--accent);
+}
+
+.project-meta {
+  color: var(--muted);
+  font-size: 1.01rem;
+  margin-bottom: 0.3em;
+}
+
+.project-card h2 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 0.2em;
+}
+
+.project-card ul {
+  margin: 0.2em 0 0 1.1em;
+  padding: 0;
+  color: var(--text);
+  font-size: 1.01rem;
+  list-style: disc;
+}
+
+/* --- Experience Page Modern Timeline Style --- */
+.experience-page {
+  padding: 2.5rem 1rem 2rem 1rem;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(120deg, #181f2a 0%, #232946 100%);
+}
+
+.experience-page > h1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--accent-2);
+  letter-spacing: 1.2px;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.exp-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  background: linear-gradient(90deg, #00c6fb, #7c5cff 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 1.5px;
+}
+
+.experience-timeline {
+  position: relative;
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%;
+  padding: 0 1rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.exp-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  min-height: 140px;
+  animation: fadeInUp 1s both;
+}
+
+.exp-dot {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #00ffb8 0%, #00c6fb 60%, #7c5cff 100%);
+  border-radius: 50%;
+  border: 4px solid #232946;
+  box-shadow: 0 0 0 4px #232946;
+  position: absolute;
+  left: -32px;
+  top: 14px;
+  z-index: 2;
+  animation: exp-dot-glow 2s infinite alternate;
+}
+
+@keyframes exp-dot-glow {
+  0% {
+    box-shadow: 0 0 0 4px #232946, 0 0 8px 2px #00c6fb55;
+  }
+  100% {
+    box-shadow: 0 0 0 4px #232946, 0 0 24px 6px #7c5cff88;
+  }
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(180deg, #00c6fb 0%, #7c5cff 100%);
+  border-radius: 3px;
+  margin-left: -14px;
+  z-index: 1;
+  box-shadow: 0 0 16px 2px #00c6fb44;
+}
+z-index: 10; /* Ensure badge is above timeline and icon */
+.exp-date-badge {
+  position: absolute;
+  left: -90px;
+  top: 14px;
+  background: #232946;
+  color: #00c6fb;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  letter-spacing: 1px;
+  z-index: 3;
+  border: 2px solid #00c6fb;
+}
+
+.job-card.glass {
+  background: linear-gradient(120deg, #232946 80%, #232946 100%);
+  box-shadow: 0 8px 32px 0 rgba(0, 38, 255, 0.1);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1.5rem 1.2rem 1.2rem;
+  border: 1.5px solid rgba(0, 198, 251, 0.18);
+  backdrop-filter: blur(8px);
+  min-width: 0;
+  flex: 1;
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: #fff;
+  margin-left: 18px; /* Add margin to prevent icon from being hidden */
+}
+
+.job-card.glass:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 12px 36px 0 #7c5cff33;
+}
+
+.exp-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.exp-icon {
+  font-size: 2rem;
+  color: #00c6fb;
+  filter: drop-shadow(0 2px 8px #7c5cff33);
+}
+
+.job-meta {
+  color: #00ffb8;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.7rem;
+}
+
+.job-card.glass h2 {
+  color: #7c5cff;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.job-card.glass ul li {
+  color: #b8e0ff;
+  margin-bottom: 0.2rem;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+}
+
+/* --- PDF Project Card Styles --- */
+.pdf-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid #00c6fb33;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 18px 0 rgba(0, 38, 255, 0.08);
+  padding: 1.2rem 1.5rem;
+  margin-top: 1rem;
+  gap: 0.7rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.pdf-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(0, 38, 255, 0.16);
+  transform: translateY(-2px) scale(1.02);
+}
+.pdf-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: #005bea;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.pdf-icon {
+  font-size: 2rem;
+  color: #e74c3c;
+  margin-right: 0.5rem;
+}
+.pdf-filename {
+  font-family: "Fira Mono", monospace;
+  font-size: 1rem;
+  color: #005bea;
+}
+.pdf-download-btn {
+  margin-top: 0.2rem;
+  background: linear-gradient(90deg, #00c6fb, #005bea 70%);
+  color: #fff;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.4rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #005bea22;
+}
+.pdf-download-btn:hover {
+  background: linear-gradient(90deg, #005bea, #00c6fb 70%);
+  box-shadow: 0 4px 16px #005bea33;
+}
+
+/* --- Certificates Page Styles --- */
+.certificates-page {
+  padding: 2.5rem 1rem 2rem 1rem;
+  min-height: 70vh;
+}
+.certificates-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.2rem;
+  background: linear-gradient(90deg, #00c6fb, #005bea 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.certificate-card {
+  background: rgba(255, 255, 255, 0.97);
+  border: 1.5px solid #00c6fb33;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 18px 0 rgba(0, 38, 255, 0.1);
+  padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  min-width: 0;
+  word-break: break-word;
+}
+.certificate-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(0, 38, 255, 0.18);
+  transform: translateY(-2px) scale(1.02);
+}
+.certificate-img-wrap {
+  width: 220px;
+  height: 150px;
+  background: #eaf3fa;
+  border-radius: 0.7rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #005bea22;
+  position: relative;
+}
+.pdf-icon-wrap {
+  background: linear-gradient(135deg, #00c6fb 60%, #005bea 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdf-icon {
+  font-size: 4rem;
+  color: #fff;
+  text-shadow: 0 2px 8px #005bea55;
+}
+.certificate-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.7rem;
+  background: #eaf3fa;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.certificate-img:hover {
+  box-shadow: 0 4px 16px #005bea33;
+  transform: scale(1.04);
+}
+.certificate-info {
+  text-align: center;
+  width: 100%;
+}
+.certificate-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #005bea;
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+  max-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cert-view-btn {
+  background: linear-gradient(90deg, #00c6fb, #005bea 70%);
+  color: #fff;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.4rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #005bea22;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+.cert-view-btn:hover,
+.cert-view-btn:focus {
+  background: linear-gradient(90deg, #005bea, #00c6fb 70%);
+  box-shadow: 0 4px 16px #005bea33;
+}
+
+/* --- Certificate Modal and PDF Viewer Styles (Reverted) --- */
+.cert-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 20, 40, 0.75);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s;
+}
+.cert-modal {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 38, 255, 0.18);
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  max-width: 95vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  animation: popIn 0.2s;
+}
+.cert-modal-pdf {
+  width: 80vw;
+  height: 70vh;
+  border: none;
+  border-radius: 0.7rem;
+  background: #eaf3fa;
+  box-shadow: 0 2px 16px #005bea22;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+.cert-modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #005bea;
+  text-align: center;
+}
+.cert-modal-close {
+  position: fixed;
+  top: 2.5rem;
+  right: 3.5rem;
+  background: #fff;
+  border: none;
+  font-size: 2.3rem;
+  color: #e74c3c;
+  cursor: pointer;
+  z-index: 1100;
+  border-radius: 50%;
+  width: 2.7rem;
+  height: 2.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px #005bea22;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+.cert-modal-close:hover,
+.cert-modal-close:focus {
+  background: #e74c3c;
+  color: #fff;
+  box-shadow: 0 4px 16px #e74c3c33;
+  transform: scale(1.08) rotate(8deg);
+  outline: none;
+}
+@media (max-width: 900px) {
+  .cert-modal-close {
+    top: 1.2rem;
+    right: 1.2rem;
+  }
+}
+@media (max-width: 600px) {
+  .cert-modal-pdf {
+    width: 98vw;
+    height: 60vh;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .certificate-img-wrap {
+    width: 100%;
+    height: 120px;
+  }
+  .certificates-grid {
+    gap: 1.2rem;
+  }
+  .certificate-title {
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+}
+
 @media (max-width: 900px) {
   .menu-icon {
     display: flex;
@@ -345,6 +1182,68 @@ a {
   .social-icons {
     justify-content: center;
   }
+
+  .contact-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .contact-title {
+    font-size: 1.4rem;
+  }
+  .contact-details,
+  .contact-form {
+    padding: 1rem 0.5rem;
+    min-width: 0;
+    max-width: 100vw;
+  }
+
+  .education-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .education-title {
+    font-size: 1.5rem;
+  }
+  .roadmap {
+    gap: 1.1rem;
+    max-width: 100vw;
+  }
+
+  .projects-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .projects-title {
+    font-size: 1.5rem;
+  }
+  .timeline {
+    gap: 1.1rem;
+    max-width: 100vw;
+  }
+
+  .experience-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .experience-page > h1 {
+    font-size: 1.5rem;
+  }
+  .experience-timeline {
+    gap: 1.1rem;
+    max-width: 100vw;
+  }
+
+  .certificates-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .certificates-title {
+    font-size: 1.5rem;
+  }
+  .certificates-grid {
+    gap: 1.1rem;
+    max-width: 100vw;
+  }
 }
 
 @media (max-width: 640px) {
@@ -355,16 +1254,90 @@ a {
   .btn.cta {
     font-size: 0.95rem;
   }
-}
 
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
+  .contact-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
   }
-  50% {
-    background-position: 100% 50%;
+  .contact-title {
+    font-size: 1.5rem;
   }
-  100% {
-    background-position: 0% 50%;
+  .contact-details,
+  .contact-form {
+    padding: 1.1rem 0.5rem;
+    min-width: 0;
+    max-width: 100vw;
+    border-radius: 12px;
+  }
+
+  .education-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .education-title {
+    font-size: 1.3rem;
+  }
+  .roadmap {
+    gap: 1.1rem;
+    max-width: 100vw;
+  }
+  .roadmap-content {
+    padding: 0.7rem 0.5rem;
+    border-radius: 8px;
+  }
+  .roadmap-dot {
+    width: 14px;
+    height: 14px;
+    border-width: 2px;
+  }
+
+  .projects-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .projects-title {
+    font-size: 1.3rem;
+  }
+  .timeline {
+    gap: 1.1rem;
+    max-width: 100vw;
+  }
+  .timeline-content {
+    padding: 0.7rem 0.5rem;
+    border-radius: 8px;
+  }
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-width: 2px;
+  }
+  .timeline::before {
+    left: 14px;
+    width: 2.5px;
+  }
+
+  .experience-page {
+    padding: 1.2rem 0.2rem;
+    gap: 1.2rem;
+  }
+  .experience-page > h1 {
+    font-size: 1.3rem;
+  }
+  .experience-timeline {
+    gap: 1.1rem;
+    max-width: 100vw;
+  }
+  .job-card {
+    padding: 0.7rem 0.5rem;
+    border-radius: 8px;
+  }
+  .exp-dot {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+  }
+  .experience-timeline::before {
+    left: 10px;
+    width: 2.5px;
   }
 }
