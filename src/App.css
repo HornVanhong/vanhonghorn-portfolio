@@ -784,7 +784,7 @@ a {
   z-index: 1;
   box-shadow: 0 0 16px 2px #00c6fb44;
 }
-z-index: 10; /* Ensure badge is above timeline and icon */
+
 .exp-date-badge {
   position: absolute;
   left: -90px;
@@ -797,7 +797,7 @@ z-index: 10; /* Ensure badge is above timeline and icon */
   border-radius: 1.2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   letter-spacing: 1px;
-  z-index: 3;
+  z-index: 10; /* moved inside selector */
   border: 2px solid #00c6fb;
 }
 
