@@ -1,4 +1,11 @@
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTelegramPlane,
+} from "react-icons/fa";
 import profileImg from "../assets/vanhong.jpg";
+
 export default function Home() {
   return (
     <section className="hero">
@@ -19,10 +26,38 @@ export default function Home() {
         </div>
 
         <div className="social-icons">
-          <span className="social">●</span>
-          <span className="social">●</span>
-          <span className="social">●</span>
-          <span className="social">●</span>
+          <a
+            href="https://www.facebook.com/share/1DSTqwRuh5/?mibextid=wwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social"
+          >
+            <FaFacebookF size={20} />
+          </a>
+          <a
+            href="https://t.me/vanhongVH"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social"
+          >
+            <FaTelegramPlane size={20} />
+          </a>
+          <a
+            href="https://www.instagram.com/hornvanhong"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social"
+          >
+            <FaInstagram size={20} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/horn-vanhong-45366324a/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social"
+          >
+            <FaLinkedinIn size={20} />
+          </a>
         </div>
       </div>
 
