@@ -118,12 +118,20 @@ const EMAILJS_SERVICE_ID = "service_fa9ivpt";
 const EMAILJS_TEMPLATE_ID = "template_bv9fzhd";
 const EMAILJS_USER_ID = "9W-OPDAVBVrz81TVD";
 
+// Sanitize input to prevent XSS
+function sanitize(input: string) {
+  const div = document.createElement("div");
+  div.innerText = input;
+  return div.innerHTML;
+}
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -134,7 +142,35 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const telegramMessage = `New Contact Message:\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`;
+    if (submitting) return; // prevent double submit
+    setSubmitting(true);
+
+    // Sanitize input
+    const name = sanitize(formData.name.trim());
+    const email = sanitize(formData.email.trim());
+    const message = sanitize(formData.message.trim());
+
+    // Validate input
+    if (!name || !email || !message) {
+      alert("All fields are required.");
+      setSubmitting(false);
+      return;
+    }
+
+    if (name.length > 100 || email.length > 100 || message.length > 1000) {
+      alert("Input is too long.");
+      setSubmitting(false);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Invalid email format.");
+      setSubmitting(false);
+      return;
+    }
+
+    const telegramMessage = `New Contact Message:\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
 
     // 1️⃣ Send message to Telegram
     try {
@@ -151,11 +187,13 @@ export default function Contact() {
       const data = await res.json();
       if (!data.ok) {
         alert("Failed to send message to Telegram.");
+        setSubmitting(false);
         return;
       }
     } catch (error) {
       console.error("Telegram Error:", error);
       alert("Error sending message to Telegram.");
+      setSubmitting(false);
       return;
     }
 
@@ -165,9 +203,9 @@ export default function Contact() {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          name: formData.name,
-          email: formData.email,
-          title: `Hello ${formData.name}! Thanks for contacting us. We received your message: "${formData.message}"`,
+          name: name,
+          email: email,
+          title: `Hello ${name}! Thanks for contacting us. We received your message: "${message}"`,
         },
         EMAILJS_USER_ID
       );
@@ -180,6 +218,8 @@ export default function Contact() {
         "Message sent to Telegram, but failed to send confirmation email. Check console for details."
       );
     }
+
+    setSubmitting(false);
   };
 
   return (
@@ -235,8 +275,8 @@ export default function Contact() {
             onChange={handleChange}
           />
         </label>
-        <button type="submit" className="btn-submit">
-          Send Message
+        <button type="submit" className="btn-submit" disabled={submitting}>
+          {submitting ? "Sending..." : "Send Message"}
         </button>
       </form>
     </section>
