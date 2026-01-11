@@ -164,7 +164,7 @@ export default function Projects() {
               TCI-2510-CAMBODIA-II.s6.xe105.pdf
             </span>
           </a>
-          <a href={pdf2} download className="pdf-download-btn">
+          <a href={pdf3} download className="pdf-download-btn">
             Download
           </a>
         </div>
