@@ -400,27 +400,65 @@ a {
 /* =========================
    CARDS & GRID
    ========================= */
+/* =========================
+   Skill Bar
+========================= */
+.skill-bar {
+  margin-bottom: 14px;
+}
+
+.skill-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  color: #e5e7eb;
+}
+
+.skill-bar-bg {
+  background: #0f172a;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  width: 0; /* start from 0 */
+  border-radius: 999px;
+  background: linear-gradient(90deg, #00d1ff, #38bdf8, #6366f1);
+  transition: width 1.2s ease-in-out; /* smooth animation */
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
 .card,
 .blog-card,
 .skill-card {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 14px;
-  padding: 1.2rem 1.5rem;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.12);
-  transition: 0.18s;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.01)
+  );
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.5);
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .card:hover,
 .blog-card:hover,
 .skill-card:hover {
-  box-shadow: 0 12px 32px rgba(0, 209, 255, 0.12);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 45px rgba(0, 209, 255, 0.18);
 }
 
-.blog-grid,
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.2rem;
+  gap: 1.6rem;
 }
 
 /* --- Contact Page Styling --- */

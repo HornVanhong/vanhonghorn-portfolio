@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Only show certificate.pdf from the public/certificate/ folder
-const certificateFiles = [{ name: "certificate.pdf", type: "pdf" }];
+const certificateFiles = [{ name: "FullCertificate.pdf", type: "pdf" }];
 
 export default function Certificates() {
   const [modalOpen, setModalOpen] = useState(false);

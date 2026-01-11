@@ -3,10 +3,12 @@ import {
   FaLinux,
   FaMobileAlt,
   FaNetworkWired,
+  FaPython,
   FaReact,
 } from "react-icons/fa";
 import pdf1 from "../Project/TCI-2510-CAMBODIA-II.s6.xe101.pdf";
 import pdf2 from "../Project/TCI-2510-CAMBODIA-II.s6.xe103.pdf";
+import pdf3 from "../Project/TCI-2510-CAMBODIA-II.s6.xe105.pdf";
 
 export default function Projects() {
   return (
@@ -86,6 +88,29 @@ export default function Projects() {
             <li>Located top 10 largest files in /home</li>
           </ul>
         </div>
+        <div className="project-card">
+          <FaPython size={28} color="#3776AB" style={{ marginBottom: 4 }} />
+          <h2>Cyberium Arena — Python Fundamentals</h2>
+          <p className="project-meta">Auth.log Analyzer (Python & Linux)</p>
+          <ul>
+            <li>
+              Parsed <code>/var/log/auth.log</code> to extract command usage
+            </li>
+            <li>Displayed timestamp, executing user, and executed command</li>
+            <li>Detected newly added users with creation timestamps</li>
+            <li>Identified deleted users with full audit details</li>
+            <li>Tracked password change activities</li>
+            <li>
+              Monitored <code>su</code> command usage
+            </li>
+            <li>
+              Logged <code>sudo</code> command executions with command details
+            </li>
+            <li>
+              Generated alerts for failed <code>sudo</code> attempts
+            </li>
+          </ul>
+        </div>
       </div>
       {/* PDF Project Files */}
       <div className="projects-grid">
@@ -119,6 +144,24 @@ export default function Projects() {
             </span>
             <span className="pdf-filename">
               TCI-2510-CAMBODIA-II.s6.xe103.pdf
+            </span>
+          </a>
+          <a href={pdf2} download className="pdf-download-btn">
+            Download
+          </a>
+        </div>
+        <div className="project-card pdf-card">
+          <a
+            href={pdf2}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pdf-link"
+          >
+            <span role="img" aria-label="PDF" className="pdf-icon">
+              📄
+            </span>
+            <span className="pdf-filename">
+              TCI-2510-CAMBODIA-II.s6.xe105.pdf
             </span>
           </a>
           <a href={pdf2} download className="pdf-download-btn">
