@@ -36,6 +36,10 @@ body {
   justify-content: flex-start;
 }
 
+.next-root {
+  width: 100%;
+}
+
 @media (max-width: 900px) {
   body {
     padding: 1.2rem 0.5rem;
