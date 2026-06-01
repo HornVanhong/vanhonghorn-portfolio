@@ -9,6 +9,8 @@
   --accent: #00d1ff;
   --accent-2: #7c5cff;
   --glass: rgba(255, 255, 255, 0.06);
+  --line: rgba(148, 163, 184, 0.16);
+  --shadow: 0 18px 44px rgba(2, 6, 23, 0.28);
 }
 
 /* =========================
@@ -20,12 +22,17 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
+  overflow-x: hidden;
 }
 
 a {
@@ -39,7 +46,7 @@ a {
 .next-root {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: clamp(0.75rem, 3vw, 1.5rem);
   width: 100%;
 }
 
@@ -86,7 +93,7 @@ a {
 
 /* --- Cool Animated Gradient Style for Portfolio Brand --- */
 .site-brand {
-  font-size: 2.1rem;
+  font-size: clamp(1.35rem, 4vw, 2.1rem);
   font-weight: 900;
   letter-spacing: 1.5px;
   background: linear-gradient(
@@ -188,13 +195,15 @@ a {
    MAIN CONTENT
    ========================= */
 .site-main {
-  padding: 0.5rem;
+  padding: clamp(0.25rem, 2vw, 0.5rem);
 }
 
 .site-main > section {
+  width: 100%;
+  min-width: 0;
   max-width: 1000px;
   margin: 1rem auto;
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.03),
@@ -3450,5 +3459,538 @@ a {
   .skill-card-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+/* =========================
+   RESPONSIVE HARDENING
+   ========================= */
+@media (max-width: 1040px) {
+  .projects-overview,
+  .education-overview,
+  .skills-overview,
+  .experience-overview,
+  .about-stats,
+  .hero-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projects-grid,
+  .skills-grid,
+  .blog-grid,
+  .pdf-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-root {
+    padding-top: 76px;
+  }
+
+  .header-inner {
+    padding: 0 0.75rem;
+  }
+
+  .site-nav {
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.45);
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .site-main > section {
+    margin: 0.75rem auto;
+  }
+
+  .hero,
+  .about-page,
+  .contact-page,
+  .experience-page,
+  .projects-page,
+  .education-page,
+  .skills-page,
+  .blog-page,
+  .certificates-page {
+    padding: 1.25rem;
+  }
+
+  .about-hero,
+  .about-grid,
+  .contact-layout,
+  .certificate-card,
+  .blog-featured-body {
+    grid-template-columns: 1fr;
+  }
+
+  .about-profile-card,
+  .hero-portrait-card,
+  .hero-panel {
+    width: min(100%, 420px);
+    max-width: 100%;
+  }
+
+  .certificate-info {
+    padding: 0.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .next-root {
+    padding: 0.5rem;
+  }
+
+  .site-header {
+    height: 58px;
+  }
+
+  .app-root {
+    padding-top: 66px;
+  }
+
+  .site-brand {
+    max-width: calc(100vw - 5rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site-nav {
+    top: 58px;
+  }
+
+  .menu-icon {
+    min-width: 2.6rem;
+    min-height: 2.6rem;
+    padding: 0.25rem;
+  }
+
+  .site-main {
+    padding: 0;
+  }
+
+  .site-main > section {
+    margin: 0.5rem auto;
+    border-radius: 14px;
+  }
+
+  .hero,
+  .about-page,
+  .contact-page,
+  .experience-page,
+  .projects-page,
+  .education-page,
+  .skills-page,
+  .blog-page,
+  .certificates-page {
+    padding: 1rem;
+  }
+
+  .hero-title,
+  .about-copy h1,
+  .contact-title,
+  .exp-title,
+  .projects-title,
+  .education-title,
+  .skills-title,
+  .blog-title,
+  .certificates-title {
+    overflow-wrap: anywhere;
+  }
+
+  .hero-stats,
+  .about-stats,
+  .projects-overview,
+  .education-overview,
+  .skills-overview,
+  .experience-overview,
+  .contact-field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-ctas,
+  .certificate-actions,
+  .pdf-actions {
+    width: 100%;
+  }
+
+  .btn.cta,
+  .btn.secondary,
+  .btn-submit,
+  .cert-view-btn,
+  .cert-download-btn,
+  .pdf-link,
+  .pdf-download-btn {
+    width: 100%;
+  }
+
+  .project-card-top,
+  .pdf-card-top,
+  .education-card-top,
+  .skill-card-header,
+  .blog-card-top,
+  .blog-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .contact-link-card,
+  .about-training-card {
+    grid-template-columns: 2.45rem minmax(0, 1fr);
+  }
+
+  .experience-timeline,
+  .education-timeline {
+    max-width: 100%;
+  }
+
+  .cert-modal {
+    width: 100%;
+    max-height: 92vh;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-intro,
+  .about-kicker,
+  .contact-kicker,
+  .projects-kicker,
+  .education-kicker,
+  .skills-kicker,
+  .blog-kicker {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .hero-meta span,
+  .project-tags span,
+  .skill-tags span,
+  .about-tags span,
+  .experience-tags span {
+    max-width: 100%;
+  }
+
+  .profile-ring,
+  .about-photo-frame,
+  .certificate-preview {
+    min-height: 0;
+  }
+}
+
+/* =========================
+   RESPONSIVE REFINEMENTS
+   ========================= */
+.hero-title,
+.about-copy h1,
+.contact-title,
+.exp-title,
+.projects-title,
+.education-title,
+.skills-title,
+.blog-title,
+.certificates-title,
+.project-card h2,
+.pdf-card h3,
+.blog-card h2,
+.blog-featured-card h2,
+.certificate-title,
+.roadmap-heading,
+.job-card h2 {
+  text-wrap: balance;
+}
+
+.hero-desc,
+.about-copy p,
+.contact-intro,
+.experience-intro,
+.projects-intro,
+.education-intro,
+.skills-intro,
+.blog-intro,
+.project-summary,
+.blog-summary,
+.certificate-filename,
+.contact-link-card small {
+  overflow-wrap: anywhere;
+}
+
+.hero-meta span,
+.project-tags span,
+.skill-tags span,
+.about-tags span,
+.experience-tags span,
+.education-label,
+.education-period,
+.education-status,
+.project-badge,
+.pdf-card-label,
+.skill-level,
+.blog-topic-pill,
+.blog-reading-time {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.skill-bar-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+}
+
+.skill-bar-header span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cert-modal-header > div {
+  min-width: 0;
+}
+
+@media (max-width: 1040px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-right {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .site-nav {
+    gap: 0.35rem;
+    padding: 0.75rem;
+  }
+
+  .nav-link {
+    min-height: 2.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-left,
+  .about-copy,
+  .contact-header,
+  .experience-header,
+  .projects-header,
+  .education-header,
+  .skills-header,
+  .blog-header {
+    max-width: 100%;
+  }
+
+  .cert-modal-overlay {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 760px) {
+  .certificate-card {
+    gap: 1rem;
+  }
+
+  .certificate-preview-title {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .next-root {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hero {
+    gap: 1.1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.35rem, 13vw, 3.8rem);
+    line-height: 0.98;
+  }
+
+  .hero-role {
+    font-size: clamp(1.05rem, 5vw, 1.35rem);
+  }
+
+  .hero-desc,
+  .about-copy p,
+  .contact-intro,
+  .experience-intro,
+  .projects-intro,
+  .education-intro,
+  .skills-intro,
+  .blog-intro {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .hero-meta,
+  .project-tags,
+  .skill-tags,
+  .about-tags,
+  .experience-tags {
+    gap: 0.45rem;
+  }
+
+  .hero-stats div,
+  .about-stats div,
+  .projects-overview div,
+  .education-overview div,
+  .skills-overview div,
+  .experience-overview div,
+  .project-card,
+  .skill-card,
+  .modern-blog-card,
+  .blog-featured-card,
+  .job-card.glass,
+  .roadmap-content,
+  .contact-panel,
+  .contact-form-modern {
+    padding: 0.9rem;
+  }
+
+  .profile-ring,
+  .about-photo-frame {
+    aspect-ratio: 1 / 1.12;
+  }
+
+  .about-profile-card,
+  .hero-portrait-card,
+  .hero-panel {
+    width: 100%;
+  }
+
+  .education-timeline,
+  .experience-timeline {
+    padding-left: 0.85rem;
+  }
+
+  .education-timeline::before,
+  .experience-timeline::before {
+    left: 0.22rem;
+  }
+
+  .education-icon,
+  .exp-dot {
+    display: none;
+  }
+
+  .roadmap-item {
+    gap: 0;
+  }
+
+  .certificates-header {
+    margin-bottom: 1.2rem;
+  }
+
+  .certificate-actions,
+  .pdf-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .cert-modal-overlay {
+    padding: 0.6rem;
+  }
+
+  .cert-modal {
+    max-height: calc(100dvh - 1.2rem);
+    padding: 0.75rem;
+  }
+
+  .cert-modal-header {
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .cert-modal-close {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .cert-modal-pdf {
+    height: 56dvh;
+  }
+
+  .cert-modal-download {
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-main > section {
+    border-radius: 12px;
+  }
+
+  .hero,
+  .about-page,
+  .contact-page,
+  .experience-page,
+  .projects-page,
+  .education-page,
+  .skills-page,
+  .blog-page,
+  .certificates-page {
+    padding: 0.8rem;
+  }
+
+  .site-brand {
+    font-size: 1.2rem;
+  }
+
+  .hero-intro,
+  .about-kicker,
+  .contact-kicker,
+  .projects-kicker,
+  .education-kicker,
+  .skills-kicker,
+  .blog-kicker,
+  .certificates-kicker {
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .contact-link-card {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-link-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .blog-featured-top,
+  .blog-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (hover: none) {
+  .nav-link:hover,
+  .btn.cta:hover,
+  .btn.secondary:hover,
+  .social:hover,
+  .social:focus,
+  .card:hover,
+  .blog-card:hover,
+  .skill-card:hover,
+  .project-card:hover,
+  .job-card.glass:hover,
+  .certificate-card:hover,
+  .pdf-card:hover,
+  .modern-blog-card:hover,
+  .contact-link-card:hover,
+  .contact-link-card:focus,
+  .btn-submit:hover:not(:disabled),
+  .btn-submit:focus-visible {
+    transform: none;
   }
 }
