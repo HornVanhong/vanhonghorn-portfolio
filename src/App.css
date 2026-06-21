@@ -217,16 +217,23 @@
   display: none;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  padding: 0.4rem;
-  border-radius: 99px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu-icon:hover {
   border-color: var(--accent);
   background: rgba(0, 242, 254, 0.05);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+}
+
+[data-theme="light"] .menu-icon:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 /* Responsive Header */
@@ -2788,10 +2795,10 @@
 }
 
 .theme-toggle {
-  background: none !important;
-  border: none !important;
-  width: 30px;
-  height: 30px;
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  width: 38px;
+  height: 38px;
   border-radius: 50% !important;
   display: inline-flex;
   align-items: center;
@@ -2809,12 +2816,14 @@
 }
 
 .theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--accent) !important;
+  background: rgba(0, 242, 254, 0.05) !important;
   color: var(--accent);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.15) !important;
 }
 
 .theme-toggle:hover svg {
-  transform: rotate(45deg) scale(1.15);
+  transform: rotate(45deg) scale(1.1);
 }
 
 [data-theme="light"] .theme-toggle:hover {
@@ -2826,7 +2835,7 @@
     display: none;
   }
   .theme-toggle {
-    margin-top: 0.75rem;
+    margin-top: 0;
   }
 }
 

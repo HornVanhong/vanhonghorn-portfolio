@@ -147,7 +147,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 aria-label="Toggle theme mode"
                 type="button"
               >
-                {theme === "dark" ? <FaSun size={15} /> : <FaMoon size={15} />}
+                {theme === "dark" ? <FaSun size={18} /> : <FaMoon size={18} />}
               </button>
 
               <button
@@ -159,9 +159,9 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 type="button"
               >
                 {menuOpen ? (
-                  <HiX size={26} color="var(--accent)" />
+                  <HiX size={22} color="var(--accent)" />
                 ) : (
-                  <HiMenu size={26} color="var(--text)" />
+                  <HiMenu size={22} color="var(--text)" />
                 )}
               </button>
             </div>
