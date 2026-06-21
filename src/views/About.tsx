@@ -79,6 +79,8 @@ export default function About() {
                   {"  "}
                   <span className="json-key">"operator"</span>: <span className="json-val-str">"Vanhong Horn"</span>,
                   {"\n  "}
+                  <span className="json-key">"korean_name"</span>: <span className="json-val-str">"헌 완홓"</span>,
+                  {"\n  "}
                   <span className="json-key">"role"</span>: <span className="json-val-str">"Cybersecurity & Web Dev"</span>,
                   {"\n  "}
                   <span className="json-key">"affiliation"</span>: <span className="json-val-str">"RUPP & ANT Center"</span>,

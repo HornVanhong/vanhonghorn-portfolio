@@ -73,7 +73,9 @@ export default function Home() {
             </span>
             Open to Internships
           </p>
-          <h1 className="hero-title">Vanhong Horn</h1>
+          <h1 className="hero-title">
+            Vanhong Horn <span className="korean-name">헌 완홓</span>
+          </h1>
           <h2 className="hero-role">
             <span>{roleText}</span>
           </h2>

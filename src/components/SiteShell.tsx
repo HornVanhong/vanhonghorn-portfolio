@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaMusic, FaPause } from "react-icons/fa";
 
 const navItems = [
   { href: "#home", label: "Home" },
@@ -22,6 +22,48 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [time, setTime] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize background audio element on mount
+  useEffect(() => {
+    const audio = new Audio("/audio/music.mp3");
+    audio.loop = true;
+    audio.volume = 0.25; // moderate background volume
+    audioRef.current = audio;
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
+
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+    if (musicPlaying) {
+      audioRef.current.pause();
+      setMusicPlaying(false);
+    } else {
+      audioRef.current.play().then(() => {
+        setMusicPlaying(true);
+      }).catch((err) => {
+        console.warn("Autoplay block / playback issue:", err);
+      });
+    }
+  };
+
+  // Sync body class with music playing state
+  useEffect(() => {
+    if (musicPlaying) {
+      document.body.classList.add("music-active");
+    } else {
+      document.body.classList.remove("music-active");
+    }
+    return () => {
+      document.body.classList.remove("music-active");
+    };
+  }, [musicPlaying]);
 
   // Load and apply theme from storage or system preference
   useEffect(() => {
@@ -150,6 +192,17 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 {theme === "dark" ? <FaSun size={18} /> : <FaMoon size={18} />}
               </button>
 
+              {mounted && (
+                <button
+                  className={`music-toggle${musicPlaying ? " playing" : ""}`}
+                  onClick={toggleMusic}
+                  aria-label={musicPlaying ? "Pause music" : "Play music"}
+                  type="button"
+                >
+                  {musicPlaying ? <FaPause size={13} /> : <FaMusic size={13} />}
+                </button>
+              )}
+
               <button
                 className={`menu-icon${menuOpen ? " open" : ""}`}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -202,7 +255,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
 
             <div className="footer-bottom">
               <p className="footer-copy">
-                Copyright © {new Date().getFullYear()} Vanhong Horn. All rights reserved.
+                Copyright © {new Date().getFullYear()} Vanhong Horn (헌 완홓). All rights reserved.
               </p>
               <div className="footer-legal">
                 <span>Phnom Penh, Cambodia</span>
