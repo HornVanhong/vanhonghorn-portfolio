@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import {
   FaArrowRight,
   FaFacebookF,
@@ -11,117 +14,178 @@ import {
 } from "react-icons/fa";
 import profileImg from "../assets/vanhong.jpg";
 
+import About from "./About";
+import Resume from "./Resume";
+import Skills from "./Skills";
+import Projects from "./Projects";
+import Blog from "./Blog";
+import Contact from "./Contact";
+
 export default function Home() {
+  const roles = [
+    "Cyber Security Student",
+    "Front-End Developer",
+    "MPTC Scholarship Student",
+  ];
+  
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [roleText, setRoleText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(100);
+
+  useEffect(() => {
+    const currentFullText = roles[roleIndex];
+    
+    const handleTyping = () => {
+      if (!isDeleting) {
+        // Typing
+        setRoleText(currentFullText.substring(0, roleText.length + 1));
+        setTypingSpeed(100);
+        
+        if (roleText === currentFullText) {
+          // Pause at the end of typing
+          setTypingSpeed(1500);
+          setIsDeleting(true);
+        }
+      } else {
+        // Deleting
+        setRoleText(currentFullText.substring(0, roleText.length - 1));
+        setTypingSpeed(50);
+        
+        if (roleText === "") {
+          setIsDeleting(false);
+          setRoleIndex((prev) => (prev + 1) % roles.length);
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [roleText, isDeleting, roleIndex, typingSpeed]);
+
   return (
-    <section className="hero">
-      <div className="hero-left">
-        <p className="hero-intro">Cyber Security Student & Front-End Developer</p>
-        <h1 className="hero-title">VanhongHorn</h1>
-        <h2 className="hero-role">
-          Building secure, reliable, and user-focused digital experiences.
-        </h2>
-        <p className="hero-desc">
-          I study Cyber Security and build practical web and mobile interfaces,
-          with hands-on experience in networking, Linux, React Native, and
-          secure application workflows.
-        </p>
-
-        <div className="hero-meta" aria-label="Profile summary">
-          <span>
-            <FaMapMarkerAlt aria-hidden="true" />
-            Phnom Penh, Cambodia
-          </span>
-          <span>Open to internships</span>
-          <span>Next.js, React, Flutter</span>
-        </div>
-
-        <div className="hero-ctas">
-          <Link href="/projects" className="btn cta">
-            View Projects
-            <FaArrowRight aria-hidden="true" />
-          </Link>
-          <Link href="/contact" className="btn secondary">
-            Contact Me
-            <FaPaperPlane aria-hidden="true" />
-          </Link>
-        </div>
-
-        <div className="hero-stats" aria-label="Portfolio highlights">
-          <div>
-            <strong>2+</strong>
-            <span>Years learning IT</span>
-          </div>
-          <div>
-            <strong>4</strong>
-            <span>Core skill areas</span>
-          </div>
-          <div>
-            <strong>2025</strong>
-            <span>CS graduate</span>
-          </div>
-        </div>
-
-        <div className="social-icons" aria-label="Social links">
-          <a
-            href="https://www.facebook.com/share/1DSTqwRuh5/?mibextid=wwXIfr"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social"
-          >
-            <FaFacebookF size={20} />
-          </a>
-          <a
-            href="https://t.me/vanhongVH"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social"
-          >
-            <FaTelegramPlane size={20} />
-          </a>
-          <a
-            href="https://www.instagram.com/hornvanhong"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social"
-          >
-            <FaInstagram size={20} />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/horn-vanhong-45366324a/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social"
-          >
-            <FaLinkedinIn size={20} />
-          </a>
-        </div>
-      </div>
-
-      <div className="hero-right">
-        <div className="hero-portrait-card">
-          <div className="profile-ring">
-            <Image
-              src={profileImg}
-              alt="Horn Vanhong"
-              className="profile-photo"
-              sizes="(max-width: 700px) 100vw, 360px"
-              priority
-            />
-            <div className="ring-gradient" aria-hidden="true" />
-          </div>
-          <div className="hero-availability">
-            <span aria-hidden="true" />
-            Available for internship and collaboration
-          </div>
-        </div>
-        <div className="hero-panel">
-          <span className="hero-panel-label">Current focus</span>
-          <p>
-            Cyber security and front-end work, with an emphasis on clean UI,
-            secure flows, and production-minded execution.
+    <>
+      <section id="home" className="hero anim-fade">
+        <div className="hero-left anim-slide">
+          <p className="hero-intro">
+            <span className="hero-availability">
+              <span aria-hidden="true" />
+            </span>
+            Open to Internships
           </p>
+          <h1 className="hero-title">Vanhong Horn</h1>
+          <h2 className="hero-role">
+            <span>{roleText}</span>
+          </h2>
+          <p className="hero-desc">
+            I study Cyber Security and build practical web and mobile interfaces.
+            Equipped with hands-on experience in networking, Linux configuration, 
+            React Native development, and secure application workflows.
+          </p>
+
+          <div className="hero-meta" aria-label="Profile summary">
+            <span>
+              <FaMapMarkerAlt aria-hidden="true" />
+              Phnom Penh, Cambodia
+            </span>
+            <span>Next.js, React, Flutter</span>
+          </div>
+
+          <div className="hero-ctas">
+            <a href="#projects" className="btn cta">
+              View Projects
+              <FaArrowRight aria-hidden="true" />
+            </a>
+            <a href="#contact" className="btn secondary">
+              Contact Me
+              <FaPaperPlane aria-hidden="true" />
+            </a>
+          </div>
+
+          <div className="hero-stats" aria-label="Portfolio highlights">
+            <div>
+              <strong>3+</strong>
+              <span>Years IT Journey</span>
+            </div>
+            <div>
+              <strong>6+</strong>
+              <span>Completed Projects</span>
+            </div>
+            <div>
+              <strong>2025</strong>
+              <span>CS Graduate</span>
+            </div>
+          </div>
+
+          <div className="social-icons" aria-label="Social links">
+            <a
+              href="https://www.facebook.com/share/1DSTqwRuh5/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social"
+            >
+              <FaFacebookF size={18} />
+            </a>
+            <a
+              href="https://t.me/vanhongVH"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social"
+            >
+              <FaTelegramPlane size={18} />
+            </a>
+            <a
+              href="https://www.instagram.com/hornvanhong"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social"
+            >
+              <FaInstagram size={18} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/horn-vanhong-45366324a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social"
+            >
+              <FaLinkedinIn size={18} />
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
+
+        <div className="hero-right anim-slide" style={{ animationDelay: "0.2s" }}>
+          <div className="hero-portrait-card">
+            <div className="profile-ring">
+              <Image
+                src={profileImg}
+                alt="Vanhong Horn"
+                className="profile-photo"
+                sizes="(max-width: 700px) 100vw, 320px"
+                priority
+              />
+              <div className="ring-gradient" aria-hidden="true" />
+            </div>
+            <div className="hero-availability">
+              <span aria-hidden="true" />
+              Ready for Collaboration
+            </div>
+          </div>
+          <div className="hero-panel">
+            <span className="hero-panel-label">Current Focus Area</span>
+            <p>
+              Securing infrastructure and creating highly polished, reliable, 
+              and modern application front-ends with solid, clean code.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <About />
+      <Resume />
+      <Skills />
+      <Projects />
+      <Blog />
+      <Contact />
+    </>
   );
 }

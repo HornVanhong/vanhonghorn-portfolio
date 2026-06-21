@@ -113,8 +113,8 @@ const pdfFiles = [
 
 export default function Projects() {
   return (
-    <section className="projects-page">
-      <div className="projects-header">
+    <section id="projects" className="projects-page anim-fade">
+      <div className="projects-header anim-slide">
         <span className="projects-kicker">
           <FaLaptopCode aria-hidden="true" />
           Selected Work
@@ -126,22 +126,22 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="projects-overview" aria-label="Projects summary">
+      <div className="projects-overview anim-slide" aria-label="Projects summary" style={{ animationDelay: "0.1s" }}>
         <div>
           <strong>6</strong>
-          <span>Featured projects</span>
+          <span>Featured Projects</span>
         </div>
         <div>
           <strong>3</strong>
-          <span>PDF deliverables</span>
+          <span>PDF Deliverables</span>
         </div>
         <div>
           <strong>Work</strong>
-          <span>Internship and coursework</span>
+          <span>Internship & Coursework</span>
         </div>
       </div>
 
-      <div className="projects-grid">
+      <div className="projects-grid anim-slide" style={{ animationDelay: "0.2s" }}>
         {projectCards.map((project) => (
           <article className="project-card" key={project.title}>
             <div className="project-card-top">
@@ -165,7 +165,7 @@ export default function Projects() {
         ))}
       </div>
 
-      <div className="projects-footer">
+      <div className="projects-footer anim-slide" style={{ animationDelay: "0.3s" }}>
         <div className="projects-footer-copy">
           <span className="projects-footer-label">Documents</span>
           <h2>Project Files</h2>
@@ -176,12 +176,12 @@ export default function Projects() {
 
         <div className="pdf-grid">
           {pdfFiles.map((file) => (
-            <article className="project-card pdf-card modern-pdf-card" key={file.href}>
+            <article className="modern-pdf-card" key={file.href}>
               <div className="pdf-card-top">
                 <span className="pdf-file-icon">
                   <FaFilePdf aria-hidden="true" />
                 </span>
-                <span className="pdf-card-label">PDF</span>
+                <span className="pdf-card-label">PDF File</span>
               </div>
               <h3>{file.title}</h3>
               <p className="project-summary">{file.description}</p>

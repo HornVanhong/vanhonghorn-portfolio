@@ -6,24 +6,23 @@ import {
 } from "react-icons/fa";
 
 const highlights = [
-  { value: "2", label: "Roles" },
-  { value: "React Native", label: "Main stack" },
-  { value: "Agile", label: "Workflow" },
+  { value: "2+", label: "Professional Roles" },
+  { value: "React Native", label: "Core Mobile Stack" },
+  { value: "Agile Scrum", label: "Team Workflow" },
 ];
 
 export default function Experience() {
   return (
-    <section className="experience-page">
-      <div className="experience-header">
+    <section className="experience-page anim-fade">
+      <div className="experience-header anim-slide">
         <span className="experience-kicker">Work history</span>
         <h1 className="exp-title">Experience</h1>
         <p className="experience-intro">
-          Practical work across data preparation, mobile front-end development,
-          team collaboration, and delivery workflows.
+          Practical industry work across mobile frontend development, agile collaboration, data pipelines, and deployment workflows.
         </p>
       </div>
 
-      <div className="experience-overview" aria-label="Experience highlights">
+      <div className="experience-overview anim-slide" aria-label="Experience highlights" style={{ animationDelay: "0.1s" }}>
         {highlights.map((item) => (
           <div key={item.label}>
             <strong>{item.value}</strong>
@@ -32,7 +31,7 @@ export default function Experience() {
         ))}
       </div>
 
-      <div className="experience-timeline">
+      <div className="experience-timeline anim-slide" style={{ animationDelay: "0.2s" }}>
         <article className="exp-card">
           <span className="exp-date-badge">2022 – 2023</span>
           <div className="exp-dot" aria-hidden="true" />
@@ -42,18 +41,16 @@ export default function Experience() {
                 <FaUniversity className="exp-icon" aria-hidden="true" />
               </span>
               <div>
-                <span className="exp-type">Data operations</span>
-                <h2>Labeler</h2>
+                <span className="exp-type">Data Operations</span>
+                <h2>Data Labeler</h2>
               </div>
             </div>
-            <p className="job-meta">
-              <span>Phnom Penh, DDD</span>
-            </p>
-            <p>Performed labeling tasks and data preparation for projects.</p>
+            <p className="job-meta">Phnom Penh, DDD (Digital Data Divide)</p>
+            <p>Performed key tagging, classification, and data annotation for machine learning pipelines.</p>
             <div className="experience-tags">
-              <span>Data prep</span>
-              <span>Accuracy</span>
-              <span>Project support</span>
+              <span>Data Prep</span>
+              <span>Quality Assurance</span>
+              <span>AI Support</span>
             </div>
           </div>
         </article>
@@ -67,30 +64,18 @@ export default function Experience() {
                 <FaLaptopCode className="exp-icon" aria-hidden="true" />
               </span>
               <div>
-                <span className="exp-type">Front-end development</span>
+                <span className="exp-type">Front-end Development</span>
                 <h2>Intern - Digital Banking</h2>
               </div>
             </div>
-            <p className="job-meta">RHB Cambodia - Front-End Developer</p>
+            <p className="job-meta">RHB Bank Cambodia</p>
             <ul>
-              <li>Used React Native to build and improve mobile features.</li>
-              <li>Fixed front-end issues and improved app stability.</li>
-              <li>Implemented new components following UX/UI team designs.</li>
-              <li>
-                Created and reviewed pull requests; collaborated in code
-                reviews.
-              </li>
-              <li>Participated in team meetings and sprint planning.</li>
-              <li>
-                Learned and applied Stylesheet techniques, SASS, and
-                styled-components.
-              </li>
-              <li>
-                Gained hands-on experience with Git, TypeScript, and React.
-              </li>
-              <li>
-                Used Bitbucket and Jira for source control and issue tracking.
-              </li>
+              <li>Leveraged React Native to build and deploy mobile banking capabilities.</li>
+              <li>Addressed critical frontend tickets and elevated app stability metrics.</li>
+              <li>Collaborated closely with UX/UI teams to replicate design systems.</li>
+              <li>Reviewed PRs and actively participated in peer engineering code reviews.</li>
+              <li>Integrated Stylesheet properties, SASS, and styled-components components.</li>
+              <li>Operated in Git, TypeScript, Jira, and Bitbucket version control loops.</li>
             </ul>
             <div className="experience-tags">
               <span>
@@ -99,10 +84,10 @@ export default function Experience() {
               </span>
               <span>
                 <FaCodeBranch aria-hidden="true" />
-                Pull requests
+                PR Reviews
               </span>
-              <span>TypeScript</span>
-              <span>Jira</span>
+              <span>React Native</span>
+              <span>Jira & Git</span>
             </div>
           </div>
         </article>

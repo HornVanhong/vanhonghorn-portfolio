@@ -44,8 +44,8 @@ export default function Blog() {
   const secondary = posts.slice(1);
 
   return (
-    <section className="blog-page">
-      <div className="blog-header">
+    <section id="blog" className="blog-page anim-fade">
+      <div className="blog-header anim-slide">
         <span className="blog-kicker">
           <FaBookOpen aria-hidden="true" />
           Notes and Writing
@@ -57,7 +57,7 @@ export default function Blog() {
         </p>
       </div>
 
-      <div className="blog-featured">
+      <div className="blog-featured anim-slide" style={{ animationDelay: "0.1s" }}>
         <article className="blog-featured-card">
           <div className="blog-featured-top">
             <span className="blog-topic-pill">{featured.topic}</span>
@@ -77,7 +77,7 @@ export default function Blog() {
         </article>
       </div>
 
-      <div className="blog-grid">
+      <div className="blog-grid anim-slide" style={{ animationDelay: "0.2s" }}>
         {secondary.map((post) => (
           <article className="blog-card modern-blog-card" key={post.title}>
             <div className="blog-card-top">

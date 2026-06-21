@@ -29,8 +29,8 @@ export default function Certificates() {
   const handleClose = () => setModalOpen(false);
 
   return (
-    <section className="certificates-page">
-      <div className="certificates-header">
+    <section className="certificates-page anim-fade">
+      <div className="certificates-header anim-slide">
         <span className="certificates-kicker">
           <FaAward aria-hidden="true" />
           Achievement
@@ -41,7 +41,7 @@ export default function Certificates() {
         </p>
       </div>
 
-      <div className="certificates-grid">
+      <div className="certificates-grid anim-slide" style={{ animationDelay: "0.1s" }}>
         {certificateFiles.map((cert) => {
           const fileUrl = `/certificate/${cert.name}`;
 

@@ -9,8 +9,8 @@ const educationItems = [
     period: "2022 - 2025",
     status: "Graduate 2025",
     details: [
-      "Scholarship student of Ministry of Posts and Telecommunications",
-      "Cyber Security specialization at ANT Technology Training Center",
+      "Scholarship student of Ministry of Posts and Telecommunications (MPTC)",
+      "Cyber Security specialization training track",
     ],
   },
   {
@@ -21,8 +21,8 @@ const educationItems = [
     period: "Current",
     status: "In progress",
     details: [
-      "Network security fundamentals",
-      "Linux, database security, and defensive security practice",
+      "Deep dive into network security architecture, vulnerability assessment",
+      "Linux configuration, database audit, and shell scripting security logs",
     ],
   },
   {
@@ -32,44 +32,43 @@ const educationItems = [
     meta: "General Education",
     period: "2020 - 2021",
     status: "Completed",
-    details: ["Completed high school before beginning university study."],
+    details: ["Completed high school with general science major before beginning university study."],
   },
   {
     icon: <FaCertificate aria-hidden="true" />,
     label: "Additional Courses",
     title: "Technical Training",
-    meta: "Flutter, Cisco Networking Academy",
+    meta: "Flutter Development & Cisco NetAcad",
     period: "2022 - 2023",
     status: "Completed",
     details: [
       "Flutter 3 course at Instinct Institute Alumni",
-      "Cisco Networking Academy fundamentals",
+      "Cisco Networking Academy fundamentals course",
     ],
   },
 ];
 
 export default function Education() {
   return (
-    <section className="education-page" aria-labelledby="education-heading">
-      <div className="education-header">
+    <section className="education-page anim-fade" aria-labelledby="education-heading">
+      <div className="education-header anim-slide">
         <span className="education-kicker">Academic Background</span>
         <h1 id="education-heading" className="education-title">
           Education
         </h1>
         <p className="education-intro">
-          A practical computer science path focused on cyber security,
-          networking, and applied software development.
+          A practical computer science education focused on threat mitigation, secure networks, and software engineering.
         </p>
       </div>
 
-      <div className="education-overview" aria-label="Education highlights">
+      <div className="education-overview anim-slide" aria-label="Education highlights" style={{ animationDelay: "0.1s" }}>
         <div>
           <strong>CS</strong>
-          <span>Major</span>
+          <span>Academic Major</span>
         </div>
         <div>
           <strong>2025</strong>
-          <span>Graduation</span>
+          <span>Graduation Year</span>
         </div>
         <div>
           <strong>Cyber</strong>
@@ -77,7 +76,7 @@ export default function Education() {
         </div>
       </div>
 
-      <div className="roadmap education-timeline" role="list">
+      <div className="roadmap education-timeline anim-slide" role="list" style={{ animationDelay: "0.2s" }}>
         {educationItems.map((item) => (
           <article
             className="roadmap-item education-card"

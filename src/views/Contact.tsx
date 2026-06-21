@@ -75,8 +75,8 @@ export default function Contact() {
   };
 
   return (
-    <section className="contact-page">
-      <div className="contact-header">
+    <section id="contact" className="contact-page anim-fade">
+      <div className="contact-header anim-slide">
         <span className="contact-kicker">Available for opportunities</span>
         <h1 className="contact-title">Contact</h1>
         <p className="contact-intro">
@@ -84,7 +84,7 @@ export default function Contact() {
         </p>
       </div>
 
-      <div className="contact-layout">
+      <div className="contact-layout anim-slide" style={{ animationDelay: "0.1s" }}>
         <aside className="contact-panel">
           <p className="contact-panel-label">Direct details</p>
           <div className="contact-links">
@@ -106,23 +106,21 @@ export default function Contact() {
           </div>
 
           <div className="contact-note">
-            <span className="contact-note-label">Response</span>
+            <span className="contact-note-label">Response time</span>
             <p>
-              I usually reply with project context, availability, and next steps
-              after reading your message.
+              I usually reply within 24 hours with project context, availability, and next steps.
             </p>
           </div>
         </aside>
 
-        <form className="contact-form contact-form-modern" onSubmit={handleSubmit}>
+        <form className="contact-form" onSubmit={handleSubmit}>
           <div className="contact-form-head">
-            <span className="contact-form-label">
+            <span className="contact-kicker">
               <FaPaperPlane aria-hidden="true" />
               Send a message
             </span>
             <p>
-              Keep it short or detailed. I’ll review it on my side and respond as
-              soon as possible.
+              Leave your details and a short message. I’ll review and respond as soon as possible.
             </p>
           </div>
 
@@ -156,7 +154,7 @@ export default function Contact() {
             <textarea
               name="message"
               placeholder="Write your message..."
-              rows={7}
+              rows={5}
               required
               value={formData.message}
               onChange={handleChange}

@@ -25,55 +25,55 @@ interface SkillGroup {
 
 const skillGroups: SkillGroup[] = [
   {
-    title: "Cybersecurity",
-    summary: "Security fundamentals, Linux practice, and secure workflows.",
+    title: "Cyber Security",
+    summary: "Security fundamentals, Linux administration, and secure system auditing.",
     icon: <FaShieldAlt aria-hidden="true" />,
     level: "Core focus",
     skills: [
-      { name: "Linux (Kali, CentOS)", level: 80 },
-      { name: "Cybersecurity Fundamentals", level: 75 },
-      { name: "Database Security (SQL)", level: 70 },
-      { name: "Git Secure Workflow", level: 65 },
+      { name: "Linux (Kali, CentOS, Debian)", level: 80 },
+      { name: "Cybersecurity Principles", level: 75 },
+      { name: "Database Security (SQL Audits)", level: 70 },
+      { name: "Defensive Coding Standards", level: 65 },
     ],
-    tools: ["Kali Linux", "SQL", "Git", "Security Labs"],
+    tools: ["Kali Linux", "SQL", "Git", "Wireshark"],
   },
   {
     title: "App Development",
-    summary: "Mobile interfaces, feature implementation, and API integration.",
+    summary: "Mobile UI creation, cross-platform apps, and database integration.",
     icon: <FaMobileAlt aria-hidden="true" />,
     level: "Applied",
     skills: [
-      { name: "Flutter", level: 85 },
+      { name: "Flutter & Dart", level: 85 },
       { name: "React Native", level: 75 },
-      { name: "Java", level: 70 },
-      { name: "PHP", level: 65 },
+      { name: "Java (Android SDK)", level: 70 },
+      { name: "PHP / backend API structures", level: 65 },
     ],
     tools: ["Flutter", "React Native", "Java", "REST APIs"],
   },
   {
     title: "Web Development",
-    summary: "Responsive front-end development with modern React tooling.",
+    summary: "Responsive front-end development with standard and modern toolsets.",
     icon: <FaGlobe aria-hidden="true" />,
     level: "Strong",
     skills: [
       { name: "HTML / CSS / JavaScript", level: 85 },
-      { name: "React", level: 80 },
-      { name: "Figma UI/UX", level: 70 },
-      { name: "SASS / Styled Components", level: 65 },
+      { name: "React.js / Next.js", level: 80 },
+      { name: "TypeScript", level: 70 },
+      { name: "CSS Modules / Sass / styled-components", level: 70 },
     ],
-    tools: ["React", "Next.js", "TypeScript", "Figma"],
+    tools: ["React", "Next.js", "TypeScript", "Figma Design"],
   },
   {
-    title: "Networking",
-    summary: "Network configuration, protocol analysis, and Cisco coursework.",
+    title: "Networking & Admin",
+    summary: "LAN setup, Cisco NetAcad configurations, and packet capture analytics.",
     icon: <FaNetworkWired aria-hidden="true" />,
     level: "Practical",
     skills: [
-      { name: "Cisco Networking", level: 75 },
-      { name: "Network Configuration", level: 70 },
-      { name: "Protocol Analysis", level: 65 },
+      { name: "Cisco Routing & Switching", level: 75 },
+      { name: "Network Configuration Labs", level: 70 },
+      { name: "Protocol Sniffing (ARP, DNS)", level: 65 },
     ],
-    tools: ["Cisco", "ARP", "DNS", "DHCP"],
+    tools: ["Cisco Packet Tracer", "ARP", "DNS", "DHCP"],
   },
 ];
 
@@ -81,7 +81,7 @@ const SkillBar: React.FC<SkillBarProps> = ({ name, level }) => {
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setProgress(level), 100);
+    const timer = setTimeout(() => setProgress(level), 150);
     return () => clearTimeout(timer);
   }, [level]);
 
@@ -100,35 +100,35 @@ const SkillBar: React.FC<SkillBarProps> = ({ name, level }) => {
 
 export default function Skills() {
   return (
-    <section className="skills-page">
-      <div className="skills-header">
+    <section id="skills" className="skills-page anim-fade">
+      <div className="skills-header anim-slide">
         <span className="skills-kicker">
           <FaCode aria-hidden="true" />
           Technical Profile
         </span>
-        <h1 className="skills-title">Skills</h1>
+        <h1 className="skills-title">Skills & Competencies</h1>
         <p className="skills-intro">
-          A practical mix of cyber security, networking, web development, and
-          mobile application experience.
+          A practical mix of cyber security threat management, network structures,
+          and production-oriented front-end web and mobile development capabilities.
         </p>
       </div>
 
-      <div className="skills-overview" aria-label="Skills summary">
+      <div className="skills-overview anim-slide" aria-label="Skills summary" style={{ animationDelay: "0.1s" }}>
         <div>
           <strong>4</strong>
-          <span>Focus areas</span>
+          <span>Key Domains</span>
         </div>
         <div>
           <strong>16+</strong>
-          <span>Tools & skills</span>
+          <span>Tools & Technologies</span>
         </div>
         <div>
           <strong>Secure</strong>
-          <span>Development mindset</span>
+          <span>Development Approach</span>
         </div>
       </div>
 
-      <div className="skills-grid">
+      <div className="skills-grid anim-slide" style={{ animationDelay: "0.2s" }}>
         {skillGroups.map((group) => (
           <article className="skill-card" key={group.title}>
             <div className="skill-card-header">
