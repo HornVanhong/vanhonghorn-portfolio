@@ -27,7 +27,7 @@ export default function Home() {
     "Front-End Developer",
     "MPTC Scholarship Student",
   ];
-  
+
   const [roleIndex, setRoleIndex] = useState(0);
   const [roleText, setRoleText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -35,13 +35,13 @@ export default function Home() {
 
   useEffect(() => {
     const currentFullText = roles[roleIndex];
-    
+
     const handleTyping = () => {
       if (!isDeleting) {
         // Typing
         setRoleText(currentFullText.substring(0, roleText.length + 1));
         setTypingSpeed(100);
-        
+
         if (roleText === currentFullText) {
           // Pause at the end of typing
           setTypingSpeed(1500);
@@ -51,7 +51,7 @@ export default function Home() {
         // Deleting
         setRoleText(currentFullText.substring(0, roleText.length - 1));
         setTypingSpeed(50);
-        
+
         if (roleText === "") {
           setIsDeleting(false);
           setRoleIndex((prev) => (prev + 1) % roles.length);
@@ -79,7 +79,7 @@ export default function Home() {
           </h2>
           <p className="hero-desc">
             I study Cyber Security and build practical web and mobile interfaces.
-            Equipped with hands-on experience in networking, Linux configuration, 
+            Equipped with hands-on experience in networking, Linux configuration,
             React Native development, and secure application workflows.
           </p>
 
@@ -173,7 +173,7 @@ export default function Home() {
           <div className="hero-panel">
             <span className="hero-panel-label">Current Focus Area</span>
             <p>
-              Securing infrastructure and creating highly polished, reliable, 
+              Securing infrastructure and creating highly polished, reliable,
               and modern application front-ends with solid, clean code.
             </p>
           </div>

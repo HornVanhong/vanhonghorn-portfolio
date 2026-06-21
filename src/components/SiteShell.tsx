@@ -199,7 +199,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 </p>
               </div>
             </div>
-            
+
             <div className="footer-bottom">
               <p className="footer-copy">
                 Copyright © {new Date().getFullYear()} Vanhong Horn. All rights reserved.
