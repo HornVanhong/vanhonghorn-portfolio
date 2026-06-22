@@ -139,16 +139,17 @@ export async function POST(request: Request) {
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
     .header {
-      padding: 2.5rem 2rem 1.5rem;
+      padding: 2rem 2rem 1.5rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       text-align: center;
     }
     .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.4rem;
+      font-weight: 800;
       color: #00f2fe;
       text-decoration: none;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      font-family: monospace;
     }
     .content {
       padding: 2rem;
@@ -165,52 +166,106 @@ export async function POST(request: Request) {
       color: #9ca3af;
       margin-bottom: 1.5rem;
     }
-    .message-box {
-      background: rgba(255, 255, 255, 0.02);
-      border-left: 3px solid #00f2fe;
-      border-radius: 6px;
-      padding: 1.25rem;
-      margin: 1.5rem 0;
+    
+    /* Code Editor Mockup */
+    .code-editor {
+      background: #090e1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 2rem 0;
+      font-family: 'Fira Code', 'Courier New', Courier, monospace;
+      text-align: left;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     }
-    .message-title {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.05em;
+    .editor-header {
+      background: #0b1120;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .window-buttons {
+      display: flex;
+      gap: 6px;
+      margin-right: 1.5rem;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.red { background-color: #ef4444; }
+    .dot.yellow { background-color: #f59e0b; }
+    .dot.green { background-color: #10b981; }
+    
+    .editor-tab {
+      font-size: 0.72rem;
       color: #00f2fe;
-      margin-bottom: 0.5rem;
+      background: #0d1527;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px 6px 0 0;
+      margin-bottom: -0.65rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      border-right: 1px solid rgba(255,255,255,0.08);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
-    .message-content {
-      font-size: 0.9rem;
-      color: #e5e7eb;
-      white-space: pre-line;
+    .editor-tab::before {
+      content: "{}";
+      color: #f92672;
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .editor-body {
+      padding: 1.25rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #f8f8f2;
+      overflow-x: auto;
+    }
+    .code-content {
       margin: 0;
+      white-space: pre-wrap;
+      word-break: break-all;
     }
+    .keyword { color: #f8f8f2; }
+    .key { color: #f92672; }
+    .string { color: #e6db74; }
+    .number { color: #ae81ff; }
+    .boolean { color: #66d9ef; }
+
     .btn-cta {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
+      padding: 0.8rem 1.75rem;
       background: linear-gradient(135deg, #00f2fe 0%, #4f46e5 100%);
       color: #030712 !important;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.9rem;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
       margin-top: 1rem;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25);
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+      transition: all 0.25s;
     }
     .footer {
       padding: 1.5rem 2rem 2.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       text-align: center;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.25);
     }
     .social-links {
       margin-bottom: 1rem;
     }
     .social-link {
       display: inline-block;
-      margin: 0 0.5rem;
+      margin: 0 0.75rem;
       color: #9ca3af;
       text-decoration: none;
       font-size: 0.85rem;
@@ -230,18 +285,37 @@ export async function POST(request: Request) {
   <div class="wrapper">
     <div class="container">
       <div class="header">
-        <a href="https://vanhonghorn-portfolio.vercel.app" class="logo">VANHONG HORN</a>
+        <a href="https://vanhonghorn-portfolio.vercel.app" class="logo">&lt;VANHONG HORN /&gt;</a>
       </div>
       <div class="content">
         <h1>Hello ${trimmedName},</h1>
         <p>Thank you for reaching out! I have received your message from my portfolio website's contact form. I appreciate you taking the time to contact me.</p>
+        
         <p>Here is a copy of the message you submitted:</p>
-        <div class="message-box">
-          <div class="message-title">Your Message</div>
-          <p class="message-content">${trimmedMessage}</p>
+        
+        <!-- Mock Code Editor -->
+        <div class="code-editor">
+          <div class="editor-header">
+            <div class="window-buttons">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="editor-tab">contact.json</div>
+          </div>
+          <div class="editor-body">
+            <pre class="code-content"><code><span class="keyword">{</span>
+  <span class="key">"sender"</span>: <span class="string">"${trimmedName.replace(/"/g, '\\"')}"</span>,
+  <span class="key">"email"</span>: <span class="string">"${trimmedEmail.replace(/"/g, '\\"')}"</span>,
+  <span class="key">"status"</span>: <span class="string">"delivered"</span>,
+  <span class="key">"message"</span>: <span class="string">"${trimmedMessage.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '')}"</span>
+<span class="keyword">}</span></code></pre>
+          </div>
         </div>
-        <p>I will review your message and get back to you within 24 hours. In the meantime, feel free to check out my latest updates on LinkedIn or message me on Telegram.</p>
-        <div style="text-align: center; margin-top: 1.5rem;">
+        
+        <p>I have received your message and will review it. I will reply to you later when I'm free. In the meantime, feel free to check out my latest updates on LinkedIn or message me on Telegram.</p>
+        
+        <div style="text-align: center; margin-top: 1.5rem; margin-bottom: 0.5rem;">
           <a href="https://t.me/vanhongVH" class="btn-cta">Message on Telegram</a>
         </div>
       </div>
