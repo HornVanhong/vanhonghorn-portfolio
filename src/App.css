@@ -2873,6 +2873,55 @@
   transform: none;
 }
 
+.contact-status-banner {
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-status-banner.success {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.05);
+}
+
+.contact-status-banner.error {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
+}
+
+.contact-status-banner .banner-icon {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.contact-status-banner .banner-text {
+  line-height: 1.4;
+}
+
 @media (max-width: 768px) {
   .contact-layout {
     grid-template-columns: 1fr;

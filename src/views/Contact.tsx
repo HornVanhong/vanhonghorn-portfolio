@@ -36,6 +36,8 @@ export default function Contact() {
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [statusMessage, setStatusMessage] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -48,6 +50,8 @@ export default function Contact() {
 
     if (submitting) return;
     setSubmitting(true);
+    setSubmitStatus("idle");
+    setStatusMessage("");
 
     try {
       const res = await fetch("/api/contact", {
@@ -65,10 +69,17 @@ export default function Contact() {
         throw new Error(data?.error ?? "Failed to send message.");
       }
 
-      alert("Message sent successfully.");
+      setSubmitStatus("success");
+      setStatusMessage("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
+
+      // Auto-clear success message after 5s
+      setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 5000);
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Failed to send message.");
+      setSubmitStatus("error");
+      setStatusMessage(error instanceof Error ? error.message : "Failed to send message.");
     } finally {
       setSubmitting(false);
     }
@@ -164,6 +175,13 @@ export default function Contact() {
           <button type="submit" className="btn-submit" disabled={submitting}>
             {submitting ? "Sending..." : "Send Message"}
           </button>
+
+          {submitStatus !== "idle" && (
+            <div className={`contact-status-banner ${submitStatus}`} role="alert">
+              <span className="banner-icon">{submitStatus === "success" ? "✓" : "⚠"}</span>
+              <span className="banner-text">{statusMessage}</span>
+            </div>
+          )}
         </form>
       </div>
     </section>

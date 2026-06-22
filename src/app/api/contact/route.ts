@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   const { name, email, message } = await request.json();
@@ -34,38 +35,284 @@ export async function POST(request: Request) {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
-  if (!botToken || !chatId) {
+  const emailHost = process.env.EMAIL_HOST;
+  const emailPortStr = process.env.EMAIL_PORT;
+  const emailUser = process.env.EMAIL_USER;
+  const emailPass = process.env.EMAIL_PASS;
+  const emailTo = process.env.EMAIL_TO || emailUser;
+
+  const hasTelegramConfig = !!(botToken && chatId);
+  const hasEmailConfig = !!(emailHost && emailUser && emailPass);
+
+  if (!hasTelegramConfig && !hasEmailConfig) {
     return NextResponse.json(
-      { error: "Contact form is not configured." },
+      { error: "Contact form is not configured. Please check server environment variables." },
       { status: 500 }
     );
   }
 
-  const text = [
-    "New portfolio contact message:",
-    `Name: ${trimmedName}`,
-    `Email: ${trimmedEmail}`,
-    `Message: ${trimmedMessage}`,
-  ].join("\n");
+  let telegramSuccess = false;
+  let emailSuccess = false;
+  let telegramErrorMsg = "";
+  let emailErrorMsg = "";
 
-  const telegramRes = await fetch(
-    `https://api.telegram.org/bot${botToken}/sendMessage`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-      }),
+  // 1. Send via Telegram Bot
+  if (hasTelegramConfig) {
+    const text = [
+      "📬 New Portfolio Message!",
+      `👤 Name: ${trimmedName}`,
+      `✉️ Email: ${trimmedEmail}`,
+      `📝 Message:`,
+      trimmedMessage,
+    ].join("\n");
+
+    try {
+      const telegramRes = await fetch(
+        `https://api.telegram.org/bot${botToken}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text,
+          }),
+        }
+      );
+
+      if (telegramRes.ok) {
+        telegramSuccess = true;
+      } else {
+        const data = await telegramRes.json().catch(() => null);
+        telegramErrorMsg = data?.description || "Telegram API failed";
+      }
+    } catch (err) {
+      telegramErrorMsg = err instanceof Error ? err.message : "Telegram network error";
     }
-  );
+  }
 
-  if (!telegramRes.ok) {
+  // 2. Send via Email (Nodemailer)
+  if (hasEmailConfig) {
+    const emailPort = emailPortStr ? parseInt(emailPortStr, 10) : 587;
+
+    try {
+      const transporter = nodemailer.createTransport({
+        host: emailHost,
+        port: emailPort,
+        secure: emailPort === 465,
+        auth: {
+          user: emailUser,
+          pass: emailPass,
+        },
+      });
+
+      const currentYear = new Date().getFullYear();
+
+      // Visitor HTML Confirmation Template
+      const visitorHtmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You for Contacting Vanhong Horn</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #030712;
+      color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrapper {
+      width: 100%;
+      background-color: #030712;
+      padding: 2rem 0;
+    }
+    .container {
+      max-width: 580px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #0d1527 0%, #050914 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .header {
+      padding: 2.5rem 2rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #00f2fe;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .content {
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-top: 0;
+      color: #ffffff;
+    }
+    p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+    }
+    .message-box {
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 3px solid #00f2fe;
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .message-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #00f2fe;
+      margin-bottom: 0.5rem;
+    }
+    .message-content {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      white-space: pre-line;
+      margin: 0;
+    }
+    .btn-cta {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #00f2fe 0%, #4f46e5 100%);
+      color: #030712 !important;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25);
+    }
+    .footer {
+      padding: 1.5rem 2rem 2.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .social-links {
+      margin-bottom: 1rem;
+    }
+    .social-link {
+      display: inline-block;
+      margin: 0 0.5rem;
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .social-link:hover {
+      color: #00f2fe;
+    }
+    .footer-text {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="header">
+        <a href="https://vanhonghorn-portfolio.vercel.app" class="logo">VANHONG HORN</a>
+      </div>
+      <div class="content">
+        <h1>Hello ${trimmedName},</h1>
+        <p>Thank you for reaching out! I have received your message from my portfolio website's contact form. I appreciate you taking the time to contact me.</p>
+        <p>Here is a copy of the message you submitted:</p>
+        <div class="message-box">
+          <div class="message-title">Your Message</div>
+          <p class="message-content">${trimmedMessage}</p>
+        </div>
+        <p>I will review your message and get back to you within 24 hours. In the meantime, feel free to check out my latest updates on LinkedIn or message me on Telegram.</p>
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <a href="https://t.me/vanhongVH" class="btn-cta">Message on Telegram</a>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/horn-vanhong-45366324a/" class="social-link">LinkedIn</a>
+          <a href="https://t.me/vanhongVH" class="social-link">Telegram</a>
+          <a href="https://github.com/HornVanhong" class="social-link">GitHub</a>
+        </div>
+        <p class="footer-text">&copy; ${currentYear} Vanhong Horn. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+      `;
+
+      // Admin HTML Notification Template
+      const adminHtmlContent = `
+<div style="font-family: sans-serif; padding: 20px; background: #030712; color: #f3f4f6; border-radius: 10px; max-width: 580px; margin: 0 auto; border: 1px solid rgba(255, 255, 255, 0.08);">
+  <h2 style="color: #00f2fe; margin-top: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 10px;">New Contact Form Submission</h2>
+  <p style="margin-bottom: 8px;"><strong>Name:</strong> ${trimmedName}</p>
+  <p style="margin-bottom: 20px;"><strong>Email:</strong> <a href="mailto:${trimmedEmail}" style="color: #00f2fe; text-decoration: none;">${trimmedEmail}</a></p>
+  <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border-left: 3px solid #00f2fe; color: #e5e7eb;">
+    <p style="margin: 0; white-space: pre-wrap; line-height: 1.5; font-size: 0.95rem;">${trimmedMessage}</p>
+  </div>
+</div>
+      `;
+
+      // Send to visitor
+      await transporter.sendMail({
+        from: `"Vanhong Horn" <${emailUser}>`,
+        to: trimmedEmail,
+        subject: "Thank you for contacting me - Vanhong Horn",
+        html: visitorHtmlContent,
+      });
+
+      // Send to admin
+      await transporter.sendMail({
+        from: `"Portfolio Contact Form" <${emailUser}>`,
+        to: emailTo,
+        subject: `New Portfolio Message from ${trimmedName}`,
+        html: adminHtmlContent,
+        text: `New portfolio contact message from ${trimmedName} (${trimmedEmail}):\n\n${trimmedMessage}`,
+      });
+
+      emailSuccess = true;
+    } catch (err) {
+      emailErrorMsg = err instanceof Error ? err.message : "Email SMTP delivery error";
+    }
+  }
+
+  // Final check: if both services were active but failed, return an error
+  const telegramFailed = hasTelegramConfig && !telegramSuccess;
+  const emailFailed = hasEmailConfig && !emailSuccess;
+
+  if (telegramFailed && emailFailed) {
     return NextResponse.json(
-      { error: "Failed to send message." },
+      { error: `Both services failed. Telegram Error: ${telegramErrorMsg}. Email Error: ${emailErrorMsg}.` },
       { status: 502 }
     );
   }
 
+  if (hasEmailConfig && emailFailed) {
+    console.error(`Email delivery failed but Telegram succeeded. Email Error: ${emailErrorMsg}`);
+  }
+
+  if (hasTelegramConfig && telegramFailed) {
+    console.error(`Telegram delivery failed but Email succeeded. Telegram Error: ${telegramErrorMsg}`);
+  }
+
   return NextResponse.json({ ok: true });
 }
+
