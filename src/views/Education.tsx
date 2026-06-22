@@ -1,7 +1,13 @@
+import Image from "next/image";
 import { FaBookOpen, FaCertificate, FaGraduationCap } from "react-icons/fa";
+
+import RuppLogo from "../assets/logo/Rupp_logo.png";
+import AntLogo from "../assets/logo/ANT.png";
+import KshrdLogo from "../assets/logo/KSHRD.png";
 
 const educationItems = [
   {
+    logo: RuppLogo,
     icon: <FaGraduationCap aria-hidden="true" />,
     label: "University",
     title: "Royal University of Phnom Penh",
@@ -14,6 +20,7 @@ const educationItems = [
     ],
   },
   {
+    logo: AntLogo,
     icon: <FaCertificate aria-hidden="true" />,
     label: "Professional Training",
     title: "Cyber Security Program",
@@ -26,6 +33,20 @@ const educationItems = [
     ],
   },
   {
+    logo: KshrdLogo,
+    icon: <FaCertificate aria-hidden="true" />,
+    label: "IT Specialization",
+    title: "Korea Software HRD Center (KSHRD)",
+    meta: "14th Generation IT Training Program",
+    period: "2024",
+    status: "Completed",
+    details: [
+      "Intensive training in Java, Spring Boot web development, and React Native mobile frameworks",
+      "Engaged in group project design, automated testing, and agile workflows",
+    ],
+  },
+  {
+    logo: null,
     icon: <FaBookOpen aria-hidden="true" />,
     label: "Foundation",
     title: "High School",
@@ -35,6 +56,7 @@ const educationItems = [
     details: ["Completed high school with general science major before beginning university study."],
   },
   {
+    logo: null,
     icon: <FaCertificate aria-hidden="true" />,
     label: "Additional Courses",
     title: "Technical Training",
@@ -86,12 +108,29 @@ export default function Education() {
           >
             <div className="roadmap-dot education-icon">{item.icon}</div>
             <div className="roadmap-content education-card-content">
-              <div className="education-card-top">
-                <span className="education-label">{item.label}</span>
-                <span className="education-period">{item.period}</span>
+              <div className="education-card-header">
+                <div className="education-logo-wrapper">
+                  {item.logo ? (
+                    <Image
+                      src={item.logo}
+                      alt={`${item.title} logo`}
+                      className="education-logo-img"
+                      width={48}
+                      height={48}
+                    />
+                  ) : (
+                    <span className="education-logo-icon">{item.icon}</span>
+                  )}
+                </div>
+                <div className="education-card-title-group">
+                  <div className="education-card-top">
+                    <span className="education-label">{item.label}</span>
+                    <span className="education-period">{item.period}</span>
+                  </div>
+                  <h2 className="roadmap-heading">{item.title}</h2>
+                  <p className="education-meta">{item.meta}</p>
+                </div>
               </div>
-              <h2 className="roadmap-heading">{item.title}</h2>
-              <p className="education-meta">{item.meta}</p>
               <span className="education-status">{item.status}</span>
               <ul className="education-list">
                 {item.details.map((detail) => (
@@ -105,3 +144,4 @@ export default function Education() {
     </section>
   );
 }
+

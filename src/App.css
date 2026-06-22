@@ -1788,6 +1788,22 @@
   box-shadow: none;
 }
 
+.certificate-preview.image-preview-mode {
+  padding: 0;
+  overflow: hidden;
+}
+
+.certificate-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.certificate-preview.image-preview-mode:hover .certificate-card-img {
+  transform: scale(1.06);
+}
+
 .certificate-preview-topline {
   position: absolute;
   top: 10px;
@@ -2030,6 +2046,86 @@
   background: rgba(0, 242, 254, 0.05);
 }
 
+.cert-modal-image-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  overflow: auto;
+  padding: 1.5rem;
+}
+
+.cert-modal-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.cert-modal-mobile-pdf-fallback {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  background: #090e1a;
+  color: var(--text);
+}
+
+.cert-modal-mobile-pdf-fallback .fallback-icon-wrap {
+  font-size: 3.5rem;
+  color: #ef4444;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.2));
+  animation: pulseIcon 2s infinite ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.cert-modal-mobile-pdf-fallback h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.cert-modal-mobile-pdf-fallback p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 320px;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+}
+
+.cert-fallback-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: #030712;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+}
+
+.cert-fallback-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+  background: #00d2de;
+}
+
 /* ==========================================================================
    EDUCATION & EXPERIENCE TIMELINES
    ========================================================================== */
@@ -2179,6 +2275,54 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0.75rem;
+}
+
+.education-card-header {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.education-logo-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.education-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.education-logo-icon {
+  font-size: 1.5rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.education-card-title-group {
+  flex-grow: 1;
+}
+
+.roadmap-content:hover .education-logo-wrapper {
+  border-color: var(--accent);
+  background: rgba(0, 242, 254, 0.08);
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+  transform: scale(1.05);
 }
 
 .education-label,
@@ -2507,6 +2651,11 @@
 }
 
 @media (max-width: 600px) {
+  .education-card-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
   .blog-featured-body {
     grid-template-columns: 1fr;
     gap: 1rem;

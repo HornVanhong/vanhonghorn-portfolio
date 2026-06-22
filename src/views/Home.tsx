@@ -26,6 +26,7 @@ export default function Home() {
     "Cyber Security Student",
     "Front-End Developer",
     "MPTC Scholarship Student",
+    "KSHRD 14th Generation Student",
   ];
 
   const [roleIndex, setRoleIndex] = useState(0);
@@ -81,7 +82,8 @@ export default function Home() {
           </h2>
           <p className="hero-desc">
             I study Cyber Security and build practical web and mobile interfaces.
-            Equipped with hands-on experience in networking, Linux configuration,
+            As a 14th Generation student at Korea Software HRD Center (KSHRD) and MPTC Scholarship student,
+            I am equipped with hands-on experience in networking, Linux configuration,
             React Native development, and secure application workflows.
           </p>
 

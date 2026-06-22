@@ -1,9 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { FaAward, FaDownload, FaEye, FaFilePdf, FaTimes } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaAward, FaDownload, FaEye, FaFilePdf, FaFileImage, FaTimes, FaExternalLinkAlt } from "react-icons/fa";
 
 const certificateFiles = [
+  {
+    name: "cyber.pdf",
+    title: "Cyber Security Specialist Certificate",
+    issuer: "ANT Technology Training Center",
+    category: "Certificate",
+    type: "PDF",
+  },
+  {
+    name: "HRD/Coding1.jpeg",
+    title: "HRD Coding Challenge Certificate (Phase 1)",
+    issuer: "Korea Software HRD Center",
+    category: "Certificate",
+    type: "JPEG",
+  },
+  {
+    name: "HRD/Coding2.jpg",
+    title: "HRD Coding Challenge Certificate (Phase 2)",
+    issuer: "Korea Software HRD Center",
+    category: "Certificate",
+    type: "JPG",
+  },
   {
     name: "FullCertificate.pdf",
     title: "Cyber Security Training Certificate",
@@ -18,8 +39,23 @@ export default function Certificates() {
   const [modalPdf, setModalPdf] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [pdfError, setPdfError] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleView = (fileUrl: string, title: string) => {
+    const isPdf = !fileUrl.toLowerCase().match(/\.(jpeg|jpg|png|webp)$/);
+    if (isPdf && isMobile) {
+      window.open(fileUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
     setModalPdf(fileUrl);
     setModalTitle(title);
     setPdfError(false);
@@ -47,25 +83,43 @@ export default function Certificates() {
 
           return (
             <div className="certificate-card" key={fileUrl}>
-              <button
-                className="certificate-preview"
-                onClick={() => handleView(fileUrl, cert.title)}
-                type="button"
-              >
-                <span className="certificate-preview-topline" />
-                <span className="certificate-preview-seal">
-                  <FaAward aria-hidden="true" />
-                </span>
-                <span className="certificate-preview-label">
-                  {cert.category}
-                </span>
-                <span className="certificate-preview-title">{cert.title}</span>
-                <span className="certificate-preview-lines" />
-                <span className="certificate-preview-file">
-                  <FaFilePdf aria-hidden="true" />
-                  {cert.type}
-                </span>
-              </button>
+              {cert.type !== "PDF" ? (
+                <button
+                  className="certificate-preview image-preview-mode"
+                  onClick={() => handleView(fileUrl, cert.title)}
+                  type="button"
+                >
+                  <img
+                    src={fileUrl}
+                    alt={cert.title}
+                    className="certificate-card-img"
+                  />
+                  <span className="certificate-preview-file">
+                    <FaFileImage aria-hidden="true" />
+                    {cert.type}
+                  </span>
+                </button>
+              ) : (
+                <button
+                  className="certificate-preview"
+                  onClick={() => handleView(fileUrl, cert.title)}
+                  type="button"
+                >
+                  <span className="certificate-preview-topline" />
+                  <span className="certificate-preview-seal">
+                    <FaAward aria-hidden="true" />
+                  </span>
+                  <span className="certificate-preview-label">
+                    {cert.category}
+                  </span>
+                  <span className="certificate-preview-title">{cert.title}</span>
+                  <span className="certificate-preview-lines" />
+                  <span className="certificate-preview-file">
+                    <FaFilePdf aria-hidden="true" />
+                    {cert.type}
+                  </span>
+                </button>
+              )}
 
               <div className="certificate-info">
                 <div className="certificate-meta-row">
@@ -85,7 +139,7 @@ export default function Certificates() {
                   </button>
                   <a
                     href={fileUrl}
-                    download="certificate.pdf"
+                    download={cert.name.split("/").pop()}
                     className="cert-view-btn cert-download-btn"
                   >
                     <FaDownload aria-hidden="true" />
@@ -116,7 +170,34 @@ export default function Certificates() {
               </button>
             </div>
 
-            {!pdfError ? (
+            {modalPdf.toLowerCase().match(/\.(jpeg|jpg|png|webp)$/) ? (
+              <div className="cert-modal-image-container">
+                <img
+                  src={modalPdf}
+                  alt={modalTitle}
+                  className="cert-modal-image"
+                />
+              </div>
+            ) : isMobile ? (
+              <div className="cert-modal-mobile-pdf-fallback">
+                <div className="fallback-icon-wrap">
+                  <FaFilePdf aria-hidden="true" />
+                </div>
+                <h3>Mobile PDF Preview Not Supported</h3>
+                <p>
+                  Most mobile browsers do not support inline PDF previews. Please open the file in a new tab to view it.
+                </p>
+                <a
+                  href={modalPdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cert-fallback-btn"
+                >
+                  <FaExternalLinkAlt aria-hidden="true" />
+                  Open PDF in New Tab
+                </a>
+              </div>
+            ) : !pdfError ? (
               <iframe
                 src={modalPdf}
                 title={modalTitle}
@@ -126,17 +207,16 @@ export default function Certificates() {
               />
             ) : (
               <div className="cert-modal-error">
-                PDF could not be loaded.
+                Document could not be loaded.
                 <br />
-                Please make sure <b>certificate.pdf</b> exists in{" "}
-                <b>public/certificate/</b> and your browser supports PDF
-                viewing.
+                Please make sure the file exists in{" "}
+                <b>public/certificate/</b>.
               </div>
             )}
 
-            <a href={modalPdf} download className="cert-modal-download">
+            <a href={modalPdf} download={modalPdf.split("/").pop()} className="cert-modal-download">
               <FaDownload aria-hidden="true" />
-              Download PDF
+              Download {modalPdf.toLowerCase().match(/\.(jpeg|jpg|png|webp)$/) ? "Image" : "PDF"}
             </a>
           </div>
         </div>
