@@ -4394,23 +4394,73 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .chatbot-widget {
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 0;
+    right: 0;
   }
+
+  /* Hide launcher button on mobile when chat is open */
+  .chatbot-widget.is-open .chatbot-toggle-btn {
+    display: none;
+  }
+
   .chatbot-window {
     position: fixed;
-    bottom: 80px;
-    left: 1rem;
-    right: 1rem;
-    width: auto;
-    height: calc(100% - 100px);
-    max-height: 520px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+    border: none;
+    z-index: 10000; /* overlay everything on mobile */
   }
+
+  .chatbot-header {
+    padding: 0.85rem 1rem;
+    border-radius: 0;
+  }
+
+  .chatbot-body {
+    padding: 1rem;
+  }
+
   .message-bubble {
-    max-width: 90%;
+    max-width: 88%;
+    font-size: 0.84rem;
+  }
+
+  .chatbot-footer {
+    padding: 0.85rem 1rem;
+    padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 12px));
+    border-radius: 0;
+  }
+
+  /* Horizontal swiping suggestion chips on mobile */
+  .suggestions-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 0.5rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .suggestion-chip {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    padding: 0.35rem 0.65rem;
+  }
+
+  .input-group input {
+    font-size: 16px; /* Critical: prevents iOS auto-zoom on input focus */
+    padding: 0.4rem 0.6rem;
   }
 }
+
 
 

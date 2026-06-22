@@ -220,7 +220,7 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="chatbot-widget" aria-label="AI Portfolio Assistant">
+    <div className={`chatbot-widget ${isOpen ? "is-open" : ""}`} aria-label="AI Portfolio Assistant">
       {/* Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
