@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FaSun, FaMoon, FaMusic, FaPause } from "react-icons/fa";
+import ChatBot from "./ChatBot";
 
 const navItems = [
   { href: "#home", label: "Home" },
@@ -265,6 +266,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             </div>
           </div>
         </footer>
+
+        <ChatBot />
       </div>
     </div>
   );
