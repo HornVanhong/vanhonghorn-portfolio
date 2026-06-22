@@ -33,20 +33,22 @@ export default function Experience() {
 
       <div className="experience-timeline anim-slide" style={{ animationDelay: "0.2s" }}>
         <article className="exp-card">
-          <span className="exp-date-badge">2022 – 2023</span>
           <div className="exp-dot" aria-hidden="true" />
           <div className="job-card glass">
             <div className="exp-header">
               <span className="exp-icon-wrap">
                 <FaUniversity className="exp-icon" aria-hidden="true" />
               </span>
-              <div>
-                <span className="exp-type">Data Operations</span>
+              <div className="exp-header-text">
+                <div className="exp-header-top">
+                  <span className="exp-type">Data Operations</span>
+                  <span className="exp-period">2022 – 2023</span>
+                </div>
                 <h2>Data Labeler</h2>
               </div>
             </div>
             <p className="job-meta">Phnom Penh, DDD (Digital Data Divide)</p>
-            <p>Performed key tagging, classification, and data annotation for machine learning pipelines.</p>
+            <p className="job-desc">Performed key tagging, classification, and data annotation for machine learning pipelines.</p>
             <div className="experience-tags">
               <span>Data Prep</span>
               <span>Quality Assurance</span>
@@ -56,15 +58,17 @@ export default function Experience() {
         </article>
 
         <article className="exp-card">
-          <span className="exp-date-badge">2023 – 2024</span>
           <div className="exp-dot" aria-hidden="true" />
           <div className="job-card glass">
             <div className="exp-header">
               <span className="exp-icon-wrap">
                 <FaLaptopCode className="exp-icon" aria-hidden="true" />
               </span>
-              <div>
-                <span className="exp-type">Front-end Development</span>
+              <div className="exp-header-text">
+                <div className="exp-header-top">
+                  <span className="exp-type">Front-end Development</span>
+                  <span className="exp-period">2023 – 2024</span>
+                </div>
                 <h2>Intern - Digital Banking</h2>
               </div>
             </div>

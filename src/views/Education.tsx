@@ -38,7 +38,7 @@ const educationItems = [
     label: "IT Specialization",
     title: "Korea Software HRD Center (KSHRD)",
     meta: "14th Generation IT Training Program",
-    period: "2024",
+    period: "2026",
     status: "Completed",
     details: [
       "Intensive training in Java, Spring Boot web development, and React Native mobile frameworks",
