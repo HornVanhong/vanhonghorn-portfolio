@@ -17,8 +17,31 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VanhongHorn Portfolio",
-  description: "Cyber Security student portfolio",
+  metadataBase: new URL("https://vanhonghorn-portfolio.vercel.app"),
+  title: "Vanhong Horn | Cybersecurity & Web Developer Portfolio",
+  description: "Specializing in Cyber Security, Network Configurations, and modern Front-End Web/Mobile engineering. Korea Software HRD Center 14th Gen student & MPTC Scholar.",
+  openGraph: {
+    title: "Vanhong Horn | Cybersecurity & Web Developer Portfolio",
+    description: "Specializing in Cyber Security, Network Configurations, and modern Front-End Web/Mobile engineering. Korea Software HRD Center 14th Gen student & MPTC Scholar.",
+    url: "https://vanhonghorn-portfolio.vercel.app", // standard placeholder domain that can resolve relative metadata
+    siteName: "Vanhong Horn Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 1200,
+        alt: "Vanhong Horn Portfolio Cover Shield",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vanhong Horn | Cybersecurity & Web Developer Portfolio",
+    description: "Specializing in Cyber Security, Network Configurations, and modern Front-End Web/Mobile engineering. Korea Software HRD Center 14th Gen student & MPTC Scholar.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
