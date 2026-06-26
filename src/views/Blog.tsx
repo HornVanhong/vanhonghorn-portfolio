@@ -1,4 +1,5 @@
 import { FaClock, FaBookOpen, FaNetworkWired, FaLinux, FaMobileAlt } from "react-icons/fa";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const posts = [
   {
@@ -42,9 +43,10 @@ const posts = [
 export default function Blog() {
   const featured = posts[0];
   const secondary = posts.slice(1);
+  const [revealRef, revealClass] = useScrollReveal();
 
   return (
-    <section id="blog" className="blog-page anim-fade">
+    <section id="blog" ref={revealRef} className={`blog-page anim-fade ${revealClass}`}>
       <div className="blog-header anim-slide">
         <span className="blog-kicker">
           <FaBookOpen aria-hidden="true" />

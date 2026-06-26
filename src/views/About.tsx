@@ -4,6 +4,7 @@ import {
   FaMapMarkerAlt,
   FaShieldAlt,
 } from "react-icons/fa";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const profileStats = [
   { value: "2022", label: "Started IT at RUPP" },
@@ -41,8 +42,10 @@ const interests = [
 ];
 
 export default function About() {
+  const [revealRef, revealClass] = useScrollReveal();
+
   return (
-    <section id="about" className="about-page anim-fade">
+    <section id="about" ref={revealRef} className={`about-page anim-fade ${revealClass}`}>
       <div className="about-hero anim-slide">
         <div className="about-copy">
           <span className="about-kicker">About me</span>

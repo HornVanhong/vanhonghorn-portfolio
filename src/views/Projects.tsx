@@ -9,6 +9,7 @@ import {
   FaPython,
   FaReact,
 } from "react-icons/fa";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const pdf1 = "/Project/TCI-2510-CAMBODIA-II.s6.xe101.pdf";
 const pdf2 = "/Project/TCI-2510-CAMBODIA-II.s6.xe103.pdf";
@@ -112,8 +113,10 @@ const pdfFiles = [
 ];
 
 export default function Projects() {
+  const [revealRef, revealClass] = useScrollReveal();
+
   return (
-    <section id="projects" className="projects-page anim-fade">
+    <section id="projects" ref={revealRef} className={`projects-page anim-fade ${revealClass}`}>
       <div className="projects-header anim-slide">
         <span className="projects-kicker">
           <FaLaptopCode aria-hidden="true" />

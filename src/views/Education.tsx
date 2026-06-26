@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FaBookOpen, FaCertificate, FaGraduationCap } from "react-icons/fa";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 import RuppLogo from "../assets/logo/Rupp_logo.png";
 import AntLogo from "../assets/logo/ANT.png";
@@ -71,8 +72,10 @@ const educationItems = [
 ];
 
 export default function Education() {
+  const [revealRef, revealClass] = useScrollReveal();
+
   return (
-    <section className="education-page anim-fade" aria-labelledby="education-heading">
+    <section ref={revealRef} className={`education-page anim-fade ${revealClass}`} aria-labelledby="education-heading">
       <div className="education-header anim-slide">
         <span className="education-kicker">Academic Background</span>
         <h1 id="education-heading" className="education-title">

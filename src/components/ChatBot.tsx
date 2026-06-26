@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { FaRobot, FaPaperPlane, FaTrash, FaTimes, FaCommentDots } from "react-icons/fa";
+import { ScrollShadow } from "@heroui/react";
 
 interface Message {
   role: "user" | "assistant";
@@ -113,10 +114,8 @@ export default function ChatBot() {
   };
 
   const handleClearChat = () => {
-    if (confirm("Are you sure you want to clear the conversation?")) {
-      initializeDefaultMessage();
-      setHasAlertedKeyMissing(false);
-    }
+    initializeDefaultMessage();
+    setHasAlertedKeyMissing(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -277,7 +276,7 @@ export default function ChatBot() {
         )}
 
         {/* Message History */}
-        <div className="chatbot-body">
+        <ScrollShadow className="chatbot-body">
           <div className="messages-container">
             {messages.map((msg, index) => (
               <div key={index} className={`message-bubble-wrapper ${msg.role}`}>
@@ -300,7 +299,7 @@ export default function ChatBot() {
             )}
             <div ref={messagesEndRef} />
           </div>
-        </div>
+        </ScrollShadow>
 
         {/* Footer Area: Suggestion Chips and Text Input */}
         <div className="chatbot-footer">

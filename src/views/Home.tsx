@@ -20,6 +20,7 @@ import Skills from "./Skills";
 import Projects from "./Projects";
 import Blog from "./Blog";
 import Contact from "./Contact";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function Home() {
   const roles = [
@@ -64,14 +65,14 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [roleText, isDeleting, roleIndex, typingSpeed]);
 
+  const [revealRef, revealClass] = useScrollReveal();
+
   return (
     <>
-      <section id="home" className="hero anim-fade">
+      <section id="home" ref={revealRef} className={`hero anim-fade ${revealClass}`}>
         <div className="hero-left anim-slide">
           <p className="hero-intro">
-            <span className="hero-availability">
-              <span aria-hidden="true" />
-            </span>
+            <span className="hero-dot" aria-hidden="true" />
             Open to Internships
           </p>
           <h1 className="hero-title">
@@ -159,7 +160,8 @@ export default function Home() {
 
         <div className="hero-right anim-slide" style={{ animationDelay: "0.2s" }}>
           <div className="hero-portrait-card">
-            <div className="profile-ring">
+            {/* The main background photo */}
+            <div className="profile-photo-wrapper">
               <Image
                 src={profileImg}
                 alt="Vanhong Horn"
@@ -167,11 +169,32 @@ export default function Home() {
                 sizes="(max-width: 700px) 100vw, 320px"
                 priority
               />
-              <div className="ring-gradient" aria-hidden="true" />
+              <div className="profile-photo-gradient-top" />
+              <div className="profile-photo-gradient-bottom" />
             </div>
-            <div className="hero-availability">
-              <span aria-hidden="true" />
-              Ready for Collaboration
+
+            {/* Bottom Action Bar */}
+            <div className="profile-card-bottom">
+              <div className="profile-card-user">
+                <div className="profile-card-avatar-wrap">
+                  <Image
+                    src={profileImg}
+                    alt="Vanhong Horn Avatar"
+                    className="profile-card-avatar"
+                    width={36}
+                    height={36}
+                  />
+                  <span className="avatar-status-dot" />
+                </div>
+                <div className="profile-card-user-info">
+                  <span className="profile-card-username">@hornvanhong</span>
+                  <span className="profile-card-time">Active now</span>
+                </div>
+              </div>
+
+              <a href="#contact" className="profile-card-btn">
+                <span className="plus-icon">+</span> Let's Chat
+              </a>
             </div>
           </div>
           <div className="hero-panel">

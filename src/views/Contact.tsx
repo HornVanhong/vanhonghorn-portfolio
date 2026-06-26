@@ -7,6 +7,7 @@ import {
   FaPaperPlane,
   FaPhoneAlt,
 } from "react-icons/fa";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const contactLinks = [
   {
@@ -85,8 +86,10 @@ export default function Contact() {
     }
   };
 
+  const [revealRef, revealClass] = useScrollReveal();
+
   return (
-    <section id="contact" className="contact-page anim-fade">
+    <section id="contact" ref={revealRef} className={`contact-page anim-fade ${revealClass}`}>
       <div className="contact-header anim-slide">
         <span className="contact-kicker">Available for opportunities</span>
         <h1 className="contact-title">Contact</h1>

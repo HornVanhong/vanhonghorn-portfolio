@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import {
   FaCode,
   FaGlobe,
@@ -99,8 +100,10 @@ const SkillBar: React.FC<SkillBarProps> = ({ name, level }) => {
 };
 
 export default function Skills() {
+  const [revealRef, revealClass] = useScrollReveal();
+
   return (
-    <section id="skills" className="skills-page anim-fade">
+    <section id="skills" ref={revealRef} className={`skills-page anim-fade ${revealClass}`}>
       <div className="skills-header anim-slide">
         <span className="skills-kicker">
           <FaCode aria-hidden="true" />

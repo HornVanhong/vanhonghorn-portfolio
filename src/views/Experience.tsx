@@ -4,6 +4,7 @@ import {
   FaLayerGroup,
   FaUniversity,
 } from "react-icons/fa";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const highlights = [
   { value: "2+", label: "Professional Roles" },
@@ -12,8 +13,10 @@ const highlights = [
 ];
 
 export default function Experience() {
+  const [revealRef, revealClass] = useScrollReveal();
+
   return (
-    <section className="experience-page anim-fade">
+    <section ref={revealRef} className={`experience-page anim-fade ${revealClass}`}>
       <div className="experience-header anim-slide">
         <span className="experience-kicker">Work history</span>
         <h1 className="exp-title">Experience</h1>
