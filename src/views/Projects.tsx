@@ -128,6 +128,18 @@ export default function Projects() {
 
   useGSAP(() => {
     if (typeof window === "undefined" || !containerRef.current) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      gsap.set([
+        ".projects-header > *",
+        ".projects-overview > div",
+        ".projects-carousel",
+        ".projects-footer-copy > *",
+        ".pdf-carousel"
+      ], { opacity: 1, y: 0, clearProps: "transform" });
+      return;
+    }
 
     // Reveal animations
     gsap.set([
@@ -201,6 +213,7 @@ export default function Projects() {
 
     // 3D Hover Tilt for Project & PDF cards
     const projectCardsList = containerRef.current.querySelectorAll(".project-card, .modern-pdf-card");
+    const cleanupTiltListeners: Array<() => void> = [];
     projectCardsList.forEach((card) => {
       const onMouseMove = (e: MouseEvent) => {
         const rect = card.getBoundingClientRect();
@@ -239,8 +252,15 @@ export default function Projects() {
 
       card.addEventListener("mousemove", onMouseMove as EventListener);
       card.addEventListener("mouseleave", onMouseLeave as EventListener);
+      cleanupTiltListeners.push(() => {
+        card.removeEventListener("mousemove", onMouseMove as EventListener);
+        card.removeEventListener("mouseleave", onMouseLeave as EventListener);
+      });
     });
 
+    return () => {
+      cleanupTiltListeners.forEach((cleanup) => cleanup());
+    };
   }, { scope: containerRef });
 
   const handleScroll = (track: HTMLDivElement | null, direction: "prev" | "next", itemSelector: string) => {

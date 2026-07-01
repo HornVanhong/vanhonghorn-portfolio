@@ -23,11 +23,18 @@ const navItems = [
   { href: "#contact", label: "Contact" },
 ];
 
+const getInitialTheme = (): "dark" | "light" => {
+  if (typeof window === "undefined") return "dark";
+  const savedTheme = window.localStorage.getItem("portfolio-theme");
+  if (savedTheme === "light" || savedTheme === "dark") return savedTheme;
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+};
+
 export default function SiteShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">(getInitialTheme);
   const [time, setTime] = useState("");
   const [mounted, setMounted] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
@@ -75,21 +82,11 @@ export default function SiteShell({ children }: { children: ReactNode }) {
 
   // Load and apply theme from storage or system preference
   useEffect(() => {
-    const savedTheme = localStorage.getItem("portfolio-theme");
-    if (savedTheme === "light" || savedTheme === "dark") {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    } else {
-      const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-      const initialTheme = prefersLight ? "light" : "dark";
-      setTheme(initialTheme);
-      document.documentElement.setAttribute("data-theme", initialTheme);
-    }
-  }, []);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   // System time ticker client-side mount
   useEffect(() => {
-    setMounted(true);
     const updateClock = () => {
       const now = new Date();
       const options: Intl.DateTimeFormatOptions = {
@@ -102,13 +99,20 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       setTime(now.toLocaleTimeString("en-US", options));
     };
 
-    updateClock();
+    const frame = window.requestAnimationFrame(() => {
+      setMounted(true);
+      updateClock();
+    });
     const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      clearInterval(interval);
+    };
   }, []);
 
   useGSAP(() => {
     if (typeof window === "undefined") return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     gsap.to(".site-header", {
       top: "0.75rem",
@@ -124,6 +128,29 @@ export default function SiteShell({ children }: { children: ReactNode }) {
         end: "top -80px",
         scrub: 0.5,
       }
+    });
+
+    if (prefersReducedMotion) {
+      gsap.set(".site-main > section", { opacity: 1, clearProps: "transform" });
+      return;
+    }
+
+    gsap.utils.toArray<HTMLElement>(".site-main > section").forEach((section) => {
+      gsap.fromTo(
+        section,
+        { opacity: 0, y: 48 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 82%",
+            once: true,
+          },
+        }
+      );
     });
 
     // Slow ambient background drift for glowing orbs

@@ -25,6 +25,7 @@ interface SkillGroup {
   summary: string;
   icon: ReactNode;
   level: string;
+  focus: string;
   skills: SkillBarProps[];
   tools: string[];
   image: string;
@@ -36,6 +37,7 @@ const skillGroups: SkillGroup[] = [
     summary: "Security fundamentals, Linux administration, and secure system auditing.",
     icon: <FaShieldAlt aria-hidden="true" />,
     level: "Core focus",
+    focus: "Defensive systems",
     skills: [
       { name: "Linux (Kali, CentOS, Debian)", level: 80 },
       { name: "Cybersecurity Principles", level: 75 },
@@ -50,6 +52,7 @@ const skillGroups: SkillGroup[] = [
     summary: "Mobile UI creation, cross-platform apps, and database integration.",
     icon: <FaMobileAlt aria-hidden="true" />,
     level: "Applied",
+    focus: "Mobile delivery",
     skills: [
       { name: "Flutter & Dart", level: 85 },
       { name: "React Native", level: 75 },
@@ -64,6 +67,7 @@ const skillGroups: SkillGroup[] = [
     summary: "Responsive front-end development with standard and modern toolsets.",
     icon: <FaGlobe aria-hidden="true" />,
     level: "Strong",
+    focus: "Modern interfaces",
     skills: [
       { name: "HTML / CSS / JavaScript", level: 85 },
       { name: "React.js / Next.js", level: 80 },
@@ -78,6 +82,7 @@ const skillGroups: SkillGroup[] = [
     summary: "LAN setup, Cisco NetAcad configurations, and packet capture analytics.",
     icon: <FaNetworkWired aria-hidden="true" />,
     level: "Practical",
+    focus: "Network operations",
     skills: [
       { name: "Cisco Routing & Switching", level: 75 },
       { name: "Network Configuration Labs", level: 70 },
@@ -107,6 +112,23 @@ export default function Skills() {
 
   useGSAP(() => {
     if (typeof window === "undefined" || !containerRef.current) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      gsap.set([
+        ".skills-header > *",
+        ".skills-overview > div",
+        ".skill-card",
+        ".skill-bar-fill"
+      ], { opacity: 1, y: 0, clearProps: "transform" });
+      containerRef.current.querySelectorAll<HTMLElement>(".skill-bar-fill").forEach((fill) => {
+        fill.style.width = `${fill.dataset.level ?? 0}%`;
+      });
+      containerRef.current.querySelectorAll<HTMLElement>(".skill-percent").forEach((percent) => {
+        percent.textContent = `${percent.dataset.level ?? 0}%`;
+      });
+      return;
+    }
 
     // Set initial states
     gsap.set([
@@ -202,6 +224,7 @@ export default function Skills() {
 
     // 3D Hover Tilt for Skill Cards
     const cards = containerRef.current.querySelectorAll(".skill-card");
+    const cleanupTiltListeners: Array<() => void> = [];
     cards.forEach((card) => {
       const onMouseMove = (e: MouseEvent) => {
         const rect = card.getBoundingClientRect();
@@ -244,8 +267,15 @@ export default function Skills() {
 
       card.addEventListener("mousemove", onMouseMove as EventListener);
       card.addEventListener("mouseleave", onMouseLeave as EventListener);
+      cleanupTiltListeners.push(() => {
+        card.removeEventListener("mousemove", onMouseMove as EventListener);
+        card.removeEventListener("mouseleave", onMouseLeave as EventListener);
+      });
     });
 
+    return () => {
+      cleanupTiltListeners.forEach((cleanup) => cleanup());
+    };
   }, { scope: containerRef });
 
   return (
@@ -281,7 +311,7 @@ export default function Skills() {
         {skillGroups.map((group) => (
           <article className="skill-card" key={group.title}>
             <div className="card-spotlight" />
-            <div className="skill-card-image-wrap">
+            <div className="skill-card-media">
               <img
                 src={group.image}
                 alt={group.title}
@@ -289,18 +319,24 @@ export default function Skills() {
                 loading="lazy"
               />
               <div className="skill-card-image-overlay" />
+              <div className="skill-card-media-content">
+                <span className="skill-icon">{group.icon}</span>
+                <span className="skill-level">{group.level}</span>
+              </div>
             </div>
-            <div className="skill-card-header">
-              <span className="skill-icon">{group.icon}</span>
-              <span className="skill-level">{group.level}</span>
-            </div>
-            <h2>{group.title}</h2>
-            <p className="skill-summary">{group.summary}</p>
 
-            <div className="skill-bars">
-              {group.skills.map((skill) => (
-                <SkillBar key={skill.name} {...skill} />
-              ))}
+            <div className="skill-card-body">
+              <div className="skill-card-heading">
+                <span className="skill-focus">{group.focus}</span>
+                <h2>{group.title}</h2>
+              </div>
+              <p className="skill-summary">{group.summary}</p>
+
+              <div className="skill-bars">
+                {group.skills.map((skill) => (
+                  <SkillBar key={skill.name} {...skill} />
+                ))}
+              </div>
             </div>
 
             <div className="skill-tags">

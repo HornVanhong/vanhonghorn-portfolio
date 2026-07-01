@@ -32,7 +32,7 @@ export default function ChatBot() {
     if (savedChat) {
       try {
         setMessages(JSON.parse(savedChat));
-      } catch (e) {
+      } catch {
         initializeDefaultMessage();
       }
     } else {

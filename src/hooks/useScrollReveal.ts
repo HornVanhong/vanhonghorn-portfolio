@@ -7,8 +7,8 @@ export function useScrollReveal() {
   useEffect(() => {
     // If the browser doesn't support IntersectionObserver, reveal immediately
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
-      setIsRevealed(true);
-      return;
+      const timer = setTimeout(() => setIsRevealed(true), 0);
+      return () => clearTimeout(timer);
     }
 
     const observer = new IntersectionObserver(

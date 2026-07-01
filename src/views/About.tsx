@@ -4,7 +4,6 @@ import { useRef } from "react";
 import {
   FaGraduationCap,
   FaLaptopCode,
-  FaMapMarkerAlt,
   FaShieldAlt,
 } from "react-icons/fa";
 import gsap from "gsap";

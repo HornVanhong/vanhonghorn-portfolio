@@ -2,7 +2,6 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -26,16 +25,15 @@ import Blog from "./Blog";
 import Contact from "./Contact";
 
 gsap.registerPlugin(ScrollTrigger);
-import { useScrollReveal } from "../hooks/useScrollReveal";
+
+const roles = [
+  "Cyber Security Student",
+  "Front-End Developer",
+  "MPTC Scholarship Student",
+  "KSHRD 14th Generation Student",
+];
 
 export default function Home() {
-  const roles = [
-    "Cyber Security Student",
-    "Front-End Developer",
-    "MPTC Scholarship Student",
-    "KSHRD 14th Generation Student",
-  ];
-
   const [roleIndex, setRoleIndex] = useState(0);
   const [roleText, setRoleText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -75,6 +73,26 @@ export default function Home() {
 
   useGSAP(() => {
     if (typeof window === "undefined" || !containerRef.current) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      gsap.set(
+        [
+          ".hero-intro",
+          ".hero-title",
+          ".hero-role",
+          ".hero-desc",
+          ".hero-meta span",
+          ".hero-ctas .btn",
+          ".hero-stats > div",
+          ".social-icons a",
+          ".hero-portrait-card",
+          ".hero-panel",
+        ],
+        { opacity: 1, clearProps: "transform" }
+      );
+      return;
+    }
 
     // Set initial states to prevent flash of content
     gsap.set(
@@ -109,6 +127,7 @@ export default function Home() {
 
     // 3D Tilt Card effect
     const card = containerRef.current.querySelector(".hero-portrait-card");
+    let cleanupCardTilt: (() => void) | undefined;
     if (card) {
       const onMouseMove = (e: MouseEvent) => {
         const rect = card.getBoundingClientRect();
@@ -166,6 +185,11 @@ export default function Home() {
 
       card.addEventListener("mousemove", onMouseMove as EventListener);
       card.addEventListener("mouseleave", onMouseLeave as EventListener);
+
+      cleanupCardTilt = () => {
+        card.removeEventListener("mousemove", onMouseMove as EventListener);
+        card.removeEventListener("mouseleave", onMouseLeave as EventListener);
+      };
     }
 
     // Loop floating/breathing animation for images
@@ -269,6 +293,10 @@ export default function Home() {
         }
       });
     }
+
+    return () => {
+      cleanupCardTilt?.();
+    };
   }, { scope: containerRef });
 
   return (

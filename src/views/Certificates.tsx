@@ -64,8 +64,6 @@ export default function Certificates() {
     setModalOpen(true);
   };
 
-  const handleClose = () => setModalOpen(false);
-
   const [revealRef, revealClass] = useScrollReveal();
 
   return (
