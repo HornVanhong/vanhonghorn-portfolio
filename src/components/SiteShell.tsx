@@ -5,6 +5,13 @@ import { useState, useEffect, useRef, type ReactNode } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FaSun, FaMoon, FaMusic, FaPause } from "react-icons/fa";
 import ChatBot from "./ChatBot";
+import CustomCursor from "./CustomCursor";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 const navItems = [
   { href: "#home", label: "Home" },
@@ -99,6 +106,64 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  useGSAP(() => {
+    if (typeof window === "undefined") return;
+
+    gsap.to(".site-header", {
+      top: "0.75rem",
+      height: "52px",
+      backgroundColor: theme === "dark" ? "rgba(8, 12, 24, 0.82)" : "rgba(255, 255, 255, 0.88)",
+      borderColor: theme === "dark" ? "rgba(0, 242, 254, 0.3)" : "rgba(14, 165, 233, 0.3)",
+      boxShadow: theme === "dark" 
+        ? "0 20px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 242, 254, 0.15)"
+        : "0 20px 40px rgba(15, 23, 42, 0.08), 0 0 15px rgba(14, 165, 233, 0.08)",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "top -80px",
+        scrub: 0.5,
+      }
+    });
+
+    // Slow ambient background drift for glowing orbs
+    gsap.to(".orb-1", {
+      x: "15vw",
+      y: "10vh",
+      scale: 1.1,
+      duration: 18,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".orb-2", {
+      x: "-10vw",
+      y: "15vh",
+      scale: 0.9,
+      duration: 22,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".orb-3", {
+      x: "8vw",
+      y: "-12vh",
+      scale: 1.15,
+      duration: 20,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".orb-4", {
+      x: "-12vw",
+      y: "-8vh",
+      scale: 0.85,
+      duration: 16,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }, { dependencies: [theme], revertOnUpdate: true });
 
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
@@ -268,6 +333,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
         </footer>
 
         <ChatBot />
+        <CustomCursor />
       </div>
     </div>
   );

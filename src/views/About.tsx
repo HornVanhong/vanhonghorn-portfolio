@@ -1,10 +1,18 @@
+"use client";
+
+import { useRef } from "react";
 import {
   FaGraduationCap,
   FaLaptopCode,
   FaMapMarkerAlt,
   FaShieldAlt,
 } from "react-icons/fa";
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 const profileStats = [
   { value: "2022", label: "Started IT at RUPP" },
@@ -42,11 +50,106 @@ const interests = [
 ];
 
 export default function About() {
-  const [revealRef, revealClass] = useScrollReveal();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (typeof window === "undefined" || !containerRef.current) return;
+
+    // Set initial states for elements we want to animate
+    gsap.set([
+      ".about-copy > *",
+      ".about-profile-card",
+      ".about-stats > div",
+      ".about-training-card",
+      ".about-focus-panel > *",
+      ".about-tags span"
+    ], {
+      opacity: 0,
+      y: 35
+    });
+
+    // 1. Animate Hero block (Copy + Terminal Card)
+    gsap.to([".about-copy > *", ".about-profile-card"], {
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".about-hero",
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // 2. Animate Stats blocks
+    gsap.to(".about-stats > div", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.15,
+      duration: 0.6,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".about-stats",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // 3. Animate Training Cards
+    gsap.to(".about-training-card", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.15,
+      duration: 0.6,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".about-training-list",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // 4. Animate Core Interests panel elements & tags
+    const tagsTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".about-focus-panel",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    tagsTl.to(".about-focus-panel > *:not(.about-tags)", {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power3.out"
+    })
+    .to(".about-tags span", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.04,
+      duration: 0.4,
+      ease: "power2.out"
+    }, "-=0.3");
+
+    // Looping scanner line animation inside terminal
+    gsap.fromTo(".terminal-scan-line", 
+      { top: "0%" },
+      { 
+        top: "100%", 
+        duration: 3, 
+        ease: "sine.inOut", 
+        repeat: -1, 
+        yoyo: true 
+      }
+    );
+
+  }, { scope: containerRef });
 
   return (
-    <section id="about" ref={revealRef} className={`about-page anim-fade ${revealClass}`}>
-      <div className="about-hero anim-slide">
+    <section id="about" ref={containerRef} className="about-page">
+      <div className="about-hero">
         <div className="about-copy">
           <span className="about-kicker">About me</span>
           <h1>IT Student Specializing in Secure Software & Networks</h1>
@@ -62,8 +165,9 @@ export default function About() {
           </p>
         </div>
 
-        <aside className="about-profile-card anim-scale" aria-label="Security credentials">
+        <aside className="about-profile-card" aria-label="Security credentials">
           <div className="security-terminal">
+            <div className="terminal-scan-line" />
             <div className="terminal-header">
               <div className="terminal-dots">
                 <span className="dot red" />
@@ -108,7 +212,7 @@ export default function About() {
         </aside>
       </div>
 
-      <div className="about-stats anim-slide" aria-label="Profile highlights" style={{ animationDelay: "0.1s" }}>
+      <div className="about-stats" aria-label="Profile highlights">
         {profileStats.map((item) => (
           <div key={item.label}>
             <strong>{item.value}</strong>
@@ -117,7 +221,7 @@ export default function About() {
         ))}
       </div>
 
-      <div className="about-grid anim-slide" style={{ animationDelay: "0.2s" }}>
+      <div className="about-grid">
         <div className="about-panel">
           <span className="about-panel-label">Education & training</span>
           <div className="about-training-list">

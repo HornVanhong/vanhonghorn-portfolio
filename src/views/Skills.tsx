@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useRef, type ReactNode } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import {
   FaCode,
   FaGlobe,
@@ -9,6 +11,9 @@ import {
   FaNetworkWired,
   FaShieldAlt,
 } from "react-icons/fa";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 interface SkillBarProps {
   name: string;
@@ -22,6 +27,7 @@ interface SkillGroup {
   level: string;
   skills: SkillBarProps[];
   tools: string[];
+  image: string;
 }
 
 const skillGroups: SkillGroup[] = [
@@ -37,6 +43,7 @@ const skillGroups: SkillGroup[] = [
       { name: "Defensive Coding Standards", level: 65 },
     ],
     tools: ["Kali Linux", "SQL", "Git", "Wireshark"],
+    image: "/cyber_security_banner.png",
   },
   {
     title: "App Development",
@@ -50,6 +57,7 @@ const skillGroups: SkillGroup[] = [
       { name: "PHP / backend API structures", level: 65 },
     ],
     tools: ["Flutter", "React Native", "Java", "REST APIs"],
+    image: "/app_development_banner.png",
   },
   {
     title: "Web Development",
@@ -63,6 +71,7 @@ const skillGroups: SkillGroup[] = [
       { name: "CSS Modules / Sass / styled-components", level: 70 },
     ],
     tools: ["React", "Next.js", "TypeScript", "Figma Design"],
+    image: "/web_development_banner.png",
   },
   {
     title: "Networking & Admin",
@@ -75,36 +84,173 @@ const skillGroups: SkillGroup[] = [
       { name: "Protocol Sniffing (ARP, DNS)", level: 65 },
     ],
     tools: ["Cisco Packet Tracer", "ARP", "DNS", "DHCP"],
+    image: "/networking_admin_banner.png",
   },
 ];
 
 const SkillBar: React.FC<SkillBarProps> = ({ name, level }) => {
-  const [progress, setProgress] = useState<number>(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setProgress(level), 150);
-    return () => clearTimeout(timer);
-  }, [level]);
-
   return (
     <div className="skill-bar">
       <div className="skill-bar-header">
         <span>{name}</span>
-        <span>{progress}%</span>
+        <span className="skill-percent" data-level={level}>0%</span>
       </div>
       <div className="skill-bar-bg">
-        <div className="skill-bar-fill" style={{ width: `${progress}%` }} />
+        <div className="skill-bar-fill" style={{ width: "0%" }} data-level={level} />
       </div>
     </div>
   );
 };
 
 export default function Skills() {
-  const [revealRef, revealClass] = useScrollReveal();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (typeof window === "undefined" || !containerRef.current) return;
+
+    // Set initial states
+    gsap.set([
+      ".skills-header > *",
+      ".skills-overview > div",
+      ".skill-card"
+    ], {
+      opacity: 0,
+      y: 35
+    });
+
+    // 1. Header scroll animation
+    gsap.to(".skills-header > *", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".skills-header",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // 2. Overview scroll animation
+    gsap.to(".skills-overview > div", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".skills-overview",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // 3. Cards reveal
+    gsap.to(".skill-card", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.15,
+      duration: 0.7,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".skills-grid",
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // 4. Progress bar fills
+    const bars = containerRef.current?.querySelectorAll(".skill-bar");
+    if (bars) {
+      bars.forEach((bar) => {
+        const fill = bar.querySelector(".skill-bar-fill") as HTMLElement;
+        const percentText = bar.querySelector(".skill-percent") as HTMLElement;
+        if (!fill || !percentText) return;
+        const targetLevel = parseInt(fill.getAttribute("data-level") || "0", 10);
+
+        // Animate progress bar fill width
+        gsap.to(fill, {
+          width: `${targetLevel}%`,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: bar,
+            start: "top 95%",
+            toggleActions: "play none none none"
+          }
+        });
+
+        // Animate percentage counter
+        const counterObj = { value: 0 };
+        gsap.to(counterObj, {
+          value: targetLevel,
+          duration: 1.2,
+          ease: "power2.out",
+          snap: { value: 1 },
+          onUpdate: () => {
+            percentText.textContent = `${counterObj.value}%`;
+          },
+          scrollTrigger: {
+            trigger: bar,
+            start: "top 95%",
+            toggleActions: "play none none none"
+          }
+        });
+      });
+    }
+
+    // 3D Hover Tilt for Skill Cards
+    const cards = containerRef.current.querySelectorAll(".skill-card");
+    cards.forEach((card) => {
+      const onMouseMove = (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Update spotlight coordinates
+        (card as HTMLElement).style.setProperty("--x", `${x}px`);
+        (card as HTMLElement).style.setProperty("--y", `${y}px`);
+
+        const xc = rect.width / 2;
+        const yc = rect.height / 2;
+        const dx = x - xc;
+        const dy = y - yc;
+
+        const tiltX = -(dy / yc) * 8;
+        const tiltY = (dx / xc) * 8;
+
+        gsap.to(card, {
+          rotateX: tiltX,
+          rotateY: tiltY,
+          y: -5,
+          transformPerspective: 1000,
+          ease: "power2.out",
+          duration: 0.4,
+          overwrite: "auto",
+        });
+      };
+
+      const onMouseLeave = () => {
+        gsap.to(card, {
+          rotateX: 0,
+          rotateY: 0,
+          y: 0,
+          ease: "power3.out",
+          duration: 0.8,
+          overwrite: "auto",
+        });
+      };
+
+      card.addEventListener("mousemove", onMouseMove as EventListener);
+      card.addEventListener("mouseleave", onMouseLeave as EventListener);
+    });
+
+  }, { scope: containerRef });
 
   return (
-    <section id="skills" ref={revealRef} className={`skills-page anim-fade ${revealClass}`}>
-      <div className="skills-header anim-slide">
+    <section id="skills" ref={containerRef} className="skills-page">
+      <div className="skills-header">
         <span className="skills-kicker">
           <FaCode aria-hidden="true" />
           Technical Profile
@@ -116,7 +262,7 @@ export default function Skills() {
         </p>
       </div>
 
-      <div className="skills-overview anim-slide" aria-label="Skills summary" style={{ animationDelay: "0.1s" }}>
+      <div className="skills-overview" aria-label="Skills summary">
         <div>
           <strong>4</strong>
           <span>Key Domains</span>
@@ -131,9 +277,19 @@ export default function Skills() {
         </div>
       </div>
 
-      <div className="skills-grid anim-slide" style={{ animationDelay: "0.2s" }}>
+      <div className="skills-grid">
         {skillGroups.map((group) => (
           <article className="skill-card" key={group.title}>
+            <div className="card-spotlight" />
+            <div className="skill-card-image-wrap">
+              <img
+                src={group.image}
+                alt={group.title}
+                className="skill-card-image"
+                loading="lazy"
+              />
+              <div className="skill-card-image-overlay" />
+            </div>
             <div className="skill-card-header">
               <span className="skill-icon">{group.icon}</span>
               <span className="skill-level">{group.level}</span>
