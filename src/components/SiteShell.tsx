@@ -6,6 +6,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { FaSun, FaMoon, FaMusic, FaPause } from "react-icons/fa";
 import ChatBot from "./ChatBot";
 import CustomCursor from "./CustomCursor";
+import BackgroundCanvas from "./BackgroundCanvas";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -153,42 +154,50 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       );
     });
 
-    // Slow ambient background drift for glowing orbs
-    gsap.to(".orb-1", {
-      x: "15vw",
-      y: "10vh",
-      scale: 1.1,
-      duration: 18,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
+    // Smooth moving background drift & parallax for glow orbs
+    const orbs = [".orb-1", ".orb-2", ".orb-3", ".orb-4"];
+    orbs.forEach((orb, i) => {
+      // 1. Lava-lamp drift loop
+      gsap.to(orb, {
+        x: "random(-180, 180)",
+        y: "random(-180, 180)",
+        scale: "random(0.85, 1.25)",
+        duration: "random(20, 32)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        repeatRefresh: true,
+      });
+
+      // 2. Parallax scroll effect
+      gsap.to(orb, {
+        yPercent: i % 2 === 0 ? 35 : -35,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.2,
+        }
+      });
     });
-    gsap.to(".orb-2", {
-      x: "-10vw",
-      y: "15vh",
-      scale: 0.9,
-      duration: 22,
+
+    // 3. GSAP Moving Page Background Gradient
+    const gradientPos = { x: 50, y: 50 };
+    gsap.to(gradientPos, {
+      x: "random(25, 75)",
+      y: "random(25, 75)",
+      duration: "random(16, 26)",
       repeat: -1,
       yoyo: true,
-      ease: "sine.inOut"
-    });
-    gsap.to(".orb-3", {
-      x: "8vw",
-      y: "-12vh",
-      scale: 1.15,
-      duration: 20,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-    gsap.to(".orb-4", {
-      x: "-12vw",
-      y: "-8vh",
-      scale: 0.85,
-      duration: 16,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
+      ease: "sine.inOut",
+      repeatRefresh: true,
+      onUpdate: () => {
+        const bgGradientVal = theme === "dark"
+          ? `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #0d0c26 0%, #030712 100%)`
+          : `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #f1f5f9 0%, #e2e8f0 100%)`;
+        document.body.style.backgroundImage = bgGradientVal;
+      }
     });
   }, { dependencies: [theme], revertOnUpdate: true });
 
@@ -238,6 +247,9 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="next-root">
       <div className="app-root">
+        {/* Interactive Canvas Particle Background */}
+        <BackgroundCanvas />
+
         {/* Premium Background Glow Orbs */}
         <div className="bg-glow orb-1" aria-hidden="true" />
         <div className="bg-glow orb-2" aria-hidden="true" />

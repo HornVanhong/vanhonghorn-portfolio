@@ -14,6 +14,7 @@ import {
   FaPaperPlane,
   FaTelegramPlane,
   FaShieldAlt,
+  FaDownload,
 } from "react-icons/fa";
 import profileImg from "../assets/vanhong.jpg";
 
@@ -348,6 +349,14 @@ export default function Home() {
             <a href="#projects" className="btn cta">
               View Projects
               <FaArrowRight aria-hidden="true" />
+            </a>
+            <a
+              href="/CV/Horn%20Vanhong(CV).pdf"
+              download="Horn_Vanhong_CV.pdf"
+              className="btn secondary"
+            >
+              Download CV
+              <FaDownload aria-hidden="true" />
             </a>
             <a href="#contact" className="btn secondary">
               Contact Me

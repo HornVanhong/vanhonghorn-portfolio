@@ -3327,8 +3327,18 @@
 }
 
 /* ==========================================================================
-   BACKGROUND GLOW ORBS
+   BACKGROUND GLOW ORBS & CANVAS
    ========================================================================== */
+.bg-canvas-nodes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -2;
+}
+
 .bg-glow {
   position: fixed;
   width: 45vw;
@@ -3353,58 +3363,24 @@
   top: 10%;
   left: -10%;
   background: radial-gradient(circle, var(--accent) 0%, transparent 80%);
-  animation: orbFloatOne 25s infinite ease-in-out alternate;
 }
 
 .orb-2 {
   top: 40%;
   right: -10%;
   background: radial-gradient(circle, var(--accent-2) 0%, transparent 80%);
-  animation: orbFloatTwo 30s infinite ease-in-out alternate;
 }
 
 .orb-3 {
   bottom: 10%;
   left: 15%;
   background: radial-gradient(circle, var(--accent-3) 0%, transparent 80%);
-  animation: orbFloatThree 28s infinite ease-in-out alternate;
 }
 
 .orb-4 {
   top: 75%;
   right: 25%;
   background: radial-gradient(circle, var(--accent) 0%, transparent 80%);
-  animation: orbFloatOne 32s infinite ease-in-out alternate-reverse;
-}
-
-@keyframes orbFloatOne {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  100% {
-    transform: translate(40px, 60px) scale(1.1);
-  }
-}
-
-@keyframes orbFloatTwo {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  100% {
-    transform: translate(-60px, 40px) scale(0.95);
-  }
-}
-
-@keyframes orbFloatThree {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  100% {
-    transform: translate(30px, -50px) scale(1.05);
-  }
 }
 
 /* ==========================================================================
@@ -5519,5 +5495,94 @@
     padding: 0;
     border: 0;
     background: transparent;
+  }
+}
+
+/* ==========================================================================
+   CV DOWNLOAD ADDITIONS
+   ========================================================================== */
+
+/* Custom navigation button styling for CV Download */
+.nav-link.cv-download-btn {
+  border: 1px solid var(--accent);
+  color: var(--accent) !important;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.nav-link.cv-download-btn:hover {
+  background: var(--accent);
+  color: #03101d !important;
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.35);
+}
+
+[data-theme="light"] .nav-link.cv-download-btn:hover {
+  color: #ffffff !important;
+}
+
+/* Resume section CV Download card styling */
+.resume-download-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2.25rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.resume-kicker {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.resume-download-text h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.resume-download-text p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+[data-theme="light"] .resume-download-section {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(0, 0, 0, 0.07);
+}
+
+/* Responsiveness for Resume CV section and navigation link */
+@media (max-width: 768px) {
+  .resume-download-section {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+  
+  .resume-download-section .btn {
+    width: 100%;
+  }
+
+  .nav-link.cv-download-btn {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    width: fit-content;
   }
 }
