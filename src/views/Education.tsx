@@ -5,6 +5,8 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 import RuppLogo from "../assets/logo/Rupp_logo.png";
 import AntLogo from "../assets/logo/ANT.png";
 import KshrdLogo from "../assets/logo/KSHRD.png";
+import HighSchoolLogo from "../assets/logo/HighSchool.webp";
+import InstinctLogo from "../assets/logo/Instinct.jpeg";
 
 const educationItems = [
   {
@@ -47,7 +49,7 @@ const educationItems = [
     ],
   },
   {
-    logo: null,
+    logo: HighSchoolLogo,
     icon: <FaBookOpen aria-hidden="true" />,
     label: "Foundation",
     title: "High School",
@@ -57,7 +59,7 @@ const educationItems = [
     details: ["Completed high school with general science major before beginning university study."],
   },
   {
-    logo: null,
+    logo: InstinctLogo,
     icon: <FaCertificate aria-hidden="true" />,
     label: "Additional Courses",
     title: "Technical Training",
@@ -147,4 +149,3 @@ export default function Education() {
     </section>
   );
 }
-

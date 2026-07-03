@@ -95,7 +95,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
         timeZone: "Asia/Phnom_Penh",
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
         hour12: false,
       };
       setTime(now.toLocaleTimeString("en-US", options));
@@ -105,7 +104,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       setMounted(true);
       updateClock();
     });
-    const interval = setInterval(updateClock, 1000);
+    const interval = setInterval(updateClock, 60000);
     return () => {
       window.cancelAnimationFrame(frame);
       clearInterval(interval);
@@ -181,8 +180,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       repeatRefresh: true,
       onUpdate: () => {
         const bgGradientVal = theme === "dark"
-          ? `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #063040 0%, #030712 100%)`
-          : `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #e0faff 0%, #f1f5f9 100%)`;
+          ? `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #1a1f27 0%, #0e1116 58%, #090b0f 100%)`
+          : `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #f8fafc 0%, #eef1f5 100%)`;
         document.body.style.backgroundImage = bgGradientVal;
       }
     });

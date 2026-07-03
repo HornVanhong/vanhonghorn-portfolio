@@ -1,42 +1,52 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import {
-  FaCode,
-  FaGlobe,
-  FaMobileAlt,
-  FaNetworkWired,
-  FaShieldAlt,
-} from "react-icons/fa";
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { FaCode } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
 
-interface SkillBarProps {
-  name: string;
-  level: number;
-}
-
 interface SkillGroup {
   title: string;
-  summary: string;
-  icon: ReactNode;
-  level: string;
   focus: string;
-  skills: SkillBarProps[];
-  tools: string[];
-  image: string;
+  skills: Array<{
+    name: string;
+    level: number;
+  }>;
+}
+
+interface SkillGraphItem {
+  title: string;
+  level: number;
+  focus: string;
+}
+
+interface SkillChartTooltipProps {
+  active?: boolean;
+  label?: string;
+  payload?: Array<{
+    payload: {
+      focus: string;
+      score: number;
+    };
+  }>;
 }
 
 const skillGroups: SkillGroup[] = [
   {
     title: "Cyber Security",
-    summary: "Security fundamentals, Linux administration, and secure system auditing.",
-    icon: <FaShieldAlt aria-hidden="true" />,
-    level: "Core focus",
     focus: "Defensive systems",
     skills: [
       { name: "Linux (Kali, CentOS, Debian)", level: 80 },
@@ -44,14 +54,9 @@ const skillGroups: SkillGroup[] = [
       { name: "Database Security (SQL Audits)", level: 70 },
       { name: "Defensive Coding Standards", level: 65 },
     ],
-    tools: ["Kali Linux", "SQL", "Git", "Wireshark"],
-    image: "/cyber_security_banner.png",
   },
   {
     title: "App Development",
-    summary: "Mobile UI creation, cross-platform apps, and database integration.",
-    icon: <FaMobileAlt aria-hidden="true" />,
-    level: "Applied",
     focus: "Mobile delivery",
     skills: [
       { name: "Flutter & Dart", level: 85 },
@@ -59,14 +64,9 @@ const skillGroups: SkillGroup[] = [
       { name: "Java (Android SDK)", level: 70 },
       { name: "PHP / backend API structures", level: 65 },
     ],
-    tools: ["Flutter", "React Native", "Java", "REST APIs"],
-    image: "/app_development_banner.png",
   },
   {
     title: "Web Development",
-    summary: "Responsive front-end development with standard and modern toolsets.",
-    icon: <FaGlobe aria-hidden="true" />,
-    level: "Strong",
     focus: "Modern interfaces",
     skills: [
       { name: "HTML / CSS / JavaScript", level: 85 },
@@ -74,34 +74,85 @@ const skillGroups: SkillGroup[] = [
       { name: "TypeScript", level: 70 },
       { name: "CSS Modules / Sass / styled-components", level: 70 },
     ],
-    tools: ["React", "Next.js", "TypeScript", "Figma Design"],
-    image: "/web_development_banner.png",
   },
   {
     title: "Networking & Admin",
-    summary: "LAN setup, Cisco NetAcad configurations, and packet capture analytics.",
-    icon: <FaNetworkWired aria-hidden="true" />,
-    level: "Practical",
     focus: "Network operations",
     skills: [
       { name: "Cisco Routing & Switching", level: 75 },
       { name: "Network Configuration Labs", level: 70 },
       { name: "Protocol Sniffing (ARP, DNS)", level: 65 },
     ],
-    tools: ["Cisco Packet Tracer", "ARP", "DNS", "DHCP"],
-    image: "/networking_admin_banner.png",
   },
 ];
 
-const SkillBar: React.FC<SkillBarProps> = ({ name, level }) => {
+const skillGraphData: SkillGraphItem[] = skillGroups.map((group) => ({
+  title: group.title,
+  focus: group.focus,
+  level: Math.round(
+    group.skills.reduce((total, skill) => total + skill.level, 0) / group.skills.length
+  ),
+}));
+
+const SkillChartTooltip: React.FC<SkillChartTooltipProps> = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
+  const data = payload[0].payload;
+
   return (
-    <div className="skill-bar">
-      <div className="skill-bar-header">
-        <span>{name}</span>
-        <span className="skill-percent" data-level={level}>0%</span>
+    <div className="skills-chart-tooltip">
+      <strong>{label}</strong>
+      <span>{data.focus}</span>
+      <b>{data.score}%</b>
+    </div>
+  );
+};
+
+const SkillGraph: React.FC<{ items: SkillGraphItem[] }> = ({ items }) => {
+  const topSkill = items.reduce((best, item) => (item.level > best.level ? item : best), items[0]);
+  const chartData = items.map((item) => ({
+    domain: item.title,
+    focus: item.focus,
+    score: item.level,
+  }));
+
+  return (
+    <div className="skills-chart-card">
+      <div className="skills-chart-header">
+        <div>
+          <span className="skills-chart-eyebrow">Skill Graph</span>
+          <h2>Domain Strength</h2>
+        </div>
+        <div className="skills-chart-score">
+          <strong>{topSkill.level}%</strong>
+          <span>{topSkill.title}</span>
+        </div>
       </div>
-      <div className="skill-bar-bg">
-        <div className="skill-bar-fill" style={{ width: "0%" }} data-level={level} />
+
+      <div className="skills-chart-body" aria-label="Skill strength graph">
+        <ResponsiveContainer width="100%" height={360}>
+          <BarChart data={chartData} layout="vertical" margin={{ top: 8, right: 28, left: 12, bottom: 8 }}>
+            <CartesianGrid horizontal={false} stroke="rgba(148, 163, 184, 0.18)" />
+            <XAxis
+              type="number"
+              domain={[0, 100]}
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+            />
+            <YAxis
+              type="category"
+              dataKey="domain"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={10}
+              width={150}
+              tick={{ fill: "var(--text)", fontSize: 12, fontWeight: 700 }}
+            />
+            <Tooltip content={<SkillChartTooltip />} cursor={{ fill: "rgba(var(--accent-rgb), 0.06)" }} />
+            <Bar dataKey="score" fill="var(--accent)" radius={[0, 8, 8, 0]} barSize={24} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
@@ -118,15 +169,8 @@ export default function Skills() {
       gsap.set([
         ".skills-header > *",
         ".skills-overview > div",
-        ".skill-card",
-        ".skill-bar-fill"
+        ".skills-chart-card"
       ], { opacity: 1, y: 0, clearProps: "transform" });
-      containerRef.current.querySelectorAll<HTMLElement>(".skill-bar-fill").forEach((fill) => {
-        fill.style.width = `${fill.dataset.level ?? 0}%`;
-      });
-      containerRef.current.querySelectorAll<HTMLElement>(".skill-percent").forEach((percent) => {
-        percent.textContent = `${percent.dataset.level ?? 0}%`;
-      });
       return;
     }
 
@@ -134,7 +178,7 @@ export default function Skills() {
     gsap.set([
       ".skills-header > *",
       ".skills-overview > div",
-      ".skill-card"
+      ".skills-chart-card"
     ], {
       opacity: 0,
       y: 35
@@ -168,114 +212,18 @@ export default function Skills() {
       }
     });
 
-    // 3. Cards reveal
-    gsap.to(".skill-card", {
+    gsap.to(".skills-chart-card", {
       opacity: 1,
       y: 0,
-      stagger: 0.15,
       duration: 0.7,
       ease: "power3.out",
       scrollTrigger: {
-        trigger: ".skills-grid",
-        start: "top 80%",
+        trigger: ".skills-chart-card",
+        start: "top 85%",
         toggleActions: "play none none none"
       }
     });
 
-    // 4. Progress bar fills
-    const bars = containerRef.current?.querySelectorAll(".skill-bar");
-    if (bars) {
-      bars.forEach((bar) => {
-        const fill = bar.querySelector(".skill-bar-fill") as HTMLElement;
-        const percentText = bar.querySelector(".skill-percent") as HTMLElement;
-        if (!fill || !percentText) return;
-        const targetLevel = parseInt(fill.getAttribute("data-level") || "0", 10);
-
-        // Animate progress bar fill width
-        gsap.to(fill, {
-          width: `${targetLevel}%`,
-          duration: 1.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: bar,
-            start: "top 95%",
-            toggleActions: "play none none none"
-          }
-        });
-
-        // Animate percentage counter
-        const counterObj = { value: 0 };
-        gsap.to(counterObj, {
-          value: targetLevel,
-          duration: 1.2,
-          ease: "power2.out",
-          snap: { value: 1 },
-          onUpdate: () => {
-            percentText.textContent = `${counterObj.value}%`;
-          },
-          scrollTrigger: {
-            trigger: bar,
-            start: "top 95%",
-            toggleActions: "play none none none"
-          }
-        });
-      });
-    }
-
-    // 3D Hover Tilt for Skill Cards
-    const cards = containerRef.current.querySelectorAll(".skill-card");
-    const cleanupTiltListeners: Array<() => void> = [];
-    cards.forEach((card) => {
-      const onMouseMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Update spotlight coordinates
-        (card as HTMLElement).style.setProperty("--x", `${x}px`);
-        (card as HTMLElement).style.setProperty("--y", `${y}px`);
-
-        const xc = rect.width / 2;
-        const yc = rect.height / 2;
-        const dx = x - xc;
-        const dy = y - yc;
-
-        const tiltX = -(dy / yc) * 8;
-        const tiltY = (dx / xc) * 8;
-
-        gsap.to(card, {
-          rotateX: tiltX,
-          rotateY: tiltY,
-          y: -5,
-          transformPerspective: 1000,
-          ease: "power2.out",
-          duration: 0.4,
-          overwrite: "auto",
-        });
-      };
-
-      const onMouseLeave = () => {
-        gsap.to(card, {
-          rotateX: 0,
-          rotateY: 0,
-          y: 0,
-          ease: "power3.out",
-          duration: 0.8,
-          overwrite: "auto",
-        });
-      };
-
-      card.addEventListener("mousemove", onMouseMove as EventListener);
-      card.addEventListener("mouseleave", onMouseLeave as EventListener);
-      cleanupTiltListeners.push(() => {
-        card.removeEventListener("mousemove", onMouseMove as EventListener);
-        card.removeEventListener("mouseleave", onMouseLeave as EventListener);
-      });
-    });
-
-    return () => {
-      cleanupTiltListeners.forEach((cleanup) => cleanup());
-    };
   }, { scope: containerRef });
 
   return (
@@ -307,46 +255,7 @@ export default function Skills() {
         </div>
       </div>
 
-      <div className="skills-grid">
-        {skillGroups.map((group) => (
-          <article className="skill-card" key={group.title}>
-            <div className="card-spotlight" />
-            <div className="skill-card-media">
-              <img
-                src={group.image}
-                alt={group.title}
-                className="skill-card-image"
-                loading="lazy"
-              />
-              <div className="skill-card-image-overlay" />
-              <div className="skill-card-media-content">
-                <span className="skill-icon">{group.icon}</span>
-                <span className="skill-level">{group.level}</span>
-              </div>
-            </div>
-
-            <div className="skill-card-body">
-              <div className="skill-card-heading">
-                <span className="skill-focus">{group.focus}</span>
-                <h2>{group.title}</h2>
-              </div>
-              <p className="skill-summary">{group.summary}</p>
-
-              <div className="skill-bars">
-                {group.skills.map((skill) => (
-                  <SkillBar key={skill.name} {...skill} />
-                ))}
-              </div>
-            </div>
-
-            <div className="skill-tags">
-              {group.tools.map((tool) => (
-                <span key={tool}>{tool}</span>
-              ))}
-            </div>
-          </article>
-        ))}
-      </div>
+      <SkillGraph items={skillGraphData} />
     </section>
   );
 }

@@ -15,7 +15,7 @@ interface Particle {
 export default function BackgroundCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
-  const colorsRef = useRef({ accent: "#00e5ff", accentRGB: "0, 242, 254" });
+  const colorsRef = useRef({ accent: "#00d5e8", accentRGB: "0, 213, 232" });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -78,8 +78,8 @@ export default function BackgroundCanvas() {
     const updateColors = () => {
       const style = getComputedStyle(document.documentElement);
       colorsRef.current = {
-        accent: style.getPropertyValue("--accent").trim() || "#00e5ff",
-        accentRGB: style.getPropertyValue("--accent-rgb").trim() || "0, 242, 254",
+        accent: style.getPropertyValue("--accent").trim() || "#00d5e8",
+        accentRGB: style.getPropertyValue("--accent-rgb").trim() || "0, 213, 232",
       };
     };
     updateColors();

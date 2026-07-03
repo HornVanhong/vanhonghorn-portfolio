@@ -1,22 +1,22 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import {
   FaCode,
   FaExternalLinkAlt,
   FaFilePdf,
+  FaGithub,
   FaLaptopCode,
-  FaLinux,
   FaMobileAlt,
-  FaNetworkWired,
-  FaPython,
-  FaReact,
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import SmartNasImage from "../assets/Smart_nas.png";
+import RestaurantImage from "../assets/Resturant.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,82 +25,99 @@ const pdf2 = "/Project/TCI-2510-CAMBODIA-II.s6.xe103.pdf";
 const pdf3 = "/Project/TCI-2510-CAMBODIA-II.s6.xe105.pdf";
 
 const projectCards = [
+  
+
   {
-    icon: <FaMobileAlt aria-hidden="true" />,
-    title: "Flutter 3 Course Projects",
-    meta: "Instinct Institute Alumni — Dec 2022 to May 2023",
-    summary: "Hands-on app work focused on UI cloning, local storage, and API usage.",
-    tags: ["Flutter", "Mobile UI", "Local Storage", "REST APIs"],
-    points: [
-      "Read and write data in localhost",
-      "Consume and display data from APIs",
-      "Clone UI of Cellcard App",
-    ],
+    icon: <FaCode aria-hidden="true" />,
+    title: "Digital_Clock",
+    meta: "HTML • Updated Jun 2026",
+    summary: "Digital clock web project with a public Vercel deployment.",
+    tags: ["HTML", "Clock", "Web UI"],
+    repoUrl: "https://github.com/HornVanhong/Digital_Clock",
+    liveUrl: "https://digital-clock-green-omega.vercel.app",
   },
+  
   {
-    icon: <FaReact aria-hidden="true" />,
-    title: "Digital Banking Front-End Features",
-    meta: "Internship — Dec 2023 to Dec 2024",
-    summary: "Built and improved React Native features inside a real product workflow.",
-    tags: ["React Native", "TypeScript", "SASS", "styled-components"],
-    points: [
-      "Developed new components following UX/UI designs",
-      "Fixed front-end issues and improved app stability",
-      "Collaborated via Git, Bitbucket, and Jira",
-      "Applied TypeScript and component styling systems",
-    ],
-  },
-  {
-    icon: <FaNetworkWired aria-hidden="true" />,
-    title: "Cisco Networking Academy Labs",
-    meta: "Coursework",
-    summary: "Network configuration practice with troubleshooting and service setup.",
-    tags: ["Cisco", "Networking", "Protocols"],
-    points: [
-      "Hands-on practice with network configuration",
-      "Troubleshooting and protocol analysis",
-      "Service configuration exercises",
-    ],
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "08_HORN_VANHONG_SR_MINI_PROJECT_002",
+    meta: "JavaScript • Updated Jun 2026",
+    summary: "KSHRD mini project repository focused on frontend JavaScript work.",
+    tags: ["JavaScript", "Mini Project", "KSHRD"],
+    repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_MINI_PROJECT_002",
   },
   {
     icon: <FaCode aria-hidden="true" />,
-    title: "Cyberium Arena - Net Crafts",
-    meta: "Networking & Security Simulation",
-    summary: "Mapped a simulated network and analyzed routing, ownership, and traffic.",
-    tags: ["Shodan", "WHOIS", "ARP", "DNS", "DHCP"],
-    points: [
-      "Mapped the network: IP, MAC, router IPs, DNS and DHCP",
-      "Identified ISP and connection type",
-      "Used Shodan and WHOIS to analyze IP ownership",
-      "Sniffed traffic and identified protocols",
-    ],
+    title: "Practice_Web_Next_Auth",
+    meta: "GitHub repository • Updated Jun 2026",
+    summary: "Practice repository for web authentication concepts.",
+    tags: ["Next Auth", "Practice", "Web"],
+    repoUrl: "https://github.com/HornVanhong/Practice_Web_Next_Auth",
   },
   {
-    icon: <FaLinux aria-hidden="true" />,
-    title: "Cyberium Arena - Linux Fundamentals",
-    meta: "System Info Extractor",
-    summary: "Command-line analysis for system information, processes, and storage.",
-    tags: ["Linux", "Bash", "System Info", "Monitoring"],
-    points: [
-      "Identified public and private IP addresses",
-      "Displayed masked MAC address for security",
-      "Monitored CPU processes and memory usage",
-      "Listed active system services and large files",
-    ],
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "Spring Homework Series",
+    meta: "Java • Updated Jun 2026",
+    summary: "Spring homework repositories covering backend Java practice.",
+    tags: ["Java", "Spring", "Homework"],
+    repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_SPRING_Homework003",
   },
   {
-    icon: <FaPython aria-hidden="true" />,
-    title: "Cyberium Arena - Python Fundamentals",
-    meta: "Auth.log Analyzer",
-    summary: "Parsed auth logs to extract account activity and command history.",
-    tags: ["Python", "Linux", "Log Analysis", "Security"],
-    points: [
-      "Parsed /var/log/auth.log to extract command usage",
-      "Detected new and deleted users",
-      "Tracked password change activity",
-      "Generated alerts for failed sudo attempts",
-    ],
+    icon: <FaCode aria-hidden="true" />,
+    title: "Web Homework Series",
+    meta: "JavaScript / CSS • Updated Jun 2026",
+    summary: "Frontend homework repositories from the web development training track.",
+    tags: ["JavaScript", "CSS", "Homework"],
+    repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_Web_Homework006",
+    liveUrl: "https://09-horn-vanhong-sr-web-homework005.vercel.app",
   },
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "03_SR_Mini_Project",
+    meta: "Java • Updated Jun 2026",
+    summary: "Java mini project repository from the software training program.",
+    tags: ["Java", "Mini Project", "Backend"],
+    repoUrl: "https://github.com/HornVanhong/03_SR_Mini_Project",
+  },
+  {
+    icon: <FaMobileAlt aria-hidden="true" />,
+    title: "Quiz-for-Android-Developer",
+    meta: "Kotlin • Updated Mar 2025",
+    summary: "Android quiz project built with Kotlin.",
+    tags: ["Kotlin", "Android", "Quiz"],
+    repoUrl: "https://github.com/HornVanhong/Quiz-for-Android-Developer",
+  },
+  {
+    icon: <FaMobileAlt aria-hidden="true" />,
+    title: "Smart_App",
+    meta: "JavaScript • Updated Dec 2024",
+    summary: "Smart mobile app UI work, represented by the SmartNas screen.",
+    image: SmartNasImage,
+    imageAlt: "SmartNas mobile app UI screen",
+    tags: ["JavaScript", "Mobile UI", "Smart App"],
+    repoUrl: "https://github.com/HornVanhong/Smart_App",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "JongNham_Resturant",
+    meta: "HTML • Updated Dec 2024",
+    summary: "Restaurant menu and ordering interface with live deployment.",
+    image: RestaurantImage,
+    imageAlt: "Restaurant menu web app screen",
+    tags: ["HTML", "Restaurant", "Menu"],
+    repoUrl: "https://github.com/HornVanhong/JongNham_Resturant",
+    liveUrl: "https://jong-nham-resturant.vercel.app",
+  },
+  
+  
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "smart_game",
+    meta: "HTML • Updated Jun 2024",
+    summary: "Small HTML game project hosted on GitHub.",
+    tags: ["HTML", "Game", "Practice"],
+    repoUrl: "https://github.com/HornVanhong/smart_game",
+  },
+ 
 ];
 
 const pdfFiles = [
@@ -298,7 +315,7 @@ export default function Projects() {
 
       <div className="projects-overview" aria-label="Projects summary">
         <div>
-          <strong>6</strong>
+          <strong>{projectCards.length}</strong>
           <span>Featured Projects</span>
         </div>
         <div>
@@ -320,6 +337,17 @@ export default function Projects() {
                 <span className="project-icon">{project.icon}</span>
                 <span className="project-badge">Project</span>
               </div>
+              {project.image ? (
+                <div className="project-image-wrap">
+                  <Image
+                    src={project.image}
+                    alt={project.imageAlt}
+                    className="project-image"
+                    sizes="(max-width: 768px) 84vw, 320px"
+                    placeholder="blur"
+                  />
+                </div>
+              ) : null}
               <h2>{project.title}</h2>
               <p className="project-meta">{project.meta}</p>
               <p className="project-summary">{project.summary}</p>
@@ -328,11 +356,18 @@ export default function Projects() {
                   <span key={tag}>{tag}</span>
                 ))}
               </div>
-              <ul>
-                {project.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
+              <div className="project-actions">
+                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="project-link">
+                  <FaGithub aria-hidden="true" />
+                  GitHub
+                </a>
+                {project.liveUrl ? (
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="project-link project-link-live">
+                    <FaExternalLinkAlt aria-hidden="true" />
+                    Live
+                  </a>
+                ) : null}
+              </div>
             </article>
           ))}
         </div>

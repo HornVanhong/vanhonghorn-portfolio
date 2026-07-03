@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   FaCodeBranch,
   FaLaptopCode,
@@ -5,11 +6,56 @@ import {
   FaUniversity,
 } from "react-icons/fa";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import DddLogo from "../assets/logo/DDD.png";
+import RhbLogo from "../assets/logo/RHB.webp";
 
 const highlights = [
   { value: "2+", label: "Professional Roles" },
   { value: "React Native", label: "Core Mobile Stack" },
   { value: "Agile Scrum", label: "Team Workflow" },
+];
+
+const experienceItems = [
+  {
+    logo: DddLogo,
+    icon: <FaUniversity className="exp-icon" aria-hidden="true" />,
+    type: "Data Operations",
+    period: "2022 – 2023",
+    title: "Data Labeler",
+    meta: "Phnom Penh, DDD (Digital Data Divide)",
+    description: "Performed key tagging, classification, and data annotation for machine learning pipelines.",
+    points: [],
+    tags: ["Data Prep", "Quality Assurance", "AI Support"],
+  },
+  {
+    logo: RhbLogo,
+    icon: <FaLaptopCode className="exp-icon" aria-hidden="true" />,
+    type: "Front-end Development",
+    period: "2023 – 2024",
+    title: "Intern - Digital Banking",
+    meta: "RHB Bank Cambodia",
+    description: "",
+    points: [
+      "Leveraged React Native to build and deploy mobile banking capabilities.",
+      "Addressed critical frontend tickets and elevated app stability metrics.",
+      "Collaborated closely with UX/UI teams to replicate design systems.",
+      "Reviewed PRs and actively participated in peer engineering code reviews.",
+      "Integrated Stylesheet properties, SASS, and styled-components components.",
+      "Operated in Git, TypeScript, Jira, and Bitbucket version control loops.",
+    ],
+    tags: [
+      <>
+        <FaLayerGroup aria-hidden="true" />
+        Components
+      </>,
+      <>
+        <FaCodeBranch aria-hidden="true" />
+        PR Reviews
+      </>,
+      "React Native",
+      "Jira & Git",
+    ],
+  },
 ];
 
 export default function Experience() {
@@ -35,69 +81,46 @@ export default function Experience() {
       </div>
 
       <div className="experience-timeline anim-slide" style={{ animationDelay: "0.2s" }}>
-        <article className="exp-card">
-          <div className="exp-dot" aria-hidden="true" />
-          <div className="job-card glass">
-            <div className="exp-header">
-              <span className="exp-icon-wrap">
-                <FaUniversity className="exp-icon" aria-hidden="true" />
-              </span>
-              <div className="exp-header-text">
-                <div className="exp-header-top">
-                  <span className="exp-type">Data Operations</span>
-                  <span className="exp-period">2022 – 2023</span>
+        {experienceItems.map((item) => (
+          <article className="exp-card" key={`${item.title}-${item.period}`}>
+            <div className="exp-dot" aria-hidden="true" />
+            <div className="job-card glass">
+              <div className="exp-header">
+                <span className="exp-icon-wrap">
+                  <Image
+                    src={item.logo}
+                    alt={`${item.meta} logo`}
+                    className="exp-logo-img"
+                    width={44}
+                    height={44}
+                  />
+                  <span className="exp-icon-fallback">{item.icon}</span>
+                </span>
+                <div className="exp-header-text">
+                  <div className="exp-header-top">
+                    <span className="exp-type">{item.type}</span>
+                    <span className="exp-period">{item.period}</span>
+                  </div>
+                  <h2>{item.title}</h2>
                 </div>
-                <h2>Data Labeler</h2>
+              </div>
+              <p className="job-meta">{item.meta}</p>
+              {item.description ? <p className="job-desc">{item.description}</p> : null}
+              {item.points.length > 0 ? (
+                <ul>
+                  {item.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <div className="experience-tags">
+                {item.tags.map((tag, index) => (
+                  <span key={`${item.title}-tag-${index}`}>{tag}</span>
+                ))}
               </div>
             </div>
-            <p className="job-meta">Phnom Penh, DDD (Digital Data Divide)</p>
-            <p className="job-desc">Performed key tagging, classification, and data annotation for machine learning pipelines.</p>
-            <div className="experience-tags">
-              <span>Data Prep</span>
-              <span>Quality Assurance</span>
-              <span>AI Support</span>
-            </div>
-          </div>
-        </article>
-
-        <article className="exp-card">
-          <div className="exp-dot" aria-hidden="true" />
-          <div className="job-card glass">
-            <div className="exp-header">
-              <span className="exp-icon-wrap">
-                <FaLaptopCode className="exp-icon" aria-hidden="true" />
-              </span>
-              <div className="exp-header-text">
-                <div className="exp-header-top">
-                  <span className="exp-type">Front-end Development</span>
-                  <span className="exp-period">2023 – 2024</span>
-                </div>
-                <h2>Intern - Digital Banking</h2>
-              </div>
-            </div>
-            <p className="job-meta">RHB Bank Cambodia</p>
-            <ul>
-              <li>Leveraged React Native to build and deploy mobile banking capabilities.</li>
-              <li>Addressed critical frontend tickets and elevated app stability metrics.</li>
-              <li>Collaborated closely with UX/UI teams to replicate design systems.</li>
-              <li>Reviewed PRs and actively participated in peer engineering code reviews.</li>
-              <li>Integrated Stylesheet properties, SASS, and styled-components components.</li>
-              <li>Operated in Git, TypeScript, Jira, and Bitbucket version control loops.</li>
-            </ul>
-            <div className="experience-tags">
-              <span>
-                <FaLayerGroup aria-hidden="true" />
-                Components
-              </span>
-              <span>
-                <FaCodeBranch aria-hidden="true" />
-                PR Reviews
-              </span>
-              <span>React Native</span>
-              <span>Jira & Git</span>
-            </div>
-          </div>
-        </article>
+          </article>
+        ))}
       </div>
 
       <noscript>Your experience timeline will appear here.</noscript>
