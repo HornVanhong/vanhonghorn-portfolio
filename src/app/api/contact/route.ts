@@ -146,7 +146,7 @@ export async function POST(request: Request) {
     .logo {
       font-size: 1.4rem;
       font-weight: 800;
-      color: #00f2fe;
+      color: #00e5ff;
       text-decoration: none;
       letter-spacing: 2px;
       font-family: monospace;
@@ -198,11 +198,11 @@ export async function POST(request: Request) {
     }
     .dot.red { background-color: #ef4444; }
     .dot.yellow { background-color: #f59e0b; }
-    .dot.green { background-color: #10b981; }
+    .dot.green { background-color: #67e8f9; }
     
     .editor-tab {
       font-size: 0.72rem;
-      color: #00f2fe;
+      color: #00e5ff;
       background: #0d1527;
       padding: 0.3rem 0.8rem;
       border-radius: 6px 6px 0 0;
@@ -242,7 +242,7 @@ export async function POST(request: Request) {
     .btn-cta {
       display: inline-block;
       padding: 0.8rem 1.75rem;
-      background: linear-gradient(135deg, #00f2fe 0%, #4f46e5 100%);
+      background: linear-gradient(135deg, #00e5ff 0%, #06b6d4 100%);
       color: #030712 !important;
       font-weight: 800;
       font-size: 0.9rem;
@@ -272,7 +272,7 @@ export async function POST(request: Request) {
       font-weight: 600;
     }
     .social-link:hover {
-      color: #00f2fe;
+      color: #00e5ff;
     }
     .footer-text {
       font-size: 0.75rem;
@@ -336,10 +336,10 @@ export async function POST(request: Request) {
       // Admin HTML Notification Template
       const adminHtmlContent = `
 <div style="font-family: sans-serif; padding: 20px; background: #030712; color: #f3f4f6; border-radius: 10px; max-width: 580px; margin: 0 auto; border: 1px solid rgba(255, 255, 255, 0.08);">
-  <h2 style="color: #00f2fe; margin-top: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 10px;">New Contact Form Submission</h2>
+  <h2 style="color: #00e5ff; margin-top: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 10px;">New Contact Form Submission</h2>
   <p style="margin-bottom: 8px;"><strong>Name:</strong> ${trimmedName}</p>
-  <p style="margin-bottom: 20px;"><strong>Email:</strong> <a href="mailto:${trimmedEmail}" style="color: #00f2fe; text-decoration: none;">${trimmedEmail}</a></p>
-  <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border-left: 3px solid #00f2fe; color: #e5e7eb;">
+  <p style="margin-bottom: 20px;"><strong>Email:</strong> <a href="mailto:${trimmedEmail}" style="color: #00e5ff; text-decoration: none;">${trimmedEmail}</a></p>
+  <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border-left: 3px solid #00e5ff; color: #e5e7eb;">
     <p style="margin: 0; white-space: pre-wrap; line-height: 1.5; font-size: 0.95rem;">${trimmedMessage}</p>
   </div>
 </div>

@@ -15,6 +15,7 @@ interface Particle {
 export default function BackgroundCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
+  const colorsRef = useRef({ accent: "#00e5ff", accentRGB: "0, 242, 254" });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -36,8 +37,8 @@ export default function BackgroundCanvas() {
       canvas.height = height;
 
       // Calculate particle density based on screen resolution
-      const density = Math.floor((width * height) / 28000);
-      const count = Math.min(80, Math.max(25, density));
+      const density = Math.floor((width * height) / 38000);
+      const count = Math.min(58, Math.max(18, density));
 
       particles = [];
       for (let i = 0; i < count; i++) {
@@ -74,18 +75,26 @@ export default function BackgroundCanvas() {
     window.addEventListener("mouseleave", handleMouseLeave);
 
     // Retrieve active variables from theme computed properties
-    const getColors = () => {
+    const updateColors = () => {
       const style = getComputedStyle(document.documentElement);
-      const accent = style.getPropertyValue("--accent").trim() || "#00f2fe";
-      const accentRGB = style.getPropertyValue("--accent-rgb").trim() || "0, 242, 254";
-      return { accent, accentRGB };
+      colorsRef.current = {
+        accent: style.getPropertyValue("--accent").trim() || "#00e5ff",
+        accentRGB: style.getPropertyValue("--accent-rgb").trim() || "0, 242, 254",
+      };
     };
+    updateColors();
+
+    const themeObserver = new MutationObserver(updateColors);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
     const tick = () => {
       if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, width, height);
 
-      const { accent, accentRGB } = getColors();
+      const { accent, accentRGB } = colorsRef.current;
       const mouse = mouseRef.current;
 
       ctx.lineWidth = 0.75;
@@ -157,6 +166,7 @@ export default function BackgroundCanvas() {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
+      themeObserver.disconnect();
       gsap.ticker.remove(tick);
     };
   }, []);

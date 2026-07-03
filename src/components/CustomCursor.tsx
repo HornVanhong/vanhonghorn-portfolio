@@ -17,6 +17,7 @@ export default function CustomCursor() {
   const magneticRef = useRef<HTMLElement | null>(null);
   const prevMagneticRef = useRef<HTMLElement | null>(null);
   const hoverRef = useRef(false);
+  const visibleRef = useRef(false);
 
   useGSAP(() => {
     if (typeof window === "undefined" || !dotRef.current || !ringRef.current) return;
@@ -34,10 +35,14 @@ export default function CustomCursor() {
     const onMouseMove = (e: MouseEvent) => {
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
-      if (!isVisible) setIsVisible(true);
+      if (!visibleRef.current) {
+        visibleRef.current = true;
+        setIsVisible(true);
+      }
     };
 
     const onMouseLeaveWindow = () => {
+      visibleRef.current = false;
       setIsVisible(false);
     };
 
@@ -116,7 +121,7 @@ export default function CustomCursor() {
       document.removeEventListener("mouseleave", onMouseLeaveWindow);
       gsap.ticker.remove(tick);
     };
-  }, [isVisible]);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -204,4 +209,3 @@ export default function CustomCursor() {
     </div>
   );
 }
-

@@ -40,6 +40,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const scrollFrameRef = useRef<number | null>(null);
 
   // Initialize background audio element on mount
   useEffect(() => {
@@ -115,21 +116,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     if (typeof window === "undefined") return;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    gsap.to(".site-header", {
-      top: "0.75rem",
-      height: "52px",
-      backgroundColor: theme === "dark" ? "rgba(8, 12, 24, 0.82)" : "rgba(255, 255, 255, 0.88)",
-      borderColor: theme === "dark" ? "rgba(0, 242, 254, 0.3)" : "rgba(14, 165, 233, 0.3)",
-      boxShadow: theme === "dark" 
-        ? "0 20px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 242, 254, 0.15)"
-        : "0 20px 40px rgba(15, 23, 42, 0.08), 0 0 15px rgba(14, 165, 233, 0.08)",
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        end: "top -80px",
-        scrub: 0.5,
-      }
-    });
+
 
     if (prefersReducedMotion) {
       gsap.set(".site-main > section", { opacity: 1, clearProps: "transform" });
@@ -194,8 +181,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       repeatRefresh: true,
       onUpdate: () => {
         const bgGradientVal = theme === "dark"
-          ? `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #0d0c26 0%, #030712 100%)`
-          : `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #f1f5f9 0%, #e2e8f0 100%)`;
+          ? `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #063040 0%, #030712 100%)`
+          : `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #e0faff 0%, #f1f5f9 100%)`;
         document.body.style.backgroundImage = bgGradientVal;
       }
     });
@@ -209,13 +196,9 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
+    const updateScrollState = () => {
       // Toggle scrolled header state
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
 
       // Scroll Spy logic to detect current visible section
       const sections = ["home", "about", "resume", "skills", "projects", "blog", "contact"];
@@ -234,11 +217,24 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    // Trigger scroll spy on mount
-    handleScroll();
+    const handleScroll = () => {
+      if (scrollFrameRef.current !== null) return;
+      scrollFrameRef.current = window.requestAnimationFrame(() => {
+        scrollFrameRef.current = null;
+        updateScrollState();
+      });
+    };
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Trigger scroll spy on mount
+    updateScrollState();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollFrameRef.current !== null) {
+        window.cancelAnimationFrame(scrollFrameRef.current);
+      }
+    };
   }, []);
 
   const handleMenuToggle = () => setMenuOpen((open) => !open);
