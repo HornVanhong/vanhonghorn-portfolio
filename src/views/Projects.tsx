@@ -25,8 +25,59 @@ const pdf2 = "/Project/TCI-2510-CAMBODIA-II.s6.xe103.pdf";
 const pdf3 = "/Project/TCI-2510-CAMBODIA-II.s6.xe105.pdf";
 
 const projectCards = [
-  
-
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "TextSnap",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "Text capture web app with a public Vercel deployment.",
+    image: "/project-screenshots/text-snap.png",
+    imageAlt: "TextSnap image to text converter app screen",
+    tags: ["TypeScript", "Web App", "OCR"],
+    repoUrl: "https://github.com/HornVanhong/TextSnap",
+    liveUrl: "https://text-snap-navy.vercel.app",
+    previewTone: "cyan",
+  },
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "SmartCV",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "Smart CV builder project published as a live web app.",
+    image: "/project-screenshots/smart-cv.png",
+    imageAlt: "SmartCV resume builder landing page",
+    tags: ["TypeScript", "CV", "Portfolio"],
+    repoUrl: "https://github.com/HornVanhong/SmartCV",
+    liveUrl: "https://smart-cv-two.vercel.app",
+    previewTone: "green",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "HeartMatch",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "Matching app project focused on TypeScript frontend practice.",
+    tags: ["TypeScript", "Matching App", "Frontend"],
+    repoUrl: "https://github.com/HornVanhong/HeartMatch",
+    previewTone: "rose",
+  },
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "vanhonghorn-portfolio",
+    meta: "CSS • Updated Jul 2026",
+    summary: "Personal portfolio website with a live Vercel deployment.",
+    tags: ["Portfolio", "CSS", "Vercel"],
+    repoUrl: "https://github.com/HornVanhong/vanhonghorn-portfolio",
+    liveUrl: "https://vanhonghorn-portfolio.vercel.app",
+    previewTone: "blue",
+  },
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "vanhonghorn-modern-portfolio",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "Modern portfolio version built with TypeScript.",
+    tags: ["TypeScript", "Portfolio", "Web"],
+    repoUrl: "https://github.com/HornVanhong/vanhonghorn-modern-portfolio",
+    liveUrl: "https://vanhonghorn-modern-portfolio-5fp2-blush.vercel.app",
+    previewTone: "violet",
+  },
   {
     icon: <FaCode aria-hidden="true" />,
     title: "Digital_Clock",
@@ -35,23 +86,35 @@ const projectCards = [
     tags: ["HTML", "Clock", "Web UI"],
     repoUrl: "https://github.com/HornVanhong/Digital_Clock",
     liveUrl: "https://digital-clock-green-omega.vercel.app",
+    previewTone: "amber",
   },
-  
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "vanhonghorn-modern_portfolio",
+    meta: "TypeScript • Updated Jun 2026",
+    summary: "Alternate modern portfolio repository with a live deployment.",
+    tags: ["TypeScript", "Portfolio", "Web"],
+    repoUrl: "https://github.com/HornVanhong/vanhonghorn-modern_portfolio",
+    liveUrl: "https://vanhonghorn-modern-portfolio.vercel.app",
+    previewTone: "blue",
+  },
   {
     icon: <FaLaptopCode aria-hidden="true" />,
     title: "08_HORN_VANHONG_SR_MINI_PROJECT_002",
-    meta: "JavaScript • Updated Jun 2026",
+    meta: "JavaScript • Updated Apr 2026",
     summary: "KSHRD mini project repository focused on frontend JavaScript work.",
     tags: ["JavaScript", "Mini Project", "KSHRD"],
     repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_MINI_PROJECT_002",
+    previewTone: "amber",
   },
   {
     icon: <FaCode aria-hidden="true" />,
     title: "Practice_Web_Next_Auth",
-    meta: "GitHub repository • Updated Jun 2026",
+    meta: "GitHub repository • Updated Apr 2026",
     summary: "Practice repository for web authentication concepts.",
     tags: ["Next Auth", "Practice", "Web"],
     repoUrl: "https://github.com/HornVanhong/Practice_Web_Next_Auth",
+    previewTone: "violet",
   },
   {
     icon: <FaLaptopCode aria-hidden="true" />,
@@ -60,15 +123,35 @@ const projectCards = [
     summary: "Spring homework repositories covering backend Java practice.",
     tags: ["Java", "Spring", "Homework"],
     repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_SPRING_Homework003",
+    previewTone: "green",
   },
   {
     icon: <FaCode aria-hidden="true" />,
-    title: "Web Homework Series",
+    title: "08_HORN_VANHONG_SR_Web_Homework006",
     meta: "JavaScript / CSS • Updated Jun 2026",
     summary: "Frontend homework repositories from the web development training track.",
     tags: ["JavaScript", "CSS", "Homework"],
     repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_Web_Homework006",
+    previewTone: "cyan",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "09_HORN_VANHONG_SR_Web_Homework005",
+    meta: "JavaScript • Updated Mar 2026",
+    summary: "Frontend homework project with a live Vercel deployment.",
+    tags: ["JavaScript", "Homework", "Web"],
+    repoUrl: "https://github.com/HornVanhong/09_HORN_VANHONG_SR_Web_Homework005",
     liveUrl: "https://09-horn-vanhong-sr-web-homework005.vercel.app",
+    previewTone: "amber",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "09_HORN_VANHONG_SR_Web_Homework_004",
+    meta: "CSS • Updated Mar 2026",
+    summary: "CSS-focused web homework repository.",
+    tags: ["CSS", "Homework", "Web"],
+    repoUrl: "https://github.com/HornVanhong/09_HORN_VANHONG_SR_Web_Homework_004",
+    previewTone: "blue",
   },
   {
     icon: <FaLaptopCode aria-hidden="true" />,
@@ -77,24 +160,54 @@ const projectCards = [
     summary: "Java mini project repository from the software training program.",
     tags: ["Java", "Mini Project", "Backend"],
     repoUrl: "https://github.com/HornVanhong/03_SR_Mini_Project",
+    previewTone: "green",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "09_HORN_VANHONG_SR_Mini_Project001",
+    meta: "HTML • Updated Feb 2026",
+    summary: "HTML mini project repository from the web development track.",
+    tags: ["HTML", "Mini Project", "Web"],
+    repoUrl: "https://github.com/HornVanhong/09_HORN_VANHONG_SR_Mini_Project001",
+    previewTone: "rose",
   },
   {
     icon: <FaMobileAlt aria-hidden="true" />,
     title: "Quiz-for-Android-Developer",
-    meta: "Kotlin • Updated Mar 2025",
+    meta: "Kotlin • Updated Aug 2025",
     summary: "Android quiz project built with Kotlin.",
     tags: ["Kotlin", "Android", "Quiz"],
     repoUrl: "https://github.com/HornVanhong/Quiz-for-Android-Developer",
+    previewTone: "green",
+  },
+  {
+    icon: <FaMobileAlt aria-hidden="true" />,
+    title: "FlutterProduct",
+    meta: "C++ • Updated Jul 2025",
+    summary: "Flutter product app repository with native platform code.",
+    tags: ["Flutter", "Mobile", "Product"],
+    repoUrl: "https://github.com/HornVanhong/FlutterProduct",
+    previewTone: "blue",
   },
   {
     icon: <FaMobileAlt aria-hidden="true" />,
     title: "Smart_App",
-    meta: "JavaScript • Updated Dec 2024",
+    meta: "JavaScript • Updated Jul 2025",
     summary: "Smart mobile app UI work, represented by the SmartNas screen.",
     image: SmartNasImage,
     imageAlt: "SmartNas mobile app UI screen",
     tags: ["JavaScript", "Mobile UI", "Smart App"],
     repoUrl: "https://github.com/HornVanhong/Smart_App",
+  },
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "resume_vanhong",
+    meta: "CSS • Updated Jun 2025",
+    summary: "Resume website repository with a live Vercel deployment.",
+    tags: ["Resume", "CSS", "Vercel"],
+    repoUrl: "https://github.com/HornVanhong/resume_vanhong",
+    liveUrl: "https://resume-vanhong.vercel.app",
+    previewTone: "violet",
   },
   {
     icon: <FaCode aria-hidden="true" />,
@@ -107,17 +220,6 @@ const projectCards = [
     repoUrl: "https://github.com/HornVanhong/JongNham_Resturant",
     liveUrl: "https://jong-nham-resturant.vercel.app",
   },
-  
-  
-  {
-    icon: <FaCode aria-hidden="true" />,
-    title: "smart_game",
-    meta: "HTML • Updated Jun 2024",
-    summary: "Small HTML game project hosted on GitHub.",
-    tags: ["HTML", "Game", "Practice"],
-    repoUrl: "https://github.com/HornVanhong/smart_game",
-  },
- 
 ];
 
 const pdfFiles = [
@@ -343,11 +445,34 @@ export default function Projects() {
                     src={project.image}
                     alt={project.imageAlt}
                     className="project-image"
+                    width={1600}
+                    height={1000}
                     sizes="(max-width: 768px) 84vw, 320px"
-                    placeholder="blur"
+                    placeholder={typeof project.image === "string" ? "empty" : "blur"}
                   />
                 </div>
-              ) : null}
+              ) : (
+                <div className={`project-preview project-preview-${project.previewTone || "cyan"}`} aria-hidden="true">
+                  <div className="project-preview-browser">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className="project-preview-content">
+                    <span className="project-preview-icon">{project.icon}</span>
+                    <div className="project-preview-lines">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                  </div>
+                  <div className="project-preview-footer">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
+              )}
               <h2>{project.title}</h2>
               <p className="project-meta">{project.meta}</p>
               <p className="project-summary">{project.summary}</p>
