@@ -145,7 +145,7 @@ export default function CustomCursor() {
       }
 
       // Check for magnetic elements (social icons, navbar links, toggles, view buttons, close button)
-      const isMag = target.closest(".social, .theme-toggle, .music-toggle, .nav-link, .site-brand, .profile-card-btn, .btn, .cert-view-btn, .cert-download-btn, .close-modal-btn");
+      const isMag = target.closest(".social, .theme-toggle, .music-toggle, .nav-link, .site-brand, .profile-card-btn, .btn, .cert-view-btn, .cert-download-btn, .close-modal-btn, .telegram-qr-btn, .telegram-direct-link-btn");
       if (isMag) {
         setMagneticElement(isMag as HTMLElement);
         magneticRef.current = isMag as HTMLElement;
@@ -199,7 +199,7 @@ export default function CustomCursor() {
     >
       <div
         ref={dotRef}
-        className={`custom-cursor-dot ${isHovered ? "hovered" : ""}`}
+        className={`custom-cursor-dot ${isHovered ? "hovered" : ""} ${magneticElement ? "magnetic-active" : ""}`}
       />
       <div
         ref={ringRef}

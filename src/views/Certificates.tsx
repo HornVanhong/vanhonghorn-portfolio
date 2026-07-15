@@ -7,11 +7,18 @@ import { Modal } from "@heroui/react";
 
 const certificateFiles = [
   {
-    name: "cyber.pdf",
+   name: "cyber.pdf",
     title: "Cyber Security Specialist Certificate",
     issuer: "ANT Technology Training Center",
     category: "Certificate",
     type: "PDF",
+  },
+  {
+   name: "HRD/HRD_Basic_Certificate.png",
+    title: "Korea Software HRD Certificate",
+    issuer: "Korea Software HRD Center",
+    category: "Certificate",
+    type: "PNG",
   },
   {
     name: "HRD/Coding1.jpeg",

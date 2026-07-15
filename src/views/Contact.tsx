@@ -6,8 +6,11 @@ import {
   FaMapMarkerAlt,
   FaPaperPlane,
   FaPhoneAlt,
+  FaTelegramPlane,
+  FaTimes,
 } from "react-icons/fa";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { Modal } from "@heroui/react";
 
 const contactLinks = [
   {
@@ -31,6 +34,7 @@ const contactLinks = [
 ];
 
 export default function Contact() {
+  const [qrModalOpen, setQrModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -117,6 +121,19 @@ export default function Contact() {
                 </span>
               </a>
             ))}
+            <button
+              type="button"
+              className="telegram-qr-btn contact-link-card"
+              onClick={() => setQrModalOpen(true)}
+            >
+              <span className="contact-link-icon">
+                <FaTelegramPlane aria-hidden="true" />
+              </span>
+              <span>
+                <strong>Telegram</strong>
+                <small>Scan or click for QR Code</small>
+              </span>
+            </button>
           </div>
 
           <div className="contact-note">
@@ -187,6 +204,53 @@ export default function Contact() {
           )}
         </form>
       </div>
+
+      {qrModalOpen && (
+        <Modal
+          isOpen={qrModalOpen}
+          onOpenChange={(open) => setQrModalOpen(open)}
+        >
+          <Modal.Backdrop className="bg-[#030712]/60 backdrop-blur-md fixed inset-0 z-[1000] flex items-center justify-center p-6" />
+          <Modal.Container className="fixed inset-0 z-[1001] flex items-center justify-center p-6 pointer-events-none">
+            <Modal.Dialog className="bg-[#0b0f19] border border-[rgba(255,255,255,0.08)] rounded-2xl text-[#f8fafc] w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col shadow-2xl pointer-events-auto">
+              <Modal.Header className="flex justify-between items-center p-6 border-b border-[rgba(255,255,255,0.05)]">
+                <div>
+                  <span className="text-xs uppercase tracking-wider text-[#94a3b8] font-mono">Telegram Contact</span>
+                  <Modal.Heading className="text-xl font-bold text-[#f8fafc] mt-1">Connect on Telegram</Modal.Heading>
+                </div>
+                <Modal.CloseTrigger className="hover:bg-[rgba(255,255,255,0.08)] active:bg-[rgba(255,255,255,0.12)] p-2 rounded-lg text-[#f8fafc] transition-colors cursor-pointer border-none bg-transparent close-modal-btn">
+                  <FaTimes aria-hidden="true" />
+                </Modal.CloseTrigger>
+              </Modal.Header>
+              <Modal.Body className="p-6 flex flex-col items-center gap-6 text-center">
+                <div className="telegram-qr-container">
+                  <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://t.me/vanhongVH"
+                    alt="Telegram Contact QR Code"
+                    className="telegram-qr-image"
+                  />
+                </div>
+                <div className="telegram-qr-info">
+                  <p className="text-sm text-[#94a3b8] leading-relaxed">
+                    Scan this QR code with your phone camera or Telegram scanner to contact me directly.
+                  </p>
+                  <strong className="text-base text-[#00d5e8] font-mono mt-2 block">@vanhongVH</strong>
+                </div>
+                <div className="telegram-qr-actions w-full flex gap-3">
+                  <a
+                    href="https://t.me/vanhongVH"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="telegram-direct-link-btn"
+                  >
+                    Open Telegram App
+                  </a>
+                </div>
+              </Modal.Body>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal>
+      )}
     </section>
   );
 }
