@@ -1,4 +1,5 @@
-import { FaClock, FaBookOpen, FaNetworkWired, FaLinux, FaMobileAlt } from "react-icons/fa";
+import Image from "next/image";
+import { FaClock, FaBookOpen, FaNetworkWired, FaLinux, FaMobileAlt, FaShieldAlt } from "react-icons/fa";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const posts = [
@@ -10,6 +11,8 @@ const posts = [
     readingTime: "5 min read",
     topic: "Networking",
     icon: <FaNetworkWired aria-hidden="true" />,
+    image: "/blog/photo_2026-08-13_23-47-12.jpg",
+    imageAlt: "Networking and protocols architecture",
   },
   {
     title: "Linux Fundamentals: System Info Extractor",
@@ -19,6 +22,8 @@ const posts = [
     readingTime: "4 min read",
     topic: "Linux",
     icon: <FaLinux aria-hidden="true" />,
+    image: "/blog/photo_2026-08-13_23-47-10.jpg",
+    imageAlt: "Linux system administration setup",
   },
   {
     title: "Building Mobile Apps with Flutter and React Native",
@@ -28,6 +33,8 @@ const posts = [
     readingTime: "6 min read",
     topic: "Mobile",
     icon: <FaMobileAlt aria-hidden="true" />,
+    image: "/blog/photo_2026-08-13_23-47-13.jpg",
+    imageAlt: "Mobile app development with Flutter",
   },
   {
     title: "Networking Labs with Cisco Academy",
@@ -37,6 +44,19 @@ const posts = [
     readingTime: "3 min read",
     topic: "Labs",
     icon: <FaBookOpen aria-hidden="true" />,
+    image: "/blog/photo_2026-08-13_23-47-14.jpg",
+    imageAlt: "Cisco Networking Academy lab",
+  },
+  {
+    title: "Defensive Security & Threat Monitoring",
+    meta: "Cyber Security",
+    summary:
+      "Essential defensive security strategies, vulnerability assessments, and system log audits.",
+    readingTime: "5 min read",
+    topic: "Security",
+    icon: <FaShieldAlt aria-hidden="true" />,
+    image: "/blog/photo_2026-08-13_23-47-15.jpg",
+    imageAlt: "Cyber security threat monitoring",
   },
 ];
 
@@ -61,19 +81,32 @@ export default function Blog() {
 
       <div className="blog-featured anim-slide" style={{ animationDelay: "0.1s" }}>
         <article className="blog-featured-card">
-          <div className="blog-featured-top">
-            <span className="blog-topic-pill">{featured.topic}</span>
-            <span className="blog-reading-time">
-              <FaClock aria-hidden="true" />
-              {featured.readingTime}
-            </span>
+          <div className="blog-featured-image-wrap">
+            <Image
+              src={featured.image}
+              alt={featured.imageAlt}
+              width={1200}
+              height={600}
+              className="blog-featured-image"
+              priority
+            />
           </div>
-          <div className="blog-featured-body">
-            <div className="blog-featured-icon">{featured.icon}</div>
-            <div>
-              <p className="blog-meta">{featured.meta}</p>
-              <h2>{featured.title}</h2>
-              <p>{featured.summary}</p>
+
+          <div className="blog-featured-content">
+            <div className="blog-featured-top">
+              <span className="blog-topic-pill">{featured.topic}</span>
+              <span className="blog-reading-time">
+                <FaClock aria-hidden="true" />
+                {featured.readingTime}
+              </span>
+            </div>
+            <div className="blog-featured-body">
+              <div className="blog-featured-icon">{featured.icon}</div>
+              <div>
+                <p className="blog-meta">{featured.meta}</p>
+                <h2>{featured.title}</h2>
+                <p>{featured.summary}</p>
+              </div>
             </div>
           </div>
         </article>
@@ -82,18 +115,30 @@ export default function Blog() {
       <div className="blog-grid anim-slide" style={{ animationDelay: "0.2s" }}>
         {secondary.map((post) => (
           <article className="blog-card modern-blog-card" key={post.title}>
-            <div className="blog-card-top">
-              <span className="blog-card-icon">{post.icon}</span>
-              <span className="blog-topic-pill">{post.topic}</span>
+            <div className="blog-card-image-wrap">
+              <Image
+                src={post.image}
+                alt={post.imageAlt}
+                width={600}
+                height={340}
+                className="blog-card-image"
+              />
             </div>
-            <p className="blog-meta">{post.meta}</p>
-            <h2>{post.title}</h2>
-            <p className="blog-summary">{post.summary}</p>
-            <div className="blog-card-footer">
-              <span className="blog-reading-time">
-                <FaClock aria-hidden="true" />
-                {post.readingTime}
-              </span>
+
+            <div className="blog-card-content">
+              <div className="blog-card-top">
+                <span className="blog-card-icon">{post.icon}</span>
+                <span className="blog-topic-pill">{post.topic}</span>
+              </div>
+              <p className="blog-meta">{post.meta}</p>
+              <h2>{post.title}</h2>
+              <p className="blog-summary">{post.summary}</p>
+              <div className="blog-card-footer">
+                <span className="blog-reading-time">
+                  <FaClock aria-hidden="true" />
+                  {post.readingTime}
+                </span>
+              </div>
             </div>
           </article>
         ))}
