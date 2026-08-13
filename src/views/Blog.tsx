@@ -1,148 +1,139 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { FaClock, FaBookOpen, FaNetworkWired, FaLinux, FaMobileAlt, FaShieldAlt } from "react-icons/fa";
+import { FaImages, FaTimes, FaExpand } from "react-icons/fa";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
-const posts = [
+const galleryImages = [
   {
-    title: "Understanding ARP, DNS, and DHCP",
-    meta: "Cyberium Arena - Net Crafts",
-    summary:
-      "A practical breakdown of how core networking protocols map addresses, resolve domains, and assign IPs.",
-    readingTime: "5 min read",
-    topic: "Networking",
-    icon: <FaNetworkWired aria-hidden="true" />,
+    id: 1,
+    title: "MPTC Scholarship & KSHRD Award Ceremony",
+    category: "Award & Achievement",
     image: "/blog/photo_2026-08-13_23-47-12.jpg",
-    imageAlt: "Networking and protocols architecture",
+    alt: "MPTC Scholarship Award Ceremony",
   },
   {
-    title: "Linux Fundamentals: System Info Extractor",
-    meta: "Cyberium Arena - Linux Projects",
-    summary:
-      "Bash scripting techniques for extracting IP data, CPU usage, memory stats, and active services.",
-    readingTime: "4 min read",
-    topic: "Linux",
-    icon: <FaLinux aria-hidden="true" />,
+    id: 2,
+    title: "ANT Technology Training Center Profile",
+    category: "Cyber Security",
     image: "/blog/photo_2026-08-13_23-47-10.jpg",
-    imageAlt: "Linux system administration setup",
+    alt: "ANT Technology Student Profile",
   },
   {
-    title: "Building Mobile Apps with Flutter and React Native",
-    meta: "Internship & Coursework",
-    summary:
-      "Lessons from cloning UI flows, integrating APIs, and building front-end features for banking apps.",
-    readingTime: "6 min read",
-    topic: "Mobile",
-    icon: <FaMobileAlt aria-hidden="true" />,
+    id: 3,
+    title: "Coding Challenge Prize Giving Ceremony",
+    category: "Competition",
     image: "/blog/photo_2026-08-13_23-47-13.jpg",
-    imageAlt: "Mobile app development with Flutter",
+    alt: "Coding Challenge Prize Ceremony",
   },
   {
-    title: "Networking Labs with Cisco Academy",
-    meta: "Coursework",
-    summary:
-      "Hands-on practice with network configuration, troubleshooting, and protocol analysis in lab environments.",
-    readingTime: "3 min read",
-    topic: "Labs",
-    icon: <FaBookOpen aria-hidden="true" />,
+    id: 4,
+    title: "Technical Presentation & Student Profile",
+    category: "Academic",
     image: "/blog/photo_2026-08-13_23-47-14.jpg",
-    imageAlt: "Cisco Networking Academy lab",
+    alt: "Student Profile Presentation",
   },
   {
-    title: "Defensive Security & Threat Monitoring",
-    meta: "Cyber Security",
-    summary:
-      "Essential defensive security strategies, vulnerability assessments, and system log audits.",
-    readingTime: "5 min read",
-    topic: "Security",
-    icon: <FaShieldAlt aria-hidden="true" />,
+    id: 5,
+    title: "Cyber Security & Networking Session",
+    category: "Networking",
     image: "/blog/photo_2026-08-13_23-47-15.jpg",
-    imageAlt: "Cyber security threat monitoring",
+    alt: "Tech Event Session",
+  },
+  {
+    id: 6,
+    title: "Team Coding Challenge & Award Presentation",
+    category: "Hackathon",
+    image: "/blog/photo_2026-08-13_23-47-10 (2).jpg",
+    alt: "Team Coding Award",
+  },
+  {
+    id: 7,
+    title: "KSHRD 14th Generation Graduation",
+    category: "Graduation",
+    image: "/blog/photo_2026-08-13_23-47-13 (2).jpg",
+    alt: "KSHRD Graduation Ceremony",
   },
 ];
 
 export default function Blog() {
-  const featured = posts[0];
-  const secondary = posts.slice(1);
   const [revealRef, revealClass] = useScrollReveal();
+  const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
 
   return (
     <section id="blog" ref={revealRef} className={`blog-page anim-fade ${revealClass}`}>
       <div className="blog-header anim-slide">
         <span className="blog-kicker">
-          <FaBookOpen aria-hidden="true" />
-          Notes and Writing
+          <FaImages aria-hidden="true" />
+          Photo Gallery
         </span>
-        <h1 className="blog-title">Blog</h1>
+        <h1 className="blog-title">Blog Gallery</h1>
         <p className="blog-intro">
-          Short technical notes, project write-ups, and lessons from security,
-          networking, and development work.
+          Visual highlights from coding competitions, cybersecurity training, KSHRD graduation, and tech achievements.
         </p>
       </div>
 
-      <div className="blog-featured anim-slide" style={{ animationDelay: "0.1s" }}>
-        <article className="blog-featured-card">
-          <div className="blog-featured-image-wrap">
-            <Image
-              src={featured.image}
-              alt={featured.imageAlt}
-              width={1200}
-              height={600}
-              className="blog-featured-image"
-              priority
-            />
-          </div>
-
-          <div className="blog-featured-content">
-            <div className="blog-featured-top">
-              <span className="blog-topic-pill">{featured.topic}</span>
-              <span className="blog-reading-time">
-                <FaClock aria-hidden="true" />
-                {featured.readingTime}
-              </span>
-            </div>
-            <div className="blog-featured-body">
-              <div className="blog-featured-icon">{featured.icon}</div>
-              <div>
-                <p className="blog-meta">{featured.meta}</p>
-                <h2>{featured.title}</h2>
-                <p>{featured.summary}</p>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <div className="blog-grid anim-slide" style={{ animationDelay: "0.2s" }}>
-        {secondary.map((post) => (
-          <article className="blog-card modern-blog-card" key={post.title}>
-            <div className="blog-card-image-wrap">
+      {/* Image Grid */}
+      <div className="blog-image-grid anim-slide" style={{ animationDelay: "0.15s" }}>
+        {galleryImages.map((item) => (
+          <div
+            key={item.id}
+            className="blog-image-card"
+            onClick={() => setSelectedImage(item)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") setSelectedImage(item);
+            }}
+          >
+            <div className="blog-image-wrapper">
               <Image
-                src={post.image}
-                alt={post.imageAlt}
-                width={600}
-                height={340}
-                className="blog-card-image"
+                src={item.image}
+                alt={item.alt}
+                width={800}
+                height={600}
+                className="blog-grid-img"
               />
-            </div>
-
-            <div className="blog-card-content">
-              <div className="blog-card-top">
-                <span className="blog-card-icon">{post.icon}</span>
-                <span className="blog-topic-pill">{post.topic}</span>
-              </div>
-              <p className="blog-meta">{post.meta}</p>
-              <h2>{post.title}</h2>
-              <p className="blog-summary">{post.summary}</p>
-              <div className="blog-card-footer">
-                <span className="blog-reading-time">
-                  <FaClock aria-hidden="true" />
-                  {post.readingTime}
+              <div className="blog-image-overlay">
+                <span className="blog-image-tag">{item.category}</span>
+                <h3 className="blog-image-title">{item.title}</h3>
+                <span className="blog-expand-hint">
+                  <FaExpand aria-hidden="true" /> View Photo
                 </span>
               </div>
             </div>
-          </article>
+          </div>
         ))}
       </div>
+
+      {/* Lightbox Image Preview Modal */}
+      {selectedImage && (
+        <div className="image-lightbox-backdrop" onClick={() => setSelectedImage(null)}>
+          <div className="image-lightbox-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="image-lightbox-close"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close photo preview"
+            >
+              <FaTimes />
+            </button>
+            <div className="image-lightbox-img-wrap">
+              <Image
+                src={selectedImage.image}
+                alt={selectedImage.alt}
+                width={1200}
+                height={900}
+                className="image-lightbox-img"
+              />
+            </div>
+            <div className="image-lightbox-info">
+              <span className="blog-image-tag">{selectedImage.category}</span>
+              <h2>{selectedImage.title}</h2>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
