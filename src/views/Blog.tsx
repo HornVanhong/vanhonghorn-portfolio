@@ -15,10 +15,10 @@ const galleryImages = [
   },
   {
     id: 2,
-    title: "ANT Technology Training Center Profile",
-    category: "Cyber Security",
+    title: "My Personal Style",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-13_23-47-10.jpg",
-    alt: "ANT Technology Student Profile",
+    alt: "My Personal Style",
   },
   {
     id: 3,
@@ -29,24 +29,24 @@ const galleryImages = [
   },
   {
     id: 4,
-    title: "Technical Presentation & Student Profile",
-    category: "Academic",
+    title: "My Personal Style",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-13_23-47-14.jpg",
-    alt: "Student Profile Presentation",
+    alt: "My Personal Style",
   },
   {
     id: 5,
     title: "My Personal Style",
     category: "My Personal Style",
     image: "/blog/photo_2026-08-13_23-47-15.jpg",
-    alt: "Tech Event Session",
+    alt: "My Personal Style",
   },
   {
     id: 6,
     title: "My Personal Style",
     category: "My Personal Style",
     image: "/blog/photo_2026-08-13_23-47-10 (2).jpg",
-    alt: "Team Coding Award",
+    alt: "My Personal Style",
   },
   {
     id: 7,
@@ -57,17 +57,17 @@ const galleryImages = [
   },
   {
     id: 8,
-    title: "Software Engineering & Tech Journey",
-    category: "Development",
+    title: "My Personal Style",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-14_00-16-11.jpg",
-    alt: "Software Engineering Showcase",
+    alt: "My Personal Style",
   },
   {
     id: 9,
-    title: "KSHRD Training & Agile Project Work",
-    category: "KSHRD Training",
+    title: "My Personal Style",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-14_00-16-12.jpg",
-    alt: "KSHRD Training Session",
+    alt: "My Personal Style",
   },
   {
     id: 10,
@@ -78,10 +78,10 @@ const galleryImages = [
   },
   {
     id: 11,
-    title: "Cyber Security & Defensive Labs",
-    category: "Cyber Security",
+    title: "My Personal Style",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-14_00-16-36.jpg",
-    alt: "Cyber Security Lab Session",
+    alt: "My Personal Style",
   },
 ];
 
