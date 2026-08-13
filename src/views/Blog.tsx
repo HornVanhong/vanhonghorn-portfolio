@@ -37,13 +37,13 @@ const galleryImages = [
   {
     id: 5,
     title: "My Personal Style",
-    category: "My Personal Style ",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-13_23-47-15.jpg",
     alt: "Tech Event Session",
   },
   {
     id: 6,
-    title: "My Personal Style ",
+    title: "My Personal Style",
     category: "My Personal Style",
     image: "/blog/photo_2026-08-13_23-47-10 (2).jpg",
     alt: "Team Coding Award",
@@ -54,6 +54,34 @@ const galleryImages = [
     category: "Graduation",
     image: "/blog/photo_2026-08-13_23-47-13 (2).jpg",
     alt: "KSHRD Graduation Ceremony",
+  },
+  {
+    id: 8,
+    title: "Software Engineering & Tech Journey",
+    category: "Development",
+    image: "/blog/photo_2026-08-14_00-16-11.jpg",
+    alt: "Software Engineering Showcase",
+  },
+  {
+    id: 9,
+    title: "KSHRD Training & Agile Project Work",
+    category: "KSHRD Training",
+    image: "/blog/photo_2026-08-14_00-16-12.jpg",
+    alt: "KSHRD Training Session",
+  },
+  {
+    id: 10,
+    title: "IT Workshop & Networking Collaboration",
+    category: "Networking",
+    image: "/blog/photo_2026-08-14_00-16-12 (2).jpg",
+    alt: "IT Workshop Session",
+  },
+  {
+    id: 11,
+    title: "Cyber Security & Defensive Labs",
+    category: "Cyber Security",
+    image: "/blog/photo_2026-08-14_00-16-36.jpg",
+    alt: "Cyber Security Lab Session",
   },
 ];
 
