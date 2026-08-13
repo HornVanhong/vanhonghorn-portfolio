@@ -71,10 +71,10 @@ const galleryImages = [
   },
   {
     id: 10,
-    title: "IT Workshop & Networking Collaboration",
-    category: "Networking",
+    title: "Personal Style",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-14_00-16-12 (2).jpg",
-    alt: "IT Workshop Session",
+    alt: "My Personal Style",
   },
   {
     id: 11,
