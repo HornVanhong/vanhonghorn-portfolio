@@ -36,15 +36,15 @@ const galleryImages = [
   },
   {
     id: 5,
-    title: "Cyber Security & Networking Session",
-    category: "Networking",
+    title: "My Personal Style",
+    category: "My Personal Style ",
     image: "/blog/photo_2026-08-13_23-47-15.jpg",
     alt: "Tech Event Session",
   },
   {
     id: 6,
-    title: "Team Coding Challenge & Award Presentation",
-    category: "Hackathon",
+    title: "My Personal Style ",
+    category: "My Personal Style",
     image: "/blog/photo_2026-08-13_23-47-10 (2).jpg",
     alt: "Team Coding Award",
   },
@@ -74,12 +74,12 @@ export default function Blog() {
         </p>
       </div>
 
-      {/* Image Grid */}
-      <div className="blog-image-grid anim-slide" style={{ animationDelay: "0.15s" }}>
+      {/* Masonry Waterfall Grid */}
+      <div className="blog-masonry-grid anim-slide" style={{ animationDelay: "0.15s" }}>
         {galleryImages.map((item) => (
           <div
             key={item.id}
-            className="blog-image-card"
+            className="masonry-item-card"
             onClick={() => setSelectedImage(item)}
             role="button"
             tabIndex={0}
@@ -87,19 +87,19 @@ export default function Blog() {
               if (e.key === "Enter" || e.key === " ") setSelectedImage(item);
             }}
           >
-            <div className="blog-image-wrapper">
+            <div className="masonry-img-container">
               <Image
                 src={item.image}
                 alt={item.alt}
                 width={800}
-                height={600}
-                className="blog-grid-img"
+                height={1000}
+                className="masonry-img"
               />
-              <div className="blog-image-overlay">
+              <div className="masonry-overlay">
                 <span className="blog-image-tag">{item.category}</span>
                 <h3 className="blog-image-title">{item.title}</h3>
                 <span className="blog-expand-hint">
-                  <FaExpand aria-hidden="true" /> View Photo
+                  <FaExpand aria-hidden="true" /> View Full Photo
                 </span>
               </div>
             </div>
