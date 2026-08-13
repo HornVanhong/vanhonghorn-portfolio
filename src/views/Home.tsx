@@ -130,47 +130,56 @@ export default function Home() {
     const card = containerRef.current.querySelector(".hero-portrait-card");
     let cleanupCardTilt: (() => void) | undefined;
     if (card) {
+      let tiltFrame: number | null = null;
+
       const onMouseMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        if (tiltFrame !== null) return;
+        tiltFrame = window.requestAnimationFrame(() => {
+          tiltFrame = null;
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
 
-        const xc = rect.width / 2;
-        const yc = rect.height / 2;
-        const dx = x - xc;
-        const dy = y - yc;
+          const xc = rect.width / 2;
+          const yc = rect.height / 2;
+          const dx = x - xc;
+          const dy = y - yc;
 
-        const tiltX = -(dy / yc) * 10;
-        const tiltY = (dx / xc) * 10;
+          const tiltX = -(dy / yc) * 8;
+          const tiltY = (dx / xc) * 8;
 
-        gsap.to(card, {
-          rotateX: tiltX,
-          rotateY: tiltY,
-          y: -8, // Lift the card slightly
-          transformPerspective: 1000,
-          ease: "power2.out",
-          duration: 0.4,
-          overwrite: "auto",
-        });
+          gsap.to(card, {
+            rotateX: tiltX,
+            rotateY: tiltY,
+            y: -6,
+            transformPerspective: 1000,
+            ease: "power2.out",
+            duration: 0.3,
+            overwrite: "auto",
+          });
 
-        // Parallax depth sliding of the image itself
-        gsap.to(".profile-photo", {
-          x: (dx / xc) * 8,
-          y: (dy / yc) * 8,
-          scale: 1.04,
-          ease: "power2.out",
-          duration: 0.4,
-          overwrite: "auto"
+          gsap.to(".profile-photo", {
+            x: (dx / xc) * 6,
+            y: (dy / yc) * 6,
+            scale: 1.03,
+            ease: "power2.out",
+            duration: 0.3,
+            overwrite: "auto"
+          });
         });
       };
 
       const onMouseLeave = () => {
+        if (tiltFrame !== null) {
+          window.cancelAnimationFrame(tiltFrame);
+          tiltFrame = null;
+        }
         gsap.to(card, {
           rotateX: 0,
           rotateY: 0,
           y: 0,
           ease: "power3.out",
-          duration: 0.8,
+          duration: 0.6,
           overwrite: "auto",
         });
 
@@ -179,15 +188,16 @@ export default function Home() {
           y: 0,
           scale: 1,
           ease: "power3.out",
-          duration: 0.8,
+          duration: 0.6,
           overwrite: "auto"
         });
       };
 
-      card.addEventListener("mousemove", onMouseMove as EventListener);
-      card.addEventListener("mouseleave", onMouseLeave as EventListener);
+      card.addEventListener("mousemove", onMouseMove as EventListener, { passive: true });
+      card.addEventListener("mouseleave", onMouseLeave as EventListener, { passive: true });
 
       cleanupCardTilt = () => {
+        if (tiltFrame !== null) window.cancelAnimationFrame(tiltFrame);
         card.removeEventListener("mousemove", onMouseMove as EventListener);
         card.removeEventListener("mouseleave", onMouseLeave as EventListener);
       };
@@ -370,8 +380,8 @@ export default function Home() {
               <span>Years IT Journey</span>
             </div>
             <div>
-              <strong>6+</strong>
-              <span>Completed Projects</span>
+              <strong>30+</strong>
+              <span>GitHub Repos</span>
             </div>
             <div>
               <strong>2025</strong>

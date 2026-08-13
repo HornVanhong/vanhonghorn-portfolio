@@ -248,13 +248,10 @@ button, .btn {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Custom Cursor styling */
+/* Custom Cursor styling - Modern Minimal Dot & Expanding Ring */
 @media (pointer: fine) {
-  body {
+  body, a, button, [role="button"], input, textarea, select, .social, .theme-toggle, .music-toggle {
     cursor: none; /* Hide default cursor on desktop */
-  }
-  a, button, [role="button"], input, textarea, select, .social, .theme-toggle, .music-toggle {
-    cursor: none; /* Hide default cursor on interactive elements */
   }
 }
 
@@ -264,36 +261,46 @@ button, .btn {
   left: 0;
   width: 8px;
   height: 8px;
-  background-color: var(--accent);
+  background-color: var(--accent, #00f0ff);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
-  box-shadow: 0 0 10px var(--accent);
+  box-shadow: 0 0 10px var(--accent, #00f0ff), 0 0 20px rgba(var(--accent-rgb, 0, 240, 255), 0.5);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.25s, 
+              box-shadow 0.25s,
+              transform 0.15s ease-out,
+              opacity 0.2s;
 }
 
 .custom-cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid var(--accent);
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(var(--accent-rgb, 0, 240, 255), 0.5);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
+  box-shadow: 0 0 15px rgba(var(--accent-rgb, 0, 240, 255), 0.15), inset 0 0 10px rgba(var(--accent-rgb, 0, 240, 255), 0.08);
   will-change: transform, width, height, background-color, border-color;
-  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
-              height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              height 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
               background-color 0.3s, 
               border-color 0.3s, 
-              border-radius 0.3s;
+              border-radius 0.3s,
+              box-shadow 0.3s,
+              transform 0.15s ease-out;
 }
 
+/* Hover States */
 .custom-cursor-dot.hovered {
-  width: 4px;
-  height: 4px;
-  background-color: var(--accent-2);
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent, #00f0ff);
+  box-shadow: 0 0 14px var(--accent, #00f0ff), 0 0 28px var(--accent, #00f0ff);
 }
 
 .custom-cursor-dot.magnetic-active {
@@ -302,18 +309,28 @@ button, .btn {
 }
 
 .custom-cursor-ring.hovered {
-  width: 48px;
-  height: 48px;
-  border-color: var(--accent-2);
-  background-color: rgba(var(--accent-2-rgb), 0.08); /* accent-2-rgb */
-  box-shadow: 0 0 20px rgba(var(--accent-2-rgb), 0.2);
+  width: 52px;
+  height: 52px;
+  border-color: var(--accent, #00f0ff);
+  background-color: rgba(var(--accent-rgb, 0, 240, 255), 0.1);
+  box-shadow: 0 0 25px rgba(var(--accent-rgb, 0, 240, 255), 0.35), inset 0 0 15px rgba(var(--accent-rgb, 0, 240, 255), 0.2);
 }
 
-/* Magnetic snap active style on hover */
+/* Click Active States */
+.custom-cursor-dot.clicked {
+  transform: scale(0.65);
+}
+
+.custom-cursor-ring.clicked {
+  transform: scale(0.85);
+  border-color: var(--accent, #00f0ff);
+  box-shadow: 0 0 30px rgba(var(--accent-rgb, 0, 240, 255), 0.6), inset 0 0 20px rgba(var(--accent-rgb, 0, 240, 255), 0.3);
+}
+
 .custom-cursor-ring.magnetic {
-  border-color: var(--accent);
-  background-color: rgba(var(--accent-rgb), 0.12); /* accent-rgb */
-  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.2);
+  border-color: var(--accent, #00f0ff);
+  background-color: rgba(var(--accent-rgb, 0, 240, 255), 0.15);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb, 0, 240, 255), 0.35);
 }
 
 .hero-portrait-card {

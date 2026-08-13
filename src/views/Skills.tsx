@@ -1,11 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { BarChart, PieChart } from "@mui/x-charts";
 import { FaCode } from "react-icons/fa";
+
+const BarChart = dynamic(
+  () => import("@mui/x-charts").then((mod) => mod.BarChart),
+  { ssr: false, loading: () => <div className="skills-chart-skeleton" style={{ height: 360 }} /> }
+);
+const PieChart = dynamic(
+  () => import("@mui/x-charts").then((mod) => mod.PieChart),
+  { ssr: false, loading: () => <div className="skills-chart-skeleton" style={{ height: 300 }} /> }
+);
 
 gsap.registerPlugin(ScrollTrigger);
 

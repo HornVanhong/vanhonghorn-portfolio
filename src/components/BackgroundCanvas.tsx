@@ -27,8 +27,10 @@ export default function BackgroundCanvas() {
     let particles: Particle[] = [];
     let width = 0;
     let height = 0;
-    const maxDistance = 120;
-    const mouseRadius = 160;
+    let lastTime = 0;
+    const fpsInterval = 1000 / 30; // 30 FPS target for background canvas
+    const maxDistance = 110;
+    const mouseRadius = 140;
 
     const initParticles = () => {
       width = window.innerWidth;
@@ -36,9 +38,9 @@ export default function BackgroundCanvas() {
       canvas.width = width;
       canvas.height = height;
 
-      // Calculate particle density based on screen resolution
-      const density = Math.floor((width * height) / 38000);
-      const count = Math.min(58, Math.max(18, density));
+      // Calculate particle density based on screen resolution (optimized max 28)
+      const density = Math.floor((width * height) / 48000);
+      const count = Math.min(28, Math.max(12, density));
 
       particles = [];
       for (let i = 0; i < count; i++) {
@@ -46,8 +48,8 @@ export default function BackgroundCanvas() {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
           radius: radius,
           baseRadius: radius,
         });
@@ -55,7 +57,6 @@ export default function BackgroundCanvas() {
     };
 
     const handleResize = () => {
-      // Re-init particles on screen size changes to populate the screen nicely
       initParticles();
     };
 
@@ -70,11 +71,10 @@ export default function BackgroundCanvas() {
     };
 
     initParticles();
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
-    // Retrieve active variables from theme computed properties
     const updateColors = () => {
       const style = getComputedStyle(document.documentElement);
       colorsRef.current = {
@@ -90,47 +90,52 @@ export default function BackgroundCanvas() {
       attributeFilter: ["data-theme"],
     });
 
-    const tick = () => {
-      if (!ctx || !canvas) return;
+    const tick = (time: number) => {
+      if (!ctx || !canvas || document.hidden) return;
+
+      // Throttle canvas updates to ~30 FPS
+      const elapsed = time * 1000 - lastTime;
+      if (elapsed < fpsInterval) return;
+      lastTime = time * 1000 - (elapsed % fpsInterval);
+
       ctx.clearRect(0, 0, width, height);
 
       const { accent, accentRGB } = colorsRef.current;
       const mouse = mouseRef.current;
 
-      ctx.lineWidth = 0.75;
+      ctx.lineWidth = 0.7;
 
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];
 
-        // Connect to mouse if active & close
         if (mouse.x > -9999) {
           const dx = mouse.x - p1.x;
           const dy = mouse.y - p1.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < mouseRadius) {
-            const alpha = (1 - dist / mouseRadius) * 0.2;
+          if (distSq < mouseRadius * mouseRadius) {
+            const dist = Math.sqrt(distSq);
+            const alpha = (1 - dist / mouseRadius) * 0.18;
             ctx.strokeStyle = `rgba(${accentRGB}, ${alpha})`;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(mouse.x, mouse.y);
             ctx.stroke();
 
-            // Gentle gravity pull toward cursor
-            p1.x += dx * 0.007;
-            p1.y += dy * 0.007;
+            p1.x += dx * 0.005;
+            p1.y += dy * 0.005;
           }
         }
 
-        // Connect to neighboring particles
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p2.x - p1.x;
           const dy = p2.y - p1.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < maxDistance) {
-            const alpha = (1 - dist / maxDistance) * 0.07;
+          if (distSq < maxDistance * maxDistance) {
+            const dist = Math.sqrt(distSq);
+            const alpha = (1 - dist / maxDistance) * 0.06;
             ctx.strokeStyle = `rgba(${accentRGB}, ${alpha})`;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
@@ -140,9 +145,8 @@ export default function BackgroundCanvas() {
         }
       }
 
-      // Render and update individual node drift
+      ctx.fillStyle = accent;
       for (const p of particles) {
-        ctx.fillStyle = accent;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fill();
@@ -150,7 +154,6 @@ export default function BackgroundCanvas() {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around boundaries
         if (p.x < 0) p.x = width;
         else if (p.x > width) p.x = 0;
 
@@ -159,7 +162,6 @@ export default function BackgroundCanvas() {
       }
     };
 
-    // Add tick function to GSAP central render pipeline
     gsap.ticker.add(tick);
 
     return () => {

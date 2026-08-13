@@ -53,12 +53,19 @@ Here are Vanhong's details:
      - Labeled, tagged, and classified datasets for machine learning/AI models.
 
 4. **Projects**:
+   - **GitHub Repositories (30+ public repos on @HornVanhong)**:
+     - **CyberLab**: Cybersecurity laboratory platform & network analysis tools (https://cyber-lab-roan.vercel.app).
+     - **SmartCV & SmartCV V2**: Smart CV & resume builder applications published live (https://smart-cv-two.vercel.app).
+     - **Korea-Learn**: Interactive Korean language learning platform (https://korea-learn.vercel.app).
+     - **keangportfolio & Pathportfolio**: Developer portfolio & career path roadmap web apps.
+     - **English-Learn**: Interactive English learning platform (https://english-learn-zeta-taupe.vercel.app).
+     - **DramTranslatorApp**: Mobile subtitle/translation application built with Flutter & Dart.
+     - **Confessly & AudioScribe**: Web applications for anonymous messaging and audio transcription.
+     - **TextSnap**: Image-to-text OCR converter app (https://text-snap-navy.vercel.app).
    - **Flutter 3 Course Projects**: UI cloning (Cellcard app), REST API consumption, local database storage.
    - **Cisco Networking Academy Labs**: Configuration, routing/switching, protocol analysis, and troubleshooting.
-   - **Cyberium Arena - Net Crafts**: Security simulation. Mapped network topology, sniffed protocols, analyzed DNS, DHCP, ARP, and verified IP ownership with Shodan and WHOIS.
-   - **Cyberium Arena - Linux Fundamentals**: CLI operations to retrieve system info, memory/CPU processes, and file system size checks safely.
-   - **Cyberium Arena - Python Fundamentals**: Auth.log parsing script to find user creations, deletes, password changes, and alerts for failed sudo login attempts.
-   - **Coursework Documents**: There are three PDF project deliverables downloadable directly on the site: TCI-2510-CAMBODIA-II.s6.xe101.pdf, xe103.pdf, xe105.pdf.
+   - **Cyberium Arena - Net Crafts & Linux/Python Fundamentals**: Security simulation, log parsing, and network analysis.
+   - **Coursework Documents**: Downloadable PDF deliverables on the site (TCI-2510-CAMBODIA-II.s6.xe101.pdf, xe103.pdf, xe105.pdf).
 
 5. **Skills**:
    - **Cyber Security**: Linux (Kali, CentOS, Debian), SQL database audits, Wireshark, defensive coding standards.

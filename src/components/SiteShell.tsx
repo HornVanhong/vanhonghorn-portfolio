@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef, type ReactNode } from "react";
+import dynamic from "next/dynamic";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FaSun, FaMoon, FaMusic, FaPause } from "react-icons/fa";
-import ChatBot from "./ChatBot";
 import CustomCursor from "./CustomCursor";
 import BackgroundCanvas from "./BackgroundCanvas";
 import gsap from "gsap";
+
+const ChatBot = dynamic(() => import("./ChatBot"), { ssr: false });
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
@@ -115,8 +117,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     if (typeof window === "undefined") return;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-
-
     if (prefersReducedMotion) {
       gsap.set(".site-main > section", { opacity: 1, clearProps: "transform" });
       return;
@@ -125,67 +125,21 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     gsap.utils.toArray<HTMLElement>(".site-main > section").forEach((section) => {
       gsap.fromTo(
         section,
-        { opacity: 0, y: 48 },
+        { opacity: 0, y: 36 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.9,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 82%",
+            start: "top 85%",
             once: true,
           },
         }
       );
     });
-
-    // Smooth moving background drift & parallax for glow orbs
-    const orbs = [".orb-1", ".orb-2", ".orb-3", ".orb-4"];
-    orbs.forEach((orb, i) => {
-      // 1. Lava-lamp drift loop
-      gsap.to(orb, {
-        x: "random(-180, 180)",
-        y: "random(-180, 180)",
-        scale: "random(0.85, 1.25)",
-        duration: "random(20, 32)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        repeatRefresh: true,
-      });
-
-      // 2. Parallax scroll effect
-      gsap.to(orb, {
-        yPercent: i % 2 === 0 ? 35 : -35,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "body",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1.2,
-        }
-      });
-    });
-
-    // 3. GSAP Moving Page Background Gradient
-    const gradientPos = { x: 50, y: 50 };
-    gsap.to(gradientPos, {
-      x: "random(25, 75)",
-      y: "random(25, 75)",
-      duration: "random(16, 26)",
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      repeatRefresh: true,
-      onUpdate: () => {
-        const bgGradientVal = theme === "dark"
-          ? `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #1a1f27 0%, #0e1116 58%, #090b0f 100%)`
-          : `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #f8fafc 0%, #eef1f5 100%)`;
-        document.body.style.backgroundImage = bgGradientVal;
-      }
-    });
-  }, { dependencies: [theme], revertOnUpdate: true });
+  }, []);
 
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
@@ -195,40 +149,44 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    const updateScrollState = () => {
-      // Toggle scrolled header state
-      setScrolled(window.scrollY > 20);
+    const sections = ["home", "about", "resume", "skills", "projects", "blog", "contact"];
+    const sectionElements: HTMLElement[] = [];
 
-      // Scroll Spy logic to detect current visible section
-      const sections = ["home", "about", "resume", "skills", "projects", "blog", "contact"];
-      const scrollPosition = window.scrollY + 180; // offset for nav bar
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
           }
         }
+      },
+      {
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: 0.1,
       }
-    };
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        sectionElements.push(el);
+        observer.observe(el);
+      }
+    });
 
     const handleScroll = () => {
       if (scrollFrameRef.current !== null) return;
       scrollFrameRef.current = window.requestAnimationFrame(() => {
         scrollFrameRef.current = null;
-        updateScrollState();
+        setScrolled(window.scrollY > 20);
       });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Trigger scroll spy on mount
-    updateScrollState();
+    setScrolled(window.scrollY > 20);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
       if (scrollFrameRef.current !== null) {
         window.cancelAnimationFrame(scrollFrameRef.current);

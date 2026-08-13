@@ -26,10 +26,82 @@ const pdf3 = "/Project/TCI-2510-CAMBODIA-II.s6.xe105.pdf";
 
 const projectCards = [
   {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "CyberLab",
+    meta: "TypeScript • Updated Aug 2026",
+    summary: "Cybersecurity laboratory platform & network analysis tools.",
+    tags: ["TypeScript", "Cyber Security", "Vercel"],
+    repoUrl: "https://github.com/HornVanhong/CyberLab",
+    liveUrl: "https://cyber-lab-roan.vercel.app",
+    previewTone: "cyan",
+  },
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "SmartCV",
+    meta: "TypeScript • Updated Aug 2026",
+    summary: "Smart CV & resume builder published as a live web application.",
+    image: "/project-screenshots/smart-cv.png",
+    imageAlt: "SmartCV resume builder landing page",
+    tags: ["TypeScript", "CV Builder", "Vercel"],
+    repoUrl: "https://github.com/HornVanhong/SmartCV",
+    liveUrl: "https://smart-cv-two.vercel.app",
+    previewTone: "green",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "Korea-Learn",
+    meta: "TypeScript • Updated Aug 2026",
+    summary: "Interactive Korean language learning platform built with TypeScript.",
+    tags: ["TypeScript", "Korean", "EdTech"],
+    repoUrl: "https://github.com/HornVanhong/Korea-Learn",
+    liveUrl: "https://korea-learn.vercel.app",
+    previewTone: "violet",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "English-Learn",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "English language learning platform featuring interactive exercises.",
+    tags: ["TypeScript", "English", "Education"],
+    repoUrl: "https://github.com/HornVanhong/English-Learn",
+    liveUrl: "https://english-learn-zeta-taupe.vercel.app",
+    previewTone: "amber",
+  },
+  {
+    icon: <FaLaptopCode aria-hidden="true" />,
+    title: "SmartCV V2",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "Next generation CV builder featuring custom PDF generation.",
+    tags: ["TypeScript", "Resume", "Vercel"],
+    repoUrl: "https://github.com/HornVanhong/SmartCVV2",
+    liveUrl: "https://smart-cvv-2.vercel.app",
+    previewTone: "green",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "Confessly",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "Anonymous confession and social messaging platform.",
+    tags: ["TypeScript", "Web App", "Vercel"],
+    repoUrl: "https://github.com/HornVanhong/Confessly",
+    liveUrl: "https://confessly-m4nn.vercel.app",
+    previewTone: "rose",
+  },
+  {
+    icon: <FaCode aria-hidden="true" />,
+    title: "AudioScribe",
+    meta: "TypeScript • Updated Jul 2026",
+    summary: "Audio transcription and speech-to-text notes converter.",
+    tags: ["TypeScript", "Audio", "Web App"],
+    repoUrl: "https://github.com/HornVanhong/AudioScribe",
+    liveUrl: "https://audio-scribe-delta.vercel.app",
+    previewTone: "violet",
+  },
+  {
     icon: <FaCode aria-hidden="true" />,
     title: "TextSnap",
     meta: "TypeScript • Updated Jul 2026",
-    summary: "Text capture web app with a public Vercel deployment.",
+    summary: "Text capture web app with image OCR conversion.",
     image: "/project-screenshots/text-snap.png",
     imageAlt: "TextSnap image to text converter app screen",
     tags: ["TypeScript", "Web App", "OCR"],
@@ -38,156 +110,53 @@ const projectCards = [
     previewTone: "cyan",
   },
   {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "SmartCV",
-    meta: "TypeScript • Updated Jul 2026",
-    summary: "Smart CV builder project published as a live web app.",
-    image: "/project-screenshots/smart-cv.png",
-    imageAlt: "SmartCV resume builder landing page",
-    tags: ["TypeScript", "CV", "Portfolio"],
-    repoUrl: "https://github.com/HornVanhong/SmartCV",
-    liveUrl: "https://smart-cv-two.vercel.app",
-    previewTone: "green",
-  },
-  {
-    icon: <FaCode aria-hidden="true" />,
-    title: "HeartMatch",
-    meta: "TypeScript • Updated Jul 2026",
-    summary: "Matching app project focused on TypeScript frontend practice.",
-    tags: ["TypeScript", "Matching App", "Frontend"],
-    repoUrl: "https://github.com/HornVanhong/HeartMatch",
-    previewTone: "rose",
-  },
-  {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "vanhonghorn-portfolio",
-    meta: "CSS • Updated Jul 2026",
-    summary: "Personal portfolio website with a live Vercel deployment.",
-    tags: ["Portfolio", "CSS", "Vercel"],
-    repoUrl: "https://github.com/HornVanhong/vanhonghorn-portfolio",
-    liveUrl: "https://vanhonghorn-portfolio.vercel.app",
-    previewTone: "blue",
-  },
-  {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "vanhonghorn-modern-portfolio",
-    meta: "TypeScript • Updated Jul 2026",
-    summary: "Modern portfolio version built with TypeScript.",
-    tags: ["TypeScript", "Portfolio", "Web"],
-    repoUrl: "https://github.com/HornVanhong/vanhonghorn-modern-portfolio",
-    liveUrl: "https://vanhonghorn-modern-portfolio-5fp2-blush.vercel.app",
-    previewTone: "violet",
-  },
-  {
     icon: <FaCode aria-hidden="true" />,
     title: "Digital_Clock",
-    meta: "HTML • Updated Jun 2026",
-    summary: "Digital clock web project with a public Vercel deployment.",
+    meta: "HTML / JS • Updated Jun 2026",
+    summary: "Sleek digital clock web widget with custom themes.",
     tags: ["HTML", "Clock", "Web UI"],
     repoUrl: "https://github.com/HornVanhong/Digital_Clock",
     liveUrl: "https://digital-clock-green-omega.vercel.app",
     previewTone: "amber",
   },
   {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "vanhonghorn-modern_portfolio",
-    meta: "TypeScript • Updated Jun 2026",
-    summary: "Alternate modern portfolio repository with a live deployment.",
-    tags: ["TypeScript", "Portfolio", "Web"],
-    repoUrl: "https://github.com/HornVanhong/vanhonghorn-modern_portfolio",
-    liveUrl: "https://vanhonghorn-modern-portfolio.vercel.app",
-    previewTone: "blue",
-  },
-  {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "08_HORN_VANHONG_SR_MINI_PROJECT_002",
-    meta: "JavaScript • Updated Apr 2026",
-    summary: "KSHRD mini project repository focused on frontend JavaScript work.",
-    tags: ["JavaScript", "Mini Project", "KSHRD"],
-    repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_MINI_PROJECT_002",
-    previewTone: "amber",
-  },
-  {
     icon: <FaCode aria-hidden="true" />,
-    title: "Practice_Web_Next_Auth",
-    meta: "GitHub repository • Updated Apr 2026",
-    summary: "Practice repository for web authentication concepts.",
-    tags: ["Next Auth", "Practice", "Web"],
-    repoUrl: "https://github.com/HornVanhong/Practice_Web_Next_Auth",
-    previewTone: "violet",
-  },
-  {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "Spring Homework Series",
-    meta: "Java • Updated Jun 2026",
-    summary: "Spring homework repositories covering backend Java practice.",
-    tags: ["Java", "Spring", "Homework"],
-    repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_SPRING_Homework003",
-    previewTone: "green",
-  },
-  {
-    icon: <FaCode aria-hidden="true" />,
-    title: "08_HORN_VANHONG_SR_Web_Homework006",
-    meta: "JavaScript / CSS • Updated Jun 2026",
-    summary: "Frontend homework repositories from the web development training track.",
-    tags: ["JavaScript", "CSS", "Homework"],
-    repoUrl: "https://github.com/HornVanhong/08_HORN_VANHONG_SR_Web_Homework006",
-    previewTone: "cyan",
-  },
-  {
-    icon: <FaCode aria-hidden="true" />,
-    title: "09_HORN_VANHONG_SR_Web_Homework005",
+    title: "KSHRD Web Project",
     meta: "JavaScript • Updated Mar 2026",
-    summary: "Frontend homework project with a live Vercel deployment.",
-    tags: ["JavaScript", "Homework", "Web"],
+    summary: "Interactive JavaScript web application project.",
+    tags: ["JavaScript", "Web App", "Vercel"],
     repoUrl: "https://github.com/HornVanhong/09_HORN_VANHONG_SR_Web_Homework005",
     liveUrl: "https://09-horn-vanhong-sr-web-homework005.vercel.app",
     previewTone: "amber",
   },
   {
     icon: <FaCode aria-hidden="true" />,
-    title: "09_HORN_VANHONG_SR_Web_Homework_004",
-    meta: "CSS • Updated Mar 2026",
-    summary: "CSS-focused web homework repository.",
-    tags: ["CSS", "Homework", "Web"],
-    repoUrl: "https://github.com/HornVanhong/09_HORN_VANHONG_SR_Web_Homework_004",
-    previewTone: "blue",
+    title: "JongNham Restaurant",
+    meta: "HTML • Updated Dec 2024",
+    summary: "Restaurant menu and ordering interface with live Vercel deployment.",
+    image: RestaurantImage,
+    imageAlt: "Restaurant menu web app screen",
+    tags: ["HTML", "Restaurant", "Menu"],
+    repoUrl: "https://github.com/HornVanhong/JongNham_Resturant",
+    liveUrl: "https://jong-nham-resturant.vercel.app",
   },
   {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "03_SR_Mini_Project",
-    meta: "Java • Updated Jun 2026",
-    summary: "Java mini project repository from the software training program.",
-    tags: ["Java", "Mini Project", "Backend"],
-    repoUrl: "https://github.com/HornVanhong/03_SR_Mini_Project",
-    previewTone: "green",
-  },
-  {
-    icon: <FaCode aria-hidden="true" />,
-    title: "09_HORN_VANHONG_SR_Mini_Project001",
-    meta: "HTML • Updated Feb 2026",
-    summary: "HTML mini project repository from the web development track.",
-    tags: ["HTML", "Mini Project", "Web"],
-    repoUrl: "https://github.com/HornVanhong/09_HORN_VANHONG_SR_Mini_Project001",
-    previewTone: "rose",
+    icon: <FaMobileAlt aria-hidden="true" />,
+    title: "DramTranslatorApp",
+    meta: "Dart / Flutter • Updated Jul 2026",
+    summary: "Mobile drama sub/translator application built with Flutter.",
+    tags: ["Flutter", "Dart", "Mobile App"],
+    repoUrl: "https://github.com/HornVanhong/DramTranslatorApp",
+    previewTone: "cyan",
   },
   {
     icon: <FaMobileAlt aria-hidden="true" />,
     title: "Quiz-for-Android-Developer",
     meta: "Kotlin • Updated Aug 2025",
-    summary: "Android quiz project built with Kotlin.",
+    summary: "Android quiz application for developer self-assessment.",
     tags: ["Kotlin", "Android", "Quiz"],
     repoUrl: "https://github.com/HornVanhong/Quiz-for-Android-Developer",
     previewTone: "green",
-  },
-  {
-    icon: <FaMobileAlt aria-hidden="true" />,
-    title: "FlutterProduct",
-    meta: "C++ • Updated Jul 2025",
-    summary: "Flutter product app repository with native platform code.",
-    tags: ["Flutter", "Mobile", "Product"],
-    repoUrl: "https://github.com/HornVanhong/FlutterProduct",
-    previewTone: "blue",
   },
   {
     icon: <FaMobileAlt aria-hidden="true" />,
@@ -198,27 +167,6 @@ const projectCards = [
     imageAlt: "SmartNas mobile app UI screen",
     tags: ["JavaScript", "Mobile UI", "Smart App"],
     repoUrl: "https://github.com/HornVanhong/Smart_App",
-  },
-  {
-    icon: <FaLaptopCode aria-hidden="true" />,
-    title: "resume_vanhong",
-    meta: "CSS • Updated Jun 2025",
-    summary: "Resume website repository with a live Vercel deployment.",
-    tags: ["Resume", "CSS", "Vercel"],
-    repoUrl: "https://github.com/HornVanhong/resume_vanhong",
-    liveUrl: "https://resume-vanhong.vercel.app",
-    previewTone: "violet",
-  },
-  {
-    icon: <FaCode aria-hidden="true" />,
-    title: "JongNham_Resturant",
-    meta: "HTML • Updated Dec 2024",
-    summary: "Restaurant menu and ordering interface with live deployment.",
-    image: RestaurantImage,
-    imageAlt: "Restaurant menu web app screen",
-    tags: ["HTML", "Restaurant", "Menu"],
-    repoUrl: "https://github.com/HornVanhong/JongNham_Resturant",
-    liveUrl: "https://jong-nham-resturant.vercel.app",
   },
 ];
 
@@ -433,46 +381,80 @@ export default function Projects() {
       {/* Projects Horizontal Carousel */}
       <div className="projects-carousel">
         <div className="projects-track" ref={trackRef}>
-          {projectCards.map((project) => (
-            <article className="project-card" key={project.title}>
-              <div className="project-card-top">
-                <span className="project-icon">{project.icon}</span>
-                <span className="project-badge">Project</span>
-              </div>
-              {project.image ? (
-                <div className="project-image-wrap">
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt}
-                    className="project-image"
-                    width={1600}
-                    height={1000}
-                    sizes="(max-width: 768px) 84vw, 320px"
-                    placeholder={typeof project.image === "string" ? "empty" : "blur"}
-                  />
+          {projectCards.map((project) => {
+            const targetUrl = project.liveUrl || project.repoUrl;
+            const displayUrl = project.liveUrl
+              ? project.liveUrl.replace("https://", "")
+              : project.repoUrl.replace("https://github.com/", "github.com/");
+
+            return (
+              <article className="project-card" key={project.title}>
+                <div className="project-card-top">
+                  <span className="project-icon">{project.icon}</span>
+                  <span className="project-badge">{project.liveUrl ? "Live App" : "Repository"}</span>
                 </div>
-              ) : (
-                <div className={`project-preview project-preview-${project.previewTone || "cyan"}`} aria-hidden="true">
-                  <div className="project-preview-browser">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <div className="project-preview-content">
-                    <span className="project-preview-icon">{project.icon}</span>
-                    <div className="project-preview-lines">
-                      <span />
-                      <span />
-                      <span />
+
+                <a
+                  href={targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-preview-link"
+                  title={`Open ${project.title} live website (${targetUrl})`}
+                >
+                  <div className={`project-preview project-preview-${project.previewTone || "cyan"}`}>
+                    <div className="project-preview-browser">
+                      <div className="browser-dots">
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+                      <div className="browser-address-bar">
+                        {displayUrl}
+                      </div>
+                    </div>
+
+                    {project.image ? (
+                      <div className="project-image-wrap">
+                        <Image
+                          src={project.image}
+                          alt={project.imageAlt}
+                          className="project-image"
+                          width={1600}
+                          height={1000}
+                          sizes="(max-width: 768px) 84vw, 320px"
+                          placeholder={typeof project.image === "string" ? "empty" : "blur"}
+                        />
+                      </div>
+                    ) : project.liveUrl ? (
+                      <div className="project-iframe-wrap">
+                        <iframe
+                          src={project.liveUrl}
+                          title={`${project.title} live thumbnail`}
+                          className="project-iframe"
+                          loading="lazy"
+                          tabIndex={-1}
+                          aria-hidden="true"
+                        />
+                      </div>
+                    ) : (
+                      <div className="project-preview-content">
+                        <span className="project-preview-icon">{project.icon}</span>
+                        <div className="project-preview-lines">
+                          <span />
+                          <span />
+                          <span />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="project-preview-overlay">
+                      <span className="overlay-btn">
+                        <FaExternalLinkAlt aria-hidden="true" />
+                        View Real Site
+                      </span>
                     </div>
                   </div>
-                  <div className="project-preview-footer">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                </div>
-              )}
+                </a>
               <h2>{project.title}</h2>
               <p className="project-meta">{project.meta}</p>
               <p className="project-summary">{project.summary}</p>
@@ -494,7 +476,8 @@ export default function Projects() {
                 ) : null}
               </div>
             </article>
-          ))}
+          );
+        })}
         </div>
 
         {/* Carousel controls */}
