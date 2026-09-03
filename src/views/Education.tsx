@@ -2,9 +2,9 @@ import Image from "next/image";
 import { FaBookOpen, FaCertificate, FaGraduationCap } from "react-icons/fa";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
-import RuppLogo from "../assets/logo/Rupp_logo.png";
+import RuppLogo from "../assets/logo/Rupp_logo.webp";
 import AntLogo from "../assets/logo/ANT.png";
-import KshrdLogo from "../assets/logo/KSHRD.png";
+import KshrdLogo from "../assets/logo/KSHRD.webp";
 import HighSchoolLogo from "../assets/logo/HighSchool.webp";
 import InstinctLogo from "../assets/logo/Instinct.jpeg";
 

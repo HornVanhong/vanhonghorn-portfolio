@@ -15,8 +15,8 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import SmartNasImage from "../assets/Smart_nas.png";
-import RestaurantImage from "../assets/Resturant.png";
+import SmartNasImage from "../assets/Smart_nas.webp";
+import RestaurantImage from "../assets/Resturant.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,7 +40,7 @@ const projectCards = [
     title: "SmartCV",
     meta: "TypeScript • Updated Aug 2026",
     summary: "Smart CV & resume builder published as a live web application.",
-    image: "/project-screenshots/smart-cv.png",
+    image: "/project-screenshots/smart-cv.webp",
     imageAlt: "SmartCV resume builder landing page",
     tags: ["TypeScript", "CV Builder", "Vercel"],
     repoUrl: "https://github.com/HornVanhong/SmartCV",
@@ -102,7 +102,7 @@ const projectCards = [
     title: "TextSnap",
     meta: "TypeScript • Updated Jul 2026",
     summary: "Text capture web app with image OCR conversion.",
-    image: "/project-screenshots/text-snap.png",
+    image: "/project-screenshots/text-snap.webp",
     imageAlt: "TextSnap image to text converter app screen",
     tags: ["TypeScript", "Web App", "OCR"],
     repoUrl: "https://github.com/HornVanhong/TextSnap",

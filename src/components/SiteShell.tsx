@@ -247,7 +247,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 aria-label="Toggle theme mode"
                 type="button"
               >
-                {theme === "dark" ? <FaSun size={18} /> : <FaMoon size={18} />}
+                {mounted ? (theme === "dark" ? <FaSun size={18} /> : <FaMoon size={18} />) : <FaSun size={18} />}
               </button>
 
               {mounted && (

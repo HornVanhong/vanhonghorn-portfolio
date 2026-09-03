@@ -16,7 +16,7 @@ import {
   FaShieldAlt,
   FaDownload,
 } from "react-icons/fa";
-import profileImg from "../assets/vanhong.jpg";
+import profileImg from "../assets/vanhong.webp";
 
 import About from "./About";
 import Resume from "./Resume";
@@ -259,12 +259,12 @@ export default function Home() {
     });
 
     // Parallax scrolling triggers for hero layout
-    if (typeof window !== "undefined" && window.innerWidth >= 960) {
+    if (typeof window !== "undefined" && window.innerWidth >= 960 && containerRef.current) {
       gsap.to(".hero-left", {
         y: -50,
         ease: "none",
         scrollTrigger: {
-          trigger: "#home",
+          trigger: containerRef.current,
           start: "top top",
           end: "bottom top",
           scrub: true
@@ -275,7 +275,7 @@ export default function Home() {
         y: 60,
         ease: "none",
         scrollTrigger: {
-          trigger: "#home",
+          trigger: containerRef.current,
           start: "top top",
           end: "bottom top",
           scrub: true
@@ -286,7 +286,7 @@ export default function Home() {
         y: 120,
         ease: "none",
         scrollTrigger: {
-          trigger: "#home",
+          trigger: containerRef.current,
           start: "top top",
           end: "bottom top",
           scrub: true
@@ -297,7 +297,7 @@ export default function Home() {
         y: -100,
         ease: "none",
         scrollTrigger: {
-          trigger: "#home",
+          trigger: containerRef.current,
           start: "top top",
           end: "bottom top",
           scrub: true
@@ -491,7 +491,7 @@ export default function Home() {
             </div>
             <div className="focus-area-graphic">
               <Image
-                src="/developer_3d_illustration.png"
+                src="/developer_3d_illustration.webp"
                 alt="3D Cyber Developer Focus"
                 className="focus-graphic-img"
                 width={120}
